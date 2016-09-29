@@ -3,5 +3,5 @@ package com.blog.service;
 import com.blog.bean.User;
 
 public interface UserService {
-	public User selectById(String id);
+	public User selectById(Integer id);
 }

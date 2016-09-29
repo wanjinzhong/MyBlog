@@ -16,12 +16,9 @@ public class UserController {
 	
 	@RequestMapping(value="aboutme.do")
 	public String getUser(Model model){
-		User user = userService.selectById("1");
+		User user = userService.selectById(1);
 		model.addAttribute("user", user);
 		return "aboutme";
 	}
-	@RequestMapping(value="index.do")
-	public String index(){
-		return "index";
-	}
+	
 }

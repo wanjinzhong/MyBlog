@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.MoodTypeMapper">
+  <resultMap id="BaseResultMap" type="com.blog.bean.MoodType">
+    <id column="mood_type_id" jdbcType="INTEGER" property="moodTypeId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mood_type_id, name, pic_url
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mood_type
+    where mood_type_id = #{moodTypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mood_type
+    where mood_type_id = #{moodTypeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.bean.MoodType">
+    insert into mood_type (mood_type_id, name, pic_url
+      )
+    values (#{moodTypeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.bean.MoodType">
+    insert into mood_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moodTypeId != null">
+        mood_type_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moodTypeId != null">
+        #{moodTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.MoodType">
+    update mood_type
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mood_type_id = #{moodTypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.bean.MoodType">
+    update mood_type
+    set name = #{name,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
+    where mood_type_id = #{moodTypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

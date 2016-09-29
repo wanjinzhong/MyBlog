@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.blog.bean.User">
-    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
@@ -10,27 +10,36 @@
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, login_name, password, real_name, birthday, sex, email, tel
+    user_id, login_name, password, real_name, birthday, sex, email, tel, place, qq, introduce, 
+    image_url
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from users
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from users
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.blog.bean.User">
     insert into users (user_id, login_name, password, 
       real_name, birthday, sex, 
-      email, tel)
-    values (#{userId,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      email, tel, place, 
+      qq, introduce, image_url
+      )
+    values (#{userId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{realName,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{sex,jdbcType=INTEGER}, 
-      #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+      #{email,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{introduce,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.blog.bean.User">
     insert into users
@@ -59,10 +68,22 @@
       <if test="tel != null">
         tel,
       </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="imageUrl != null">
+        image_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="loginName != null">
         #{loginName,jdbcType=VARCHAR},
@@ -84,6 +105,18 @@
       </if>
       <if test="tel != null">
         #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        #{imageUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -111,8 +144,20 @@
       <if test="tel != null">
         tel = #{tel,jdbcType=VARCHAR},
       </if>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
     </set>
-    where user_id = #{userId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.blog.bean.User">
     update users
@@ -122,7 +167,11 @@
       birthday = #{birthday,jdbcType=DATE},
       sex = #{sex,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
-      tel = #{tel,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=VARCHAR}
+      tel = #{tel,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

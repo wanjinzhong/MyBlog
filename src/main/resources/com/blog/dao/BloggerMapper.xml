@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.BloggerMapper">
+  <resultMap id="BaseResultMap" type="com.blog.bean.Blogger">
+    <id column="blogger_id" jdbcType="INTEGER" property="bloggerId" />
+    <result column="blogger_name" jdbcType="VARCHAR" property="bloggerName" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    blogger_id, blogger_name, user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blogger
+    where blogger_id = #{bloggerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blogger
+    where blogger_id = #{bloggerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.bean.Blogger">
+    insert into blogger (blogger_id, blogger_name, user_id
+      )
+    values (#{bloggerId,jdbcType=INTEGER}, #{bloggerName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.bean.Blogger">
+    insert into blogger
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bloggerId != null">
+        blogger_id,
+      </if>
+      <if test="bloggerName != null">
+        blogger_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bloggerId != null">
+        #{bloggerId,jdbcType=INTEGER},
+      </if>
+      <if test="bloggerName != null">
+        #{bloggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.Blogger">
+    update blogger
+    <set>
+      <if test="bloggerName != null">
+        blogger_name = #{bloggerName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where blogger_id = #{bloggerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.bean.Blogger">
+    update blogger
+    set blogger_name = #{bloggerName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER}
+    where blogger_id = #{bloggerId,jdbcType=INTEGER}
+  </update>
+</mapper>

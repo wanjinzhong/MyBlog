@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.dao.MoodMapper">
+  <resultMap id="BaseResultMap" type="com.blog.bean.Mood">
+    <id column="mood_id" jdbcType="INTEGER" property="moodId" />
+    <result column="blogger_id" jdbcType="INTEGER" property="bloggerId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="place" jdbcType="VARCHAR" property="place" />
+    <result column="mood_type_id" jdbcType="INTEGER" property="moodTypeId" />
+    <result column="isprivate" jdbcType="INTEGER" property="isprivate" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.bean.Mood">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mood_id, blogger_id, time, place, mood_type_id, isprivate
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mood
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mood
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.blog.bean.Mood">
+    insert into mood (mood_id, blogger_id, time, 
+      place, mood_type_id, isprivate, 
+      content)
+    values (#{moodId,jdbcType=INTEGER}, #{bloggerId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{place,jdbcType=VARCHAR}, #{moodTypeId,jdbcType=INTEGER}, #{isprivate,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.blog.bean.Mood">
+    insert into mood
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moodId != null">
+        mood_id,
+      </if>
+      <if test="bloggerId != null">
+        blogger_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="place != null">
+        place,
+      </if>
+      <if test="moodTypeId != null">
+        mood_type_id,
+      </if>
+      <if test="isprivate != null">
+        isprivate,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moodId != null">
+        #{moodId,jdbcType=INTEGER},
+      </if>
+      <if test="bloggerId != null">
+        #{bloggerId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="place != null">
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="moodTypeId != null">
+        #{moodTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="isprivate != null">
+        #{isprivate,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.Mood">
+    update mood
+    <set>
+      <if test="bloggerId != null">
+        blogger_id = #{bloggerId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="place != null">
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="moodTypeId != null">
+        mood_type_id = #{moodTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="isprivate != null">
+        isprivate = #{isprivate,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.bean.Mood">
+    update mood
+    set blogger_id = #{bloggerId,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      place = #{place,jdbcType=VARCHAR},
+      mood_type_id = #{moodTypeId,jdbcType=INTEGER},
+      isprivate = #{isprivate,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.blog.bean.Mood">
+    update mood
+    set blogger_id = #{bloggerId,jdbcType=INTEGER},
+      time = #{time,jdbcType=TIMESTAMP},
+      place = #{place,jdbcType=VARCHAR},
+      mood_type_id = #{moodTypeId,jdbcType=INTEGER},
+      isprivate = #{isprivate,jdbcType=INTEGER}
+    where mood_id = #{moodId,jdbcType=INTEGER}
+  </update>
+</mapper>

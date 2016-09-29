@@ -22,7 +22,7 @@ public class TestMyBatis {
 
     @Test  
     public void test1() {  
-        User user = userService.selectById("1");  
+        User user = userService.selectById(1);  
         logger.info(new JSONObject(user).toString());  
     }  
 }  

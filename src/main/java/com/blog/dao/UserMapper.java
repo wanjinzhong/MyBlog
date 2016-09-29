@@ -3,13 +3,13 @@ package com.blog.dao;
 import com.blog.bean.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(String userId);
+    int deleteByPrimaryKey(Integer userId);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(String userId);
+    User selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(User record);
 

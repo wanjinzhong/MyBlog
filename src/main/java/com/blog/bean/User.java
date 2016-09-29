@@ -3,7 +3,7 @@ package com.blog.bean;
 import java.util.Date;
 
 public class User {
-    private String userId;
+    private Integer userId;
 
     private String loginName;
 
@@ -19,12 +19,20 @@ public class User {
 
     private String tel;
 
-    public String getUserId() {
+    private String place;
+
+    private String qq;
+
+    private String introduce;
+
+    private String imageUrl;
+
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getLoginName() {
@@ -81,5 +89,37 @@ public class User {
 
     public void setTel(String tel) {
         this.tel = tel == null ? null : tel.trim();
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place == null ? null : place.trim();
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce == null ? null : introduce.trim();
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 }

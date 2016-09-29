@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 
-	public User selectById(String id) {
+	public User selectById(Integer id) {
 		return userMapper.selectByPrimaryKey(id);
 	}
 	
