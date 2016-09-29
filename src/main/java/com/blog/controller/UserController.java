@@ -10,14 +10,18 @@ import com.blog.bean.User;
 import com.blog.service.UserService;
 
 @Controller
-public class TestController {
+public class UserController {
 	@Resource
 	private UserService userService;
 	
-	@RequestMapping(value="/select.do", produces = "text/plain;charset=UTF-8")
-	public String select(Model model){
+	@RequestMapping(value="aboutme.do")
+	public String getUser(Model model){
 		User user = userService.selectById("1");
 		model.addAttribute("user", user);
-		return "test1";
+		return "aboutme";
+	}
+	@RequestMapping(value="index.do")
+	public String index(){
+		return "index";
 	}
 }
