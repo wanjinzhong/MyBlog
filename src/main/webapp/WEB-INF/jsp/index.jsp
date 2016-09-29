@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>万进忠的博客</title>
@@ -14,11 +14,11 @@
 	<%@include file="header.jsp" %>
 	<div class="banner">
 		<section class="box">
-		<ul class="texts">
+		<!-- <ul class="texts"> -->
 			<p>打了死结的青春，捆死一颗苍白绝望的灵魂。</p>
 			<p>为自己掘一个坟墓来葬心，红尘一梦，不再追寻。</p>
 			<p>加了锁的青春，不会再因谁而推开心门。</p>
-		</ul>
+	<!-- 	</ul> -->
 		<div class="avatar">
 			<a href="#"><span>爱代码</span></a>
 		</div>

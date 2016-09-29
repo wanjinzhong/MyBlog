@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.15, for Linux (x86_64)
 --
--- Host: localhost    Database: myblog
+-- Host: localhost    Database: blog
 -- ------------------------------------------------------
 -- Server version	5.7.13-0ubuntu0.16.04.2
 
@@ -16,14 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `artical`
+-- Table structure for table `article`
 --
 
-DROP TABLE IF EXISTS `artical`;
+DROP TABLE IF EXISTS `article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `artical` (
-  `artical_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `article` (
+  `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `blogger_id` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
@@ -32,31 +32,31 @@ CREATE TABLE `artical` (
   `type_id` int(11) DEFAULT NULL,
   `keyword` varchar(100) DEFAULT NULL,
   `reading` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`artical_id`),
-  KEY `fk_artical_1_idx` (`blogger_id`),
-  KEY `fk_artical_2_idx` (`type_id`),
-  CONSTRAINT `fk_artical_1` FOREIGN KEY (`blogger_id`) REFERENCES `blogger` (`blogger_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_artical_2` FOREIGN KEY (`type_id`) REFERENCES `artical_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`article_id`),
+  KEY `fk_article_1_idx` (`blogger_id`),
+  KEY `fk_article_2_idx` (`type_id`),
+  CONSTRAINT `fk_article_1` FOREIGN KEY (`blogger_id`) REFERENCES `blogger` (`blogger_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_article_2` FOREIGN KEY (`type_id`) REFERENCES `article_type` (`type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `artical`
+-- Dumping data for table `article`
 --
 
-LOCK TABLES `artical` WRITE;
-/*!40000 ALTER TABLE `artical` DISABLE KEYS */;
-/*!40000 ALTER TABLE `artical` ENABLE KEYS */;
+LOCK TABLES `article` WRITE;
+/*!40000 ALTER TABLE `article` DISABLE KEYS */;
+/*!40000 ALTER TABLE `article` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `artical_type`
+-- Table structure for table `article_type`
 --
 
-DROP TABLE IF EXISTS `artical_type`;
+DROP TABLE IF EXISTS `article_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `artical_type` (
+CREATE TABLE `article_type` (
   `type_id` int(11) NOT NULL AUTO_INCREMENT,
   `type_name` varchar(45) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -65,12 +65,12 @@ CREATE TABLE `artical_type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `artical_type`
+-- Dumping data for table `article_type`
 --
 
-LOCK TABLES `artical_type` WRITE;
-/*!40000 ALTER TABLE `artical_type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `artical_type` ENABLE KEYS */;
+LOCK TABLES `article_type` WRITE;
+/*!40000 ALTER TABLE `article_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `article_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -111,12 +111,12 @@ CREATE TABLE `comment` (
   `user_id` int(11) NOT NULL,
   `comment_content` text NOT NULL,
   `time` datetime NOT NULL,
-  `artical_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `fk_comment_1_idx` (`user_id`),
-  KEY `fk_comment_2_idx` (`artical_id`),
+  KEY `fk_comment_2_idx` (`article_id`),
   CONSTRAINT `fk_comment_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comment_2` FOREIGN KEY (`artical_id`) REFERENCES `artical` (`artical_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_comment_2` FOREIGN KEY (`article_id`) REFERENCES `article` (`article_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -157,6 +157,62 @@ LOCK TABLES `leave_word` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mood`
+--
+
+DROP TABLE IF EXISTS `mood`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mood` (
+  `mood_id` int(11) NOT NULL AUTO_INCREMENT,
+  `blogger_id` int(11) NOT NULL,
+  `time` datetime NOT NULL,
+  `place` varchar(45) DEFAULT '保密',
+  `mood_type_id` int(11) NOT NULL,
+  `isprivate` int(11) DEFAULT '0',
+  `content` text NOT NULL,
+  PRIMARY KEY (`mood_id`),
+  KEY `fk_mood_1_idx` (`blogger_id`),
+  KEY `fk_mood_2_idx` (`mood_type_id`),
+  CONSTRAINT `fk_mood_1` FOREIGN KEY (`blogger_id`) REFERENCES `blogger` (`blogger_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mood_2` FOREIGN KEY (`mood_type_id`) REFERENCES `mood_type` (`mood_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mood`
+--
+
+LOCK TABLES `mood` WRITE;
+/*!40000 ALTER TABLE `mood` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mood` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mood_type`
+--
+
+DROP TABLE IF EXISTS `mood_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mood_type` (
+  `mood_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `pic_url` varchar(255) NOT NULL,
+  PRIMARY KEY (`mood_type_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mood_type`
+--
+
+LOCK TABLES `mood_type` WRITE;
+/*!40000 ALTER TABLE `mood_type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mood_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `users`
 --
 
@@ -186,7 +242,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'土豆鱼','123','万进忠','1994-09-08',1,'1051750377@qq.com','15881193175',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -199,4 +254,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-29 17:35:15
+-- Dump completed on 2016-09-29 19:36:24
