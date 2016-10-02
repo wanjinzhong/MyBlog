@@ -10,12 +10,21 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.bean.Comment">
     <result column="comment_content" jdbcType="LONGVARCHAR" property="commentContent" />
   </resultMap>
+  <resultMap type="com.blog.bean.CommentFull" id="CommentFullResultMap" extends="ResultMapWithBLOBs">
+  	<result column="user_name" jdbcType="VARCHAR" property="userName"/>
+  </resultMap>
   <sql id="Base_Column_List">
     comment_id, user_id, time, article_id
   </sql>
   <sql id="Blob_Column_List">
-    comment_content
+	comment_content
   </sql>
+  <select id="selectFullbyArticleIdOrderByTime" parameterType="java.lang.Integer" resultMap="CommentFullResultMap">
+  select comment_id, users.login_name user_name, comment_content, `time`
+  from comment join users on users.user_id = comment.user_id 
+  where article_id = #{id, jdbcType=INTEGER} 
+  order by `time`
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />

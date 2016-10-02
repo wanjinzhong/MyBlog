@@ -1,6 +1,9 @@
 package com.blog.dao;
 
+import java.util.List;
+
 import com.blog.bean.Comment;
+import com.blog.bean.CommentFull;
 
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer commentId);
@@ -16,4 +19,6 @@ public interface CommentMapper {
     int updateByPrimaryKeyWithBLOBs(Comment record);
 
     int updateByPrimaryKey(Comment record);
+    
+    List<CommentFull> selectFullbyArticleIdOrderByTime(Integer id);
 }
