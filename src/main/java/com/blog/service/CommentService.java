@@ -3,6 +3,7 @@ package com.blog.service;
 import java.util.List;
 import java.util.Map;
 
+import com.blog.bean.Comment;
 import com.blog.bean.CommentFull;
 
 public interface CommentService {
@@ -19,4 +20,11 @@ public interface CommentService {
 	 * @return 文章的所有评论数
 	 */
 	public int getCount(Integer id);
+	
+	/**
+	 * 插入评论
+	 * @param comment 一条评论
+	 * @return 影响条数
+	 */
+	public int insertSelective(Comment comment);
 }

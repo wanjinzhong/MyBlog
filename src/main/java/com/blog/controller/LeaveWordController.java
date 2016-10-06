@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.blog.bean.LeaveWord;
 import com.blog.bean.LeaveWordFull;
 import com.blog.service.LeaveWordService;
 
@@ -21,8 +23,8 @@ public class LeaveWordController {
 	private LeaveWordService leaveWordService;
 
 	/**
-	 * 加载评论
-	 * 
+	 * 加载留言
+	 *
 	 * @param model
 	 * @return
 	 */
@@ -36,11 +38,11 @@ public class LeaveWordController {
 			bloggerId = 1;
 		else
 			bloggerId = Integer.parseInt(bloggerIdStr);
+		request.getSession().setAttribute("bloggerId", bloggerId);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		// 获取总条数
-		int count = leaveWordService.getCount(1);
+		int count = leaveWordService.getCount(bloggerId);
 		model.addAttribute("count", count);
-		// 准备替换为blogger_id
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
 		int index = (curPage - 1) * PAGE_SIZE;
@@ -51,5 +53,15 @@ public class LeaveWordController {
 		model.addAttribute("curPage", curPage);
 		model.addAttribute("list", list);
 		return "front/leave_word";
+	}
+	@RequestMapping(value="addleaveword.do")
+	public String addLeaveWord(HttpServletRequest request, String leaveword_content){
+		LeaveWord lw = new LeaveWord();
+		lw.setBloggerId(Integer.parseInt(request.getSession().getAttribute("bloggerId").toString()));
+		lw.setContent(leaveword_content);
+		lw.setTime(new Date());
+		lw.setUserId(Integer.parseInt(request.getSession().getAttribute("userId").toString()));
+		System.out.println(leaveWordService.addLeaveWord(lw));
+		return "redirect:leave_word.do";
 	}
 }

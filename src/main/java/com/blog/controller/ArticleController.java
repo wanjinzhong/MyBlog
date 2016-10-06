@@ -48,12 +48,13 @@ public class ArticleController {
 	}
 
 	@RequestMapping(value = "article.do")
-	public String getArticle(Integer id, Integer curPage, Model model) {
+	public String getArticle(Integer id, Integer curPage,HttpServletRequest request, Model model) {
 		if (id == null || id == 0)
 			return "redirect:index.do";
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
 		model.addAttribute("curPage", curPage);
+		request.getSession().setAttribute("articleId", id);
 		// 获取文章内容
 		ArticleFull article = articleService.getArticleFullById(id);
 		int reading = article.getReading();

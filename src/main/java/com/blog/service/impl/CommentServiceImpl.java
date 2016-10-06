@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.blog.bean.Comment;
 import com.blog.bean.CommentFull;
 import com.blog.dao.CommentMapper;
 import com.blog.service.CommentService;
@@ -22,8 +23,11 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	public int getCount(Integer id) {
-		// TODO Auto-generated method stub
 		return commentMapper.selectCount(id);
+	}
+
+	public int insertSelective(Comment comment) {
+		return commentMapper.insertSelective(comment);
 	}
 
 }

@@ -45,6 +45,7 @@ public class LoginRegistController {
 		try {
 			if (user != null) {
 				request.getSession().setAttribute("userName", name);
+				request.getSession().setAttribute("userId", user.getUserId());
 				response.sendRedirect("index.do");
 			} else {
 				PrintWriter out = response.getWriter();

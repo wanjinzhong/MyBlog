@@ -23,10 +23,10 @@
 	int id = Integer.parseInt(request.getParameter("id"));
 	PageUtil pageUtil = new PageUtil(count, curPage, 8, "article.do?id=" + id + "&");
 	//获取本页url
-	String  url  =  "http://"  +  request.getServerName()  +  ":"  +  request.getServerPort()  +  request.getContextPath()+request.getServletPath().substring(0,request.getServletPath().lastIndexOf("/")+1);   
-	if(request.getQueryString()!=null) 
-	{   
-	    url+="?"+request.getQueryString();           
+	String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
+			+ request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
+	if (request.getQueryString() != null) {
+		url += "?" + request.getQueryString();
 	}
 %>
 
@@ -73,7 +73,7 @@
 								<span class="comment_name">${comment.userName}</span> <span
 									class="comment_time"> &nbsp;&nbsp;(<fmt:formatDate
 										value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss" />)
-								</span> <span class="comment_index">${index.count }#</span>
+								</span> <span class="comment_index">${(curPage - 1) * 8 + index.count }#</span>
 							</div>
 							<hr />
 							<div class="comment_content">${comment.commentContent }</div>
@@ -88,10 +88,12 @@
 						<a href="login.do">登陆</a>后评论
 					</div>
 				</c:if>
-				<div class="my_comment">
-					<textarea id="comment_input" ></textarea>
-					<input type="button" id="submit" value="提交" />
-				</div>
+				<form action="addcomment.do" method="post">
+					<div class="my_comment">
+						<textarea id="comment_input" name="comment_content"></textarea>
+						<input type="submit" id="submit" value="提交" />
+					</div>
+				</form>
 			</div>
 			<!-- <textarea name="myComment" id="myEditor"></textarea>
 			<script type="text/javascript">

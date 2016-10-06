@@ -23,8 +23,11 @@ public class LeaveWordServiceImpl implements LeaveWordService {
 	}
 
 	public Integer getCount(Integer id) {
-		// TODO Auto-generated method stub
 		return leaveWordMapper.selectCount(id);
+	}
+
+	public int addLeaveWord(LeaveWord lw) {
+		return leaveWordMapper.insertSelective(lw);
 	}
 
 }

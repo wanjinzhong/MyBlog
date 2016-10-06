@@ -41,6 +41,7 @@
 		users.login_name user_name from blog.leave_word
 		join users on users.user_id = leave_word.user_id where blogger_id =
 		#{id,jdbcType=INTEGER}
+		order by `time` desc
 		<if test="index != null and pageSize != null">
 		limit #{index,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} 
 		</if>

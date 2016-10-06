@@ -3,6 +3,7 @@ package com.blog.service;
 import java.util.List;
 import java.util.Map;
 
+import com.blog.bean.LeaveWord;
 import com.blog.bean.LeaveWordFull;
 
 public interface LeaveWordService {
@@ -18,4 +19,11 @@ public interface LeaveWordService {
 	 * @return 评论数
 	 */
 	public Integer getCount(Integer id);
+	
+	/**
+	 * 插入留言
+	 * @param lw 留言
+	 * @return 影响条数
+	 */
+	public int addLeaveWord(LeaveWord lw);
 }

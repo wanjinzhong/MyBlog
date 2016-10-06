@@ -11,38 +11,52 @@
 <title>我的留言板</title>
 </head>
 <%
-	
 	int count = Integer.parseInt(request.getAttribute("count").toString());
 	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
-	PageUtil pageUtil = new PageUtil(count,curPage,15,"leave_word.do?");
+	PageUtil pageUtil = new PageUtil(count, curPage, 15, "leave_word.do?");
 %>
 <body>
 	<!-- 头部 -->
 	<%@include file="header.jsp"%>
 	<div class="content" style="margin-top: 30px">
 		<h1 class="t_nav">
-			<span>您当前的位置：<a href="/index.html">留言板</a></span><a
-				href="index.do" class="n1">网站首页</a><a href="leave_word.do" class="n2">留言板</a>
+			<span>您当前的位置：<a href="/index.html">留言板</a></span><a href="index.do"
+				class="n1">网站首页</a><a href="leave_word.do" class="n2">留言板</a>
 		</h1>
 		<div class="left">
 			<c:if test="${!list.isEmpty() }">
 				<c:forEach items="${list }" var="word" varStatus="index">
 					<div class="leave_word">
-						<div class="leave_word_info"><div class="user_name">${word.userName }</div><br/>
+						<div class="leave_word_info">
+							<div class="user_name">${word.userName }</div>
+							<br />
 							<fmt:formatDate value="${word.time }"
 								pattern="yyyy-MM-dd HH:mm:ss" />
-							<br/>
-							<div class="floor">${list.size() - index.count + 1}#</div>
+							<br />
+							<div class="floor">${(curPage-1)*15 + index.count}#</div>
 						</div>
-						<div class="leave_word_content" >${word.content }</div>
-						<div style="clear:both;"></div>
+						<div class="leave_word_content">${word.content }</div>
+						<div style="clear: both;"></div>
 					</div>
 				</c:forEach>
-				<div class="page"><%=pageUtil.pcontroller() %></div>
+				<div class="page"><%=pageUtil.pcontroller()%></div>
 			</c:if>
 			<c:if test="${list.isEmpty() }">
 				<div class="noLeaveWord">名气不够，暂时还没有留言哦～</div>
 			</c:if>
+			<div style="position: relative;">
+				<c:if test="${userName eq null }">
+					<div class="mask">
+						<a href="login.do">登陆</a>后评论
+					</div>
+				</c:if>
+				<form action="addleaveword.do" method="post">
+					<div class="my_leaveword">
+						<textarea id="leaveword_input" name="leaveword_content"></textarea>
+						<input type="submit" id="submit" value="提交" />
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 
