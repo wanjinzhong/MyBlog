@@ -3,6 +3,7 @@
 <%@ include file="include.jsp"%>
 <!DOCTYPE html >
 <div class="right">
+	<%@ include file="calendar.jsp" %>
 	<div class="weather">
 		<iframe width="250" scrolling="no" height="60" frameborder="0"
 			allowtransparency="true"

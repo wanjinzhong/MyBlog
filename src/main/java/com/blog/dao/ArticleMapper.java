@@ -33,5 +33,11 @@ public interface ArticleMapper {
 	
 	Article selectBaseByPrimaryKey(Integer id);
 	
+	/**
+	 * 获取某个博主的文章总数
+	 * @param id 博主id
+	 * @return 该博主的文章总数
+	 */
+	int seclectCount(Integer id);
 	
 }

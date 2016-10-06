@@ -28,6 +28,10 @@
 	<sql id="Blob_Column_List">
 		content
 	</sql>
+	<!-- 获取某个博主的文章总数 -->
+	<select id="seclectCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	select count(*) from article where blogger_id = #{id, jdbcType=INTEGER}
+	</select>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="ResultMapWithBLOBs">
 		select

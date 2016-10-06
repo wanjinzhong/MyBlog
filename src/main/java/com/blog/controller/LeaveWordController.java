@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,12 @@ public class LeaveWordController {
 	 * @return
 	 */
 	@RequestMapping(value="leave_word.do")
-	public String leave_word_index(Integer id,Integer curPage, Model model){
+	public String leave_word_index(HttpServletRequest request,Integer curPage, Model model){
+		String bloggerIdStr = request.getSession().getAttribute("bloggerId").toString();
+		int bloggerId;
+		if(bloggerIdStr == null || bloggerIdStr.trim().equals(""))
+			bloggerId = 1;
+		else bloggerId = Integer.parseInt(bloggerIdStr);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		//获取总条数
 		int count = leaveWordService.getCount(1);
@@ -36,7 +42,7 @@ public class LeaveWordController {
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
 		int index = (curPage - 1) * PAGE_SIZE;
-		map.put("id", 1);
+		map.put("id", bloggerId);
 		map.put("index", index);
 		map.put("pageSize", PAGE_SIZE);
 		List<LeaveWordFull> list = leaveWordService.getByBloggerId(map);

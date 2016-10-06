@@ -43,4 +43,11 @@ public interface ArticleService {
 	public List<Article> getArticleBaseOrderByReading();
 	
 	public Article getArticleBaseById(Integer id);
+	
+	/**
+	 * 获取某个博主的文章总数
+	 * @param id 博主id
+	 * @return 该博主的文章总数
+	 */
+	public int getCount(Integer id);
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
@@ -31,7 +32,9 @@ public class ArticleController {
 	@Resource
 	private CommentService commentService;
 	@RequestMapping(value = "index.do")
-	public String index(Model model) {
+	public String index(HttpServletRequest request,Integer bloggerId,Model model) {
+		if (bloggerId != null && bloggerId >= 1)
+			request.getSession().setAttribute("bloggerId", bloggerId);
 		List<ArticleFull> list = articleService.getAll();
 		for (int i = 0; i < list.size(); i++) {
 			Document doc = Jsoup.parse(list.get(i).getContent());

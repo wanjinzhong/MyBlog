@@ -1,6 +1,6 @@
 package com.blog.bean;
 
-public class Blogger {
+public class Blogger extends User{
     private Integer bloggerId;
 
     private String bloggerName;

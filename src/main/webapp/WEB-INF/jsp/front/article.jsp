@@ -74,8 +74,8 @@
 							<div class="comment_content">${comment.commentContent }</div>
 						</div>
 					</c:forEach>
+					<div class="page"><%=pageUtil.pcontroller()%></div>
 				</c:if>
-				<div class="page"><%=pageUtil.pcontroller() %></div>
 			</div>
 			<textarea name="myComment" id="myEditor"></textarea>
 			<script type="text/javascript">

@@ -45,4 +45,8 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.selectBaseByPrimaryKey(id);
 	}
 
+	public int getCount(Integer id) {
+		return articleMapper.seclectCount(id);
+	}
+
 }
