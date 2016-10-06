@@ -1,6 +1,10 @@
 package com.blog.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.blog.bean.LeaveWord;
+import com.blog.bean.LeaveWordFull;
 
 public interface LeaveWordMapper {
     int deleteByPrimaryKey(Integer leaveWordId);
@@ -16,4 +20,8 @@ public interface LeaveWordMapper {
     int updateByPrimaryKeyWithBLOBs(LeaveWord record);
 
     int updateByPrimaryKey(LeaveWord record);
+    
+    List<LeaveWordFull> selectByBloggerId(Map map);
+    
+    Integer selectCount(Integer id);
 }

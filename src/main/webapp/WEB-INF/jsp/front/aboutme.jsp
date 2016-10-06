@@ -13,28 +13,10 @@
 </head>
 <body>
 	<%@include file="header.jsp"%>
-	<article class="aboutcon">
 	<h1 class="t_nav">
 		<span>现在正是黎明前的黑暗，马上就迎来阳光</span><a href="/" class="n1">网站首页</a><a
 			href="/" class="n2">关于我</a>
 	</h1>
-	<div class="about left">
-		<h2>Just about me</h2>
-		<ul>
-			<p>爱代码为开发者提供优秀轻量级网站模板网页代码为开发者节省时间让开发变得轻松自如</p>
-		</ul>
-		<h2>About my blog</h2>
-		<p>
-			域 名：www.Aidaima.com 创建于2011年01月12日 <a href="/" class="blog_link"
-				target="_blank">注册域名</a>
-		</p>
-		<p>
-			服务器：阿里云服务器<a href="/" class="blog_link" target="_blank">购买空间</a>
-		</p>
-		<p>备案号：湘ICP备15013214号</p>
-		<p>程 序：Aidaima</p>
-	</div>
-	<aside class="right">
 	<div class="about_c">
 		<p>姓名：${user.realName }</p>
 		<p>
@@ -47,22 +29,8 @@
 		<p>所在地：${user.place }</p>
 		<p>QQ：${user.qq }</p>
 		<p>自我介绍：${user.introduce }</p>
-		<a target="_blank"
-			href="http://wp.qq.com/wpa/qunwpa?idkey=d4d4a26952d46d564ee5bf7782743a70d5a8c405f4f9a33a60b0eec380743c64">
-			<img src="http://pub.idqqimg.com/wpa/images/group.png"
-			alt="爱代码个人博客网站" title="爱代码个人博客网站">
-		</a> <a target="_blank"
-			href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=HHh9cn95b3F1cHVye1xtbTJ-c3E"><img
-			src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_22.png"
-			alt="爱代码个人博客网站"></a>
+		<p>发表文章数：${article_count }</p>
+		<p>留言总数：${leave_word_count }</p>
 	</div>
-	</aside> </article>
-	<footer>
-	<p>
-		Design by Aidaima <a href="http://www.miitbeian.gov.cn/"
-			target="_blank">湘ICP备15013214号</a> <a href="/">网站统计</a>
-	</p>
-	</footer>
-	<script src="js/silder.js"></script>
 </body>
 </html>

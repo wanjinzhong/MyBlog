@@ -1,3 +1,4 @@
+<%@page import="com.blog.util.PageUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ include file="include.jsp"%>
@@ -7,9 +8,22 @@
 <head>
 <meta charset="gb2312">
 <title>${article.title }</title>
+<script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor/ueditor.all.min.js"></script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script type="text/javascript" charset="utf-8"
+	src="ueditor/lang/zh-cn/zh-cn.js"></script>
 <link href="css/base.css" rel="stylesheet">
 <link href="css/article.css" rel="stylesheet">
 </head>
+<%
+	int count = Integer.parseInt(request.getAttribute("count").toString());
+    int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
+    int id = Integer.parseInt(request.getParameter("id"));
+	PageUtil pageUtil = new PageUtil(count,curPage,8,"article.do?id="+id + "&");
+%>
+
 <body>
 	<%@ include file="header.jsp"%>
 	<div class="content" style="margin-top: 30px">
@@ -45,25 +59,36 @@
 					<div class="commentsTitleLine"></div>
 				</div>
 				<c:if test="${commentList eq null || commentList.isEmpty() }">
-				<div class="noComment">暂时还没有评论哦，快来评论吧~</div></c:if>
+					<div class="noComment">暂时还没有评论哦，快来评论吧~</div>
+				</c:if>
 				<c:if test="${commentList ne null && !commentList.isEmpty()}">
 					<c:forEach items="${commentList }" var="comment" varStatus="index">
-					<div class="comment">
-						<div class="comment_title">
-							<span class="comment_name">${comment.userName}</span> 
-							<span class="comment_time">
-							&nbsp;&nbsp;(<fmt:formatDate value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss"/>)</span>
-							<span class="comment_index">${index.count }#</span>
+						<div class="comment">
+							<div class="comment_title">
+								<span class="comment_name">${comment.userName}</span> <span
+									class="comment_time"> &nbsp;&nbsp;(<fmt:formatDate
+										value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss" />)
+								</span> <span class="comment_index">${index.count }#</span>
+							</div>
+							<hr />
+							<div class="comment_content">${comment.commentContent }</div>
 						</div>
-						<hr />
-						<div class="comment_content">${comment.commentContent }</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
 				</c:if>
+				<div class="page"><%=pageUtil.pcontroller() %></div>
 			</div>
+			<textarea name="myComment" id="myEditor"></textarea>
+			<script type="text/javascript">
+				var editor = new UE.ui.Editor({
+					initialFrameWidth : 715
+				});
+				editor.render("myEditor");
+				//1.2.4以后可以使用以下代码实例化编辑器
+				/* UE.getEditor('myEditor'); */
+			</script>
 		</div>
 		<%@ include file="right.jsp"%>
-		<%@ include file="footer.jsp"%>
+		<%-- <%@ include file="footer.jsp"%> --%>
 	</div>
 </body>
 </html>

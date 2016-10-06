@@ -1,95 +1,133 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.blog.dao.LeaveWordMapper">
-  <resultMap id="BaseResultMap" type="com.blog.bean.LeaveWord">
-    <id column="leave_word_id" jdbcType="INTEGER" property="leaveWordId" />
-    <result column="bogger_id" jdbcType="INTEGER" property="boggerId" />
-    <result column="time" jdbcType="TIMESTAMP" property="time" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.blog.bean.LeaveWord">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    leave_word_id, bogger_id, time
-  </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from leave_word
-    where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from leave_word
-    where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.blog.bean.LeaveWord">
-    insert into leave_word (leave_word_id, bogger_id, time, 
-      content)
-    values (#{leaveWordId,jdbcType=INTEGER}, #{boggerId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
-      #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.blog.bean.LeaveWord">
-    insert into leave_word
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="leaveWordId != null">
-        leave_word_id,
-      </if>
-      <if test="boggerId != null">
-        bogger_id,
-      </if>
-      <if test="time != null">
-        time,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="leaveWordId != null">
-        #{leaveWordId,jdbcType=INTEGER},
-      </if>
-      <if test="boggerId != null">
-        #{boggerId,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.LeaveWord">
-    update leave_word
-    <set>
-      <if test="boggerId != null">
-        bogger_id = #{boggerId,jdbcType=INTEGER},
-      </if>
-      <if test="time != null">
-        time = #{time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.bean.LeaveWord">
-    update leave_word
-    set bogger_id = #{boggerId,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.blog.bean.LeaveWord">
-    update leave_word
-    set bogger_id = #{boggerId,jdbcType=INTEGER},
-      time = #{time,jdbcType=TIMESTAMP}
-    where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.blog.bean.LeaveWord">
+		<id column="leave_word_id" property="leaveWordId" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+		<result column="blogger_id" property="bloggerId" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.blog.bean.LeaveWord"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<resultMap id="FullResultMap" type="com.blog.bean.LeaveWordFull"
+		extends="ResultMapWithBLOBs">
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		leave_word_id, leave_word.user_id, time, blogger_id
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from leave_word
+		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据bloggerid获取评论 -->
+	<select id="selectByBloggerId" resultMap="FullResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,
+		users.login_name user_name from blog.leave_word
+		join users on users.user_id = leave_word.user_id where blogger_id =
+		#{id,jdbcType=INTEGER}
+		<if test="index != null and pageSize != null">
+		limit #{index,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} 
+		</if>
+	</select>
+	<!-- 获取评论总条数 -->
+	<select id="selectCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+	select count(*) from leave_word where blogger_id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from leave_word
+		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.blog.bean.LeaveWord">
+		insert into leave_word (leave_word_id, user_id, time,
+		blogger_id, content)
+		values (#{leaveWordId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{time,jdbcType=TIMESTAMP},
+		#{bloggerId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.blog.bean.LeaveWord">
+		insert into leave_word
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="leaveWordId != null">
+				leave_word_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="time != null">
+				time,
+			</if>
+			<if test="bloggerId != null">
+				blogger_id,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="leaveWordId != null">
+				#{leaveWordId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="time != null">
+				#{time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bloggerId != null">
+				#{bloggerId,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.LeaveWord">
+		update leave_word
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="time != null">
+				time = #{time,jdbcType=TIMESTAMP},
+			</if>
+			<if test="bloggerId != null">
+				blogger_id = #{bloggerId,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.bean.LeaveWord">
+		update leave_word
+		set user_id = #{userId,jdbcType=INTEGER},
+		time = #{time,jdbcType=TIMESTAMP},
+		blogger_id = #{bloggerId,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.blog.bean.LeaveWord">
+		update leave_word
+		set user_id = #{userId,jdbcType=INTEGER},
+		time = #{time,jdbcType=TIMESTAMP},
+		blogger_id = #{bloggerId,jdbcType=INTEGER}
+		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
+	</update>
 </mapper>

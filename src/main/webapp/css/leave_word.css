@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+.floor{float: right}
+.leave_word{width: 100%; margin-top: 10px;font-size:13px; padding: 10px; clear: both;border-bottom: dashed 1px #eee}
+.leave_word_info{position: relative;float:left;border-top-left-radius: 15px; border-top-right-radius:50px; border-bottom-left-radius:50px;border-bottom-right-radius:15px;background-color: #4ad6f9; padding: 15px;text-align: center}
+.leave_word_content{margin-left: 180px;height:100%; font-size: 13px}
+.user_name{font-size: 15px;}
+.floor{position: absolute;top:0;right:0}
+#myEditor{margin-top: 20px;}

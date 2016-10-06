@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -16,8 +17,13 @@ public class CommentServiceImpl implements CommentService{
 	@Resource
 	private CommentMapper commentMapper;
 	
-	public List<CommentFull> getByArticleIdOrderByTime(Integer id) {
-		return commentMapper.selectFullbyArticleIdOrderByTime(id);
+	public List<CommentFull> getByArticleIdOrderByTime(Map<String,Integer> map) {
+		return commentMapper.selectFullbyArticleId(map);
+	}
+
+	public int getCount(Integer id) {
+		// TODO Auto-generated method stub
+		return commentMapper.selectCount(id);
 	}
 
 }

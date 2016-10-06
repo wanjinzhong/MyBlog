@@ -37,7 +37,7 @@
 		from article
 		where article_id = #{articleId,jdbcType=INTEGER}
 	</select>
-	<!-- 根据ID查询基本文信息 -->
+	<!-- 根据ID查询基本信息 -->
 	<select id="selectBaseByPrimaryKey" resultMap="BaseResultMap"
 	parameterType="java.lang.Integer">
 		select
@@ -73,7 +73,7 @@
 		join blogger on article.blogger_id =
 		blogger.blogger_id
 		order by update_time desc
-		limit 0, 10
+		limit 0, 5
 	</select>
 	<select id="selectFullByPrimaryKey" resultMap="ArticleFullResult"
 		parameterType="java.lang.Integer">

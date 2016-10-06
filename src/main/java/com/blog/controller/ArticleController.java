@@ -1,15 +1,16 @@
 package com.blog.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +21,11 @@ import com.blog.bean.CommentFull;
 import com.blog.service.ArticleService;
 import com.blog.service.CommentService;
 
+import net.sf.json.JSONArray;
+
 @Controller
 public class ArticleController {
+	public static final int PAGE_SIZE = 8;
 	@Resource
 	private ArticleService articleService;
 	@Resource
@@ -41,17 +45,22 @@ public class ArticleController {
 	}
 
 	@RequestMapping(value = "article.do")
-	public String getArticle(Integer id, Model model) {
+	public String getArticle(Integer id, Integer curPage, Model model) {
 		if (id == null || id == 0)
 			return "redirect:index.do";
+		if (curPage == null || curPage <= 0)
+			curPage = 1;
+		model.addAttribute("curPage", curPage);
 		// 获取文章内容
 		ArticleFull article = articleService.getArticleFullById(id);
 		int reading = article.getReading();
 		model.addAttribute("article", article);
 		getNewAndHot(model);
 		prevAndNext(id, model);
+		//获取评论数
+		getCommentCount(id, model);
 		//获取评论列表
-		getComments(id, model);
+		getComments(id,curPage, model);
 		// 更新阅读量
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("reading", reading + 1);
@@ -101,12 +110,26 @@ public class ArticleController {
 		model.addAttribute("hotest", hotest);
 	}
 	/**
+	 * 获取文章评论数
+	 * @param id 文章id
+	 * @param model 要返回给视图的model
+	 */
+	public void getCommentCount(Integer id, Model model){
+		int count = commentService.getCount(id);
+		model.addAttribute("count", count);
+	}
+	/**
 	 * 获取评论列表
 	 * @param id 文章id
 	 * @param model 要返回给视图的model
 	 */
-	private void getComments(Integer id, Model model){
-		List<CommentFull> commentFulls = commentService.getByArticleIdOrderByTime(id);
+	private void getComments(Integer id, Integer curPage, Model model){
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("id", id);
+		int index = (curPage - 1) * PAGE_SIZE;
+		map.put("index", index);
+		map.put("pageSize", PAGE_SIZE);
+		List<CommentFull> commentFulls = commentService.getByArticleIdOrderByTime(map);
 		model.addAttribute("commentList", commentFulls);
 	}
 }

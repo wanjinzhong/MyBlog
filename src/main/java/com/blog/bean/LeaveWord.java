@@ -5,41 +5,53 @@ import java.util.Date;
 public class LeaveWord {
     private Integer leaveWordId;
 
-    private Integer boggerId;
+    private Integer userId;
 
     private Date time;
 
+    private Integer bloggerId;
+
     private String content;
 
-    public Integer getLeaveWordId() {
-        return leaveWordId;
-    }
+	public Integer getLeaveWordId() {
+		return leaveWordId;
+	}
 
-    public void setLeaveWordId(Integer leaveWordId) {
-        this.leaveWordId = leaveWordId;
-    }
+	public void setLeaveWordId(Integer leaveWordId) {
+		this.leaveWordId = leaveWordId;
+	}
 
-    public Integer getBoggerId() {
-        return boggerId;
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public void setBoggerId(Integer boggerId) {
-        this.boggerId = boggerId;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public Date getTime() {
-        return time;
-    }
+	public Date getTime() {
+		return time;
+	}
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
+	public void setTime(Date time) {
+		this.time = time;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public Integer getBloggerId() {
+		return bloggerId;
+	}
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+	public void setBloggerId(Integer bloggerId) {
+		this.bloggerId = bloggerId;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+   
 }
