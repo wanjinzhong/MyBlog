@@ -21,15 +21,15 @@ public interface ArticleMapper {
 
 	int updateByPrimaryKey(Article record);
 
-	List<ArticleFull> selectAllOrderByReading();
+	List<ArticleFull> selectAllOrderByReading(Integer bloggerId);
 
 	ArticleFull selectFullByPrimaryKey(Integer id);
 
 	int updateReadingByPrimaryKey(Map<String, Integer> map);
 
-	List<Article> selectAllOrderByUpdateTime();
+	List<Article> selectAllOrderByUpdateTime(Integer bloggerId);
 	
-	List<Article> selectBaseOrderByReading();
+	List<Article> selectBaseOrderByReading(Integer bloggerId);
 	
 	Article selectBaseByPrimaryKey(Integer id);
 	
@@ -39,5 +39,17 @@ public interface ArticleMapper {
 	 * @return 该博主的文章总数
 	 */
 	int seclectCount(Integer id);
+	/**
+	 * 获取上一篇文章信息
+	 * @param map 包含本篇id的博主id
+	 * @return 上一篇文章信息
+	 */
+	Article selectBasePrev(Map<String, Integer> map);
 	
+	/**
+	 * 获取下一篇文章信息
+	 * @param map 包含本篇id的博主id
+	 * @return 下一篇文章信息
+	 */
+	Article selectBaseNext(Map<String, Integer> map);
 }

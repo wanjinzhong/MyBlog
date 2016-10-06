@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="include.jsp"%>
-<title>万进忠的博客</title>
+<title>${bloggerName }的博客</title>
 <meta name="keywords" content="万进忠" />
 <meta name="description" content="万进忠的博客" />
 <link href="css/base.css" rel="stylesheet">
@@ -34,7 +34,8 @@
 							<a href="article.do?id=${article.articleId }">${article.title }</a>
 						</h3>
 						<div class="blog_img">
-							<img src="images/001.png">
+							<c:if test="${picList[index.count - 1] eq null }"><img src="images/001.png"></c:if>
+							<c:if test="${picList[index.count - 1] ne null }"><img src="${picList[index.count - 1] }" style="width:175px;height:120px"></c:if>
 						</div>
 						<p class="preview">${article.content }...</p>
 						<a href="article.do?id=${article.articleId }" class="readmore">阅读全文>></a>

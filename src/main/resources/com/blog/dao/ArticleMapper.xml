@@ -29,8 +29,10 @@
 		content
 	</sql>
 	<!-- 获取某个博主的文章总数 -->
-	<select id="seclectCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-	select count(*) from article where blogger_id = #{id, jdbcType=INTEGER}
+	<select id="seclectCount" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*) from article where blogger_id = #{id,
+		jdbcType=INTEGER}
 	</select>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="ResultMapWithBLOBs">
@@ -43,7 +45,7 @@
 	</select>
 	<!-- 根据ID查询基本信息 -->
 	<select id="selectBaseByPrimaryKey" resultMap="BaseResultMap"
-	parameterType="java.lang.Integer">
+		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from article
@@ -55,10 +57,13 @@
 		select
 		<include refid="Base_Column_List" />
 		from article
+		where blogger_id = #{bloggerId,
+		jdbcType=INTEGER}
 		order by reading desc
 	</select>
 	<!-- 查询所有文章的详细信息，以阅读量排序 -->
-	<select id="selectAllOrderByReading" resultMap="ArticleFullResult">
+	<select id="selectAllOrderByReading" resultMap="ArticleFullResult"
+		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -67,15 +72,36 @@
 		from article
 		join blogger on article.blogger_id =
 		blogger.blogger_id
+		where blogger.blogger_id = #{bloggerId,
+		jdbcType=INTEGER}
 		order by reading desc
 	</select>
+	<select id="selectBasePrev" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from article
+		 where   <![CDATA[article_id < #{articleId, jdbcType=INTEGER}]]> and blogger_id
+		=#{bloggerId, jdbcType=INTEGER}
+		order by reading asc
+		limit 0, 1
+	</select>
+	<select id="selectBaseNext" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select * from article
+		where  <![CDATA[article_id > #{articleId, jdbcType=INTEGER}]]> and blogger_id =
+		#{bloggerId, jdbcType=INTEGER}
+		order
+		by reading desc
+		limit 0, 1
+	</select>
 	<!-- 查询所有文章的详细信息，以时间排序 -->
-	<select id="selectAllOrderByUpdateTime" resultMap="BaseResultMap">
+	<select id="selectAllOrderByUpdateTime" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		article_id, title
 		from article
 		join blogger on article.blogger_id =
 		blogger.blogger_id
+		where blogger.blogger_id = #{bloggerId,
+		jdbcType=INTEGER}
 		order by update_time desc
 		limit 0, 5
 	</select>

@@ -9,6 +9,7 @@
 <meta name="description" content="万进忠的博客" />
 <link href="css/base.css" rel="stylesheet">
 <link href="css/about.css" rel="stylesheet">
+<link href="css/aboutwebsite.css" rel="stylesheet">
 
 </head>
 <body>
@@ -20,24 +21,14 @@
 				href="/" class="n2">关于我</a>
 		</h1>
 		<div class="info">
-		<img alt="${blogger.realName }">
-			<p>姓名：${blogger.realName }</p>
-			<p>博客名：${blogger.bloggerName }</p>
-			<p>
-				生日：
-				<fmt:formatDate value="${blogger.birthday }" pattern="yyyy-MM-dd" />
-			</p>
-			<p>性别：
-			<c:if test="${blogger.sex == 0 }">女</c:if>
-			<c:if test="${blogger.sex == 1 }">男</c:if>
-			</p>
-			<p>邮箱：${blogger.email }</p>
-			<p>电话：${blogger.tel }</p>
-			<p>所在地：${blogger.place }</p>
-			<p>QQ：${blogger.qq }</p>
-			<p>自我介绍：${blogger.introduce }</p>
-			<p>发表文章数：${article_count }</p>
-			<p>留言总数：${leave_word_count }</p>
+			<p>网站建设者：万进忠</p>
+			<p>始建日期：2016年9月30日</p>
+			<p>网站将不定期更新</p>
+		</div>
+		<div class="right">
+			<p>向我资助</p>
+			<img alt="支付宝" src="images/zhifubao.jpg" class="alibaba">
+			<img alt="微信" src="images/weixin.png" class="wechat">
 		</div>
 	</div>
 </body>

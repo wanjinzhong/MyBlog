@@ -8,7 +8,7 @@
 <%@ include file="include.jsp"%>
 <link href="css/base.css" rel="stylesheet">
 <link href="css/leave_word.css" rel="stylesheet">
-<title>我的留言板</title>
+<title>${bloggerName }的留言板</title>
 </head>
 <%
 	int count = Integer.parseInt(request.getAttribute("count").toString());

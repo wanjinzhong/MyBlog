@@ -13,7 +13,7 @@ import com.blog.service.BloggerService;
 import com.blog.service.LeaveWordService;
 
 @Controller
-public class AboutMeController {
+public class AboutController {
 
 	@Resource
 	private BloggerService bloggerService;
@@ -41,5 +41,9 @@ public class AboutMeController {
 		int leave_word_count = LeaveWordService.getCount(id);
 		model.addAttribute("leave_word_count", leave_word_count);
 		return "front/aboutme";
+	}
+	@RequestMapping(value="aboutwebsite.do")
+	public String aboutWebSite(){
+		return "front/aboutwebsite";
 	}
 }
