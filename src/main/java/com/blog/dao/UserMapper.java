@@ -1,5 +1,7 @@
 package com.blog.dao;
 
+import java.util.Map;
+
 import com.blog.bean.User;
 
 public interface UserMapper {
@@ -14,4 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+    
+    User check(Map<String, Object> map);
 }

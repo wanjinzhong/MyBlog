@@ -8,20 +8,26 @@
 <head>
 <meta charset="gb2312">
 <title>${article.title }</title>
-<script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+<!-- <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="ueditor/ueditor.all.min.js"></script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败
+这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文
 <script type="text/javascript" charset="utf-8"
-	src="ueditor/lang/zh-cn/zh-cn.js"></script>
+	src="ueditor/lang/zh-cn/zh-cn.js"></script> -->
 <link href="css/base.css" rel="stylesheet">
 <link href="css/article.css" rel="stylesheet">
 </head>
 <%
 	int count = Integer.parseInt(request.getAttribute("count").toString());
-    int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
-    int id = Integer.parseInt(request.getParameter("id"));
-	PageUtil pageUtil = new PageUtil(count,curPage,8,"article.do?id="+id + "&");
+	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
+	int id = Integer.parseInt(request.getParameter("id"));
+	PageUtil pageUtil = new PageUtil(count, curPage, 8, "article.do?id=" + id + "&");
+	//获取本页url
+	String  url  =  "http://"  +  request.getServerName()  +  ":"  +  request.getServerPort()  +  request.getContextPath()+request.getServletPath().substring(0,request.getServletPath().lastIndexOf("/")+1);   
+	if(request.getQueryString()!=null) 
+	{   
+	    url+="?"+request.getQueryString();           
+	}
 %>
 
 <body>
@@ -46,7 +52,6 @@
 				<p>
 					<span>关键词</span>：${article.keyword }
 				</p>
-
 			</div>
 			<div class="ad"></div>
 			<div class="nextinfo">
@@ -77,7 +82,18 @@
 					<div class="page"><%=pageUtil.pcontroller()%></div>
 				</c:if>
 			</div>
-			<textarea name="myComment" id="myEditor"></textarea>
+			<div style="position: relative;">
+				<c:if test="${userName eq null }">
+					<div class="mask">
+						<a href="login.do">登陆</a>后评论
+					</div>
+				</c:if>
+				<div class="my_comment">
+					<textarea id="comment_input" ></textarea>
+					<input type="button" id="submit" value="提交" />
+				</div>
+			</div>
+			<!-- <textarea name="myComment" id="myEditor"></textarea>
 			<script type="text/javascript">
 				var editor = new UE.ui.Editor({
 					initialFrameWidth : 715
@@ -85,7 +101,7 @@
 				editor.render("myEditor");
 				//1.2.4以后可以使用以下代码实例化编辑器
 				/* UE.getEditor('myEditor'); */
-			</script>
+			</script> -->
 		</div>
 		<%@ include file="right.jsp"%>
 		<%-- <%@ include file="footer.jsp"%> --%>

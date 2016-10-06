@@ -14,31 +14,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.blog.bean.LeaveWordFull;
 import com.blog.service.LeaveWordService;
 
-
-
 @Controller
 public class LeaveWordController {
 	private static final int PAGE_SIZE = 15;
 	@Resource
 	private LeaveWordService leaveWordService;
-	
+
 	/**
 	 * 加载评论
+	 * 
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="leave_word.do")
-	public String leave_word_index(HttpServletRequest request,Integer curPage, Model model){
-		String bloggerIdStr = request.getSession().getAttribute("bloggerId").toString();
+	@RequestMapping(value = "leave_word.do")
+	public String leave_word_index(HttpServletRequest request, Integer curPage, Model model) {
+		String bloggerIdStr = null;
+		if (request.getSession().getAttribute("bloggerId") != null)
+			bloggerIdStr = request.getSession().getAttribute("bloggerId").toString();
 		int bloggerId;
-		if(bloggerIdStr == null || bloggerIdStr.trim().equals(""))
+		if (bloggerIdStr == null || bloggerIdStr.trim().equals(""))
 			bloggerId = 1;
-		else bloggerId = Integer.parseInt(bloggerIdStr);
+		else
+			bloggerId = Integer.parseInt(bloggerIdStr);
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		//获取总条数
+		// 获取总条数
 		int count = leaveWordService.getCount(1);
 		model.addAttribute("count", count);
-		//准备替换为blogger_id
+		// 准备替换为blogger_id
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
 		int index = (curPage - 1) * PAGE_SIZE;

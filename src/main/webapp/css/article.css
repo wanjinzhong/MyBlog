@@ -28,3 +28,9 @@
 .comment_index{float: right;}
 .comment_content{margin-top: 5px;}
 .noComment{width: 100%; text-align: center;margin: 5px auto;}
+#submit{background-color: #4ad6f9; border-radius: 5px; border: solid 1px #4ad6f9; width: 50px; height: 30px; color: white; float: right; margin: 10px;}
+#submit:HOVER {background-color: #30a0f9;border: solid 1px #30a0f9;}
+.mask{width: 715px; height: 140px; background-color: #eee; opacity: 0.5;position: absolute; z-index: 1;text-align: center; font-size: 14px}
+.mask a{margin-top: 20px}
+.my_comment{width: 715px; height: 150px; clear: both; position: absolute;}
+#comment_input{width: 715px; height: 100px; overflow: auto; }

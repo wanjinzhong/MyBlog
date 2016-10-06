@@ -1,5 +1,7 @@
 package com.blog.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,10 @@ public class UserServiceImpl implements UserService {
 
 	public User selectById(Integer id) {
 		return userMapper.selectByPrimaryKey(id);
+	}
+
+	public User check(Map<String, Object> map) {
+		return userMapper.check(map);
 	}
 	
 

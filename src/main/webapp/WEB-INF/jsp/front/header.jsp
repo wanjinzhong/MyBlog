@@ -8,9 +8,14 @@
 	margin: 0 auto;
 }
 </style>
+
 <div class="header">
 	<div id="logo">
 		<a href="/"><img alt="logo" src="images/logo.png" width="250px"></a>
+	</div>
+	<div class="login">
+		<c:if test="${userName ne null }">${userName }&nbsp;&nbsp;<a href="logout.do">退出登陆</a></c:if>
+		<c:if test="${userName eq null }"><a href="login.do">登陆</a></c:if>
 	</div>
 	<nav class="topnav" id="topnav">
 		<a href="index.do"><span>首页</span><span class="en">Home</span></a> <a

@@ -21,19 +21,23 @@ public class AboutMeController {
 	private ArticleService articleService;
 	@Resource
 	private LeaveWordService LeaveWordService;
-	@RequestMapping(value="aboutme.do")
-	public String aboutme(HttpServletRequest request,Model model){
-		String bloggerIdStr = request.getSession().getAttribute("bloggerId").toString();
+
+	@RequestMapping(value = "aboutme.do")
+	public String aboutme(HttpServletRequest request, Model model) {
+		String bloggerIdStr = null;
+		if (request.getSession().getAttribute("bloggerId") != null)
+			bloggerIdStr = request.getSession().getAttribute("bloggerId").toString();
 		int id;
-		if(bloggerIdStr == null || bloggerIdStr.trim().equals(""))
+		if (bloggerIdStr == null || bloggerIdStr.trim().equals(""))
 			id = 1;
-		else id = Integer.parseInt(bloggerIdStr);
+		else
+			id = Integer.parseInt(bloggerIdStr);
 		Blogger blogger = bloggerService.getBloggerById(id);
 		model.addAttribute("blogger", blogger);
-		//获取文章总数
+		// 获取文章总数
 		int article_count = articleService.getCount(id);
 		model.addAttribute("article_count", article_count);
-		//获取留言总数
+		// 获取留言总数
 		int leave_word_count = LeaveWordService.getCount(id);
 		model.addAttribute("leave_word_count", leave_word_count);
 		return "front/aboutme";
