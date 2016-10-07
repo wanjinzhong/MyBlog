@@ -33,12 +33,12 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.updateReadingByPrimaryKey(map);
 	}
 
-	public List<Article> getAritcleBaseOrderByUpdateTime(Integer bloggerId) {
-		return articleMapper.selectAllOrderByUpdateTime(bloggerId);
+	public List<Article> getAritcleBaseOrderByUpdateTime(Map<String, Integer> map) {
+		return articleMapper.selectAllOrderByUpdateTime(map);
 	}
 
-	public List<Article> getArticleBaseOrderByReading(Integer bloggerId) {
-		return articleMapper.selectBaseOrderByReading(bloggerId);
+	public List<Article> getArticleBaseOrderByReading(Map<String, Integer> map) {
+		return articleMapper.selectBaseOrderByReading(map);
 	}
 
 	public Article getArticleBaseById(Integer id) {
@@ -55,6 +55,10 @@ public class ArticleServiceImpl implements ArticleService {
 
 	public Article getNext(Map<String, Integer> map) {
 		return articleMapper.selectBaseNext(map);
+	}
+
+	public List<ArticleFull> getAllOrderByTime(Map<String, Integer> map) {
+		return articleMapper.selectAllOrderByTime(map);
 	}
 
 }

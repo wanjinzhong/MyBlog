@@ -34,9 +34,8 @@
 	<%@ include file="header.jsp"%>
 	<div class="content" style="margin-top: 30px">
 		<h1 class="t_nav">
-			<span>您当前的位置：<a href="/index.html">文章</a>&nbsp;&gt;&nbsp;<a
-				href="/news/s/"></a>&nbsp;&gt;&nbsp;<a href="/news/s/">日记</a></span><a
-				href="/" class="n1">网站首页</a><a href="/" class="n2">日记</a>
+			<span>您当前的位置：<a href="/index.html">文章</a>&nbsp;&gt;&nbsp;</span><a
+				href="index.do" class="n1">网站首页</a><a href="allarticles.do" class="n2">文章</a>
 		</h1>
 		<div class="left">
 			<h2 class="c_titile">${article.title }</h2>
@@ -95,15 +94,15 @@
 					</div>
 				</form>
 			</div>
-			<!-- <textarea name="myComment" id="myEditor"></textarea>
-			<script type="text/javascript">
+			 <textarea name="myComment" id="myEditor"></textarea>
+			<!-- <script type="text/javascript">
 				var editor = new UE.ui.Editor({
 					initialFrameWidth : 715
 				});
 				editor.render("myEditor");
 				//1.2.4以后可以使用以下代码实例化编辑器
 				/* UE.getEditor('myEditor'); */
-			</script> -->
+			</script>  -->
 		</div>
 		<%@ include file="right.jsp"%>
 		<%-- <%@ include file="footer.jsp"%> --%>

@@ -36,12 +36,12 @@ public interface ArticleService {
 	 * 获取文章基本信息，以更新时间排序
 	 * @return 基本文章集合
 	 */
-	public List<Article> getAritcleBaseOrderByUpdateTime(Integer bloggerId);
+	public List<Article> getAritcleBaseOrderByUpdateTime(Map<String, Integer> map);
 	/**
 	 * 获取文章基本信息，以阅读量排序
 	 * @return 基本文章集合
 	 */
-	public List<Article> getArticleBaseOrderByReading(Integer bloggerId);
+	public List<Article> getArticleBaseOrderByReading(Map<String, Integer> map);
 	
 	public Article getArticleBaseById(Integer id);
 	
@@ -63,4 +63,6 @@ public interface ArticleService {
 	 * @return 下一篇文章信息
 	 */
 	public Article getNext(Map<String, Integer> map);
+	
+	public List<ArticleFull> getAllOrderByTime(Map<String, Integer> map);
 }

@@ -40,6 +40,18 @@ public class ArticleController {
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
 		List<ArticleFull> list = articleService.getAll(bloggerId);
 		List<String> picList = new ArrayList<String>();
+		formatInfo(list, picList);
+		model.addAttribute("list", list);
+		model.addAttribute("picList", picList);
+		getNewAndHot(bloggerId,model);
+		return "front/index";
+	}
+	/**
+	 * 将文章缩略信息格式化
+	 * @param list 文章信息
+	 * @param picList 保存每篇文章的封面图
+	 */
+	public void formatInfo(List<ArticleFull> list, List<String> picList) {
 		for (int i = 0; i < list.size(); i++) {
 			Document doc = Jsoup.parse(list.get(i).getContent());
 			Element pic = doc.select("img").first();
@@ -58,10 +70,6 @@ public class ArticleController {
 			String content = doc.toString().substring(0, 150);
 			list.get(i).setContent(content);
 		}
-		model.addAttribute("list", list);
-		model.addAttribute("picList", picList);
-		getNewAndHot(bloggerId,model);
-		return "front/index";
 	}
 
 	/**
@@ -107,6 +115,30 @@ public class ArticleController {
 		articleService.updateReadingById(map);
 		return "front/article";
 	}
+	@RequestMapping(value="allarticles.do")
+	public String getAllArticle(HttpServletRequest request,Integer curPage, Integer bloggerId,Model model){
+		bloggerId = initBloggerId(request, bloggerId);
+		int count = articleService.getCount(bloggerId);
+		System.out.println(count);
+		model.addAttribute("count", count);
+		Blogger blogger = bloggerService.getBloggerById(bloggerId);
+		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
+		if (curPage == null || curPage <= 0)
+			curPage = 1;
+		model.addAttribute("curPage", curPage);
+		int index = (curPage - 1) * PAGE_SIZE;
+		Map<String,Integer> map = new HashMap<String, Integer>();
+		map.put("bloggerId", bloggerId);
+		map.put("index", index);
+		map.put("pageSize", PAGE_SIZE);
+		List<ArticleFull> list = articleService.getAllOrderByTime(map);
+		List<String> picList = new ArrayList<String>();
+		formatInfo(list, picList);
+		model.addAttribute("list", list);
+		model.addAttribute("picList", picList);
+		getNewAndHot(bloggerId,model);
+		return "front/allarticles";
+	}
 
 	/**
 	 * 获取上一篇和下一篇的链接
@@ -148,11 +180,15 @@ public class ArticleController {
 	 *            要返回给视图的model
 	 */
 	public void getNewAndHot(Integer bloggerId,Model model) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("bloggerId", bloggerId);
+		map.put("index", 0);
+		map.put("pageSize", 5);
 		// 获取最新文章标题
-		List<Article> newest = articleService.getAritcleBaseOrderByUpdateTime(bloggerId);
+		List<Article> newest = articleService.getAritcleBaseOrderByUpdateTime(map);
 		model.addAttribute("newest", newest);
 		// 获取最热文章标题
-		List<Article> hotest = articleService.getArticleBaseOrderByReading(bloggerId);
+		List<Article> hotest = articleService.getArticleBaseOrderByReading(map);
 		model.addAttribute("hotest", hotest);
 	}
 	/**
@@ -169,7 +205,7 @@ public class ArticleController {
 	 * @param id 文章id
 	 * @param model 要返回给视图的model
 	 */
-	private void getComments(Integer id, Integer curPage, Model model){
+	public void getComments(Integer id, Integer curPage, Model model){
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("id", id);
 		int index = (curPage - 1) * PAGE_SIZE;
@@ -178,4 +214,5 @@ public class ArticleController {
 		List<CommentFull> commentFulls = commentService.getByArticleIdOrderByTime(map);
 		model.addAttribute("commentList", commentFulls);
 	}
+
 }

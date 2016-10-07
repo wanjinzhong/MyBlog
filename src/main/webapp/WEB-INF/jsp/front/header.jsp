@@ -18,9 +18,9 @@
 		<c:if test="${userName eq null }"><a href="login.do">登陆</a></c:if>
 	</div>
 	<nav class="topnav" id="topnav">
-		<a href="index.do"><span>首页</span><span class="en">Home</span></a> <!-- <a
-			href="newlist.html"><span>文章</span><span class="en">Artical</span></a>
-		<a href="moodlist.html"><span>心情</span><span class="en">Mood</span></a> -->
+		<a href="index.do"><span>首页</span><span class="en">Home</span></a> <a
+			href="allarticles.do"><span>文章</span><span class="en">Artical</span></a>
+		<!-- <a href="moodlist.html"><span>心情</span><span class="en">Mood</span></a> -->
 		<a href="leave_word.do"><span>留言</span><span class="en">Word</span></a>
 		<a href="aboutme.do"><span>关于我</span><span class="en">Me</span></a> <a
 			href="aboutwebsite.do"><span>关于网站</span><span class="en">WebSite</span></a>

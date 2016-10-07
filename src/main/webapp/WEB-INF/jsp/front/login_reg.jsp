@@ -30,9 +30,9 @@
 				$('.login').submit();
 			}
 			$.ajax({
-				type: "post",
-				url: "check.do",
-				data: "name=" + name + "&password=" + psd,
+				type : "post",
+				url : "check.do",
+				data : "name=" + name + "&password=" + psd,
 			});
 		});
 		$('#register').click(
@@ -61,6 +61,12 @@
 						$('.register').submit();
 					}
 				})
+		$("#checkbox").on("change", function() {
+			if ($(this).prop("checked"))
+				$(".moreInfo").fadeIn(1000);
+			else
+				$(".moreInfo").fadeOut(500);
+		});
 	})
 
 	function ok_or_errorBylogin(l) {
@@ -114,8 +120,9 @@
 	}
 
 	function barter_btn(bb) {
-		$(bb).parent().parent().fadeOut(1000);
-		$(bb).parent().parent().siblings().fadeIn(2000);
+		$(bb).parent().parent().fadeOut(500);
+		$(bb).parent().parent().siblings().fadeIn(1000);
+		$(".moreInfo").css("display", "none");
 	}
 </script>
 </head>
@@ -126,26 +133,21 @@
 		<div class="col-xs-12 login_title">登录</div>
 		<form action="check.do" class="login" method="post">
 			<div class="nav">
-				<div class="nav login_nav">
-					<div class="col-xs-4 login_username">用户名:</div>
-					<div class="col-xs-6 login_usernameInput">
-						<input type="text" name="name" id="name"
-							onblur="javascript:ok_or_errorBylogin(this)" />
-					</div>
+				<div class="login_nav">
+					<span class="login_username">用户名:</span> <input type="text"
+						name="name" id="name" onblur="javascript:ok_or_errorBylogin(this)" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
-				<div class="nav login_psdNav">
-					<div class="col-xs-4">密&nbsp;&nbsp;&nbsp;码:</div>
-					<div class="col-xs-6">
-						<input type="password" name="password" id="psd"
-							onBlur="javascript:ok_or_errorBylogin(this)" />
-					</div>
+				<div class="login_psdNav">
+					<span class="login_password">密&nbsp;&nbsp;&nbsp;码:</span> <input
+						type="password" name="password" id="psd"
+						onBlur="javascript:ok_or_errorBylogin(this)" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
 				<div class="col-xs-12 login_btn_div">
-					<input type="submit" class="sub_btn" value="登录" id="login"/>
+					<input type="submit" class="sub_btn" value="登录" id="login" />
 				</div>
 			</div>
 		</form>
@@ -159,35 +161,60 @@
 		<div class="col-xs-12 register_title">注册</div>
 		<form action="" class="register" method="post">
 			<div class="nav">
-				<div class="nav register_nav">
-					<div class="col-xs-4">用户名:</div>
+				<div class="register_nav">
+					<div class="login_username">用户名:</div>
 					<div class="col-xs-6">
-						<input type="text" name="" id="name_r" value=""
-							placeholder="&nbsp;&nbsp;用户名/手机号"
+						<input type="text" name="" id="name_r"
 							onBlur="javascript:ok_or_errorByRegister(this)" />
 					</div>
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
-				<div class="nav register_psdnav">
-					<div class="col-xs-4">密&nbsp;&nbsp;&nbsp;码:</div>
-					<div class="col-xs-6">
-						<input type="password" name="" id="psd_r" value=""
-							placeholder="&nbsp;&nbsp;密码"
-							onBlur="javascript:ok_or_errorByRegister(this)" />
-					</div>
+				<div class="register_psdnav">
+					<span class="password">密&nbsp;&nbsp;&nbsp;码:</span> <input
+						type="password" name="" id="psd_r"
+						onBlur="javascript:ok_or_errorByRegister(this)" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
-				<div class="nav register_affirm">
-					<div class="col-xs-4">确认密码:</div>
-					<div class="col-xs-6">
-						<input type="password" name="" id="affirm_psd" value=""
-							placeholder="&nbsp;&nbsp;确认密码"
-							onBlur="javascript:ok_or_errorByRegister(this)" />
-					</div>
+				<div class="register_affirm">
+					<span class="repassword">确认密码:</span> <input type="password"
+						name="" id="affirm_psd"
+						onBlur="javascript:ok_or_errorByRegister(this)" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
+				</div>
+				<div class="register_sex">
+					<span class="sex">性别:</span> <input type="radio" name="sex"
+						id="male" checked="checked" />男 <input type="radio" name="sex"
+						id="famale" />女
+				</div>
+				<div class="register_email">
+					<span class="email">邮箱:</span> <input type="text" name="email"
+						id="email" onBlur="javascript:ok_or_errorByRegister(this)" />
+				</div>
+				<div class="register_tel">
+					<span class="sex">电话</span> <input type="text" name="tel" id="tel"
+						onBlur="javascript:ok_or_errorByRegister(this)" />
+				</div>
+				<div class="register_place">
+					<span class="sex">所在地</span> <input type="text" name="place" id="place"
+						onBlur="javascript:ok_or_errorByRegister(this)" />
+				</div>
+				<div class="register_qq">
+					<span class="sex">QQ</span> <input type="text" name="qq" id="qq"
+						onBlur="javascript:ok_or_errorByRegister(this)" />
+				</div>
+				<div class="register_introduce">
+					<span class="sex">自我介绍</span>
+					<textarea name="introduce" id="introduce"
+						onBlur="javascript:ok_or_errorByRegister(this)" ></textarea>
+				</div>
+				<div class="openBlog">
+					<input type="checkbox" id="checkbox" />同时开通博客
+				</div>
+				<div class="moreInfo">
+					博客名：<input type="text" display="none" />
 				</div>
 				<div class="col-xs-12 register_btn_div">
 					<input type="submit" class="sub_btn" value="注册" id="register" />
@@ -199,6 +226,5 @@
 				onClick="javascript:barter_btn(this)" style="">已有帐号?返回登录</button>
 		</div>
 	</div>
-
 </body>
 </html>

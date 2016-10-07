@@ -27,9 +27,9 @@ public interface ArticleMapper {
 
 	int updateReadingByPrimaryKey(Map<String, Integer> map);
 
-	List<Article> selectAllOrderByUpdateTime(Integer bloggerId);
+	List<Article> selectAllOrderByUpdateTime(Map<String, Integer> map);
 	
-	List<Article> selectBaseOrderByReading(Integer bloggerId);
+	List<Article> selectBaseOrderByReading(Map<String, Integer> map);
 	
 	Article selectBaseByPrimaryKey(Integer id);
 	
@@ -52,4 +52,10 @@ public interface ArticleMapper {
 	 * @return 下一篇文章信息
 	 */
 	Article selectBaseNext(Map<String, Integer> map);
+	/**
+	 * 获取以时间排序的博主文章
+	 * @param bloggerId 博主id
+	 * @return 文章列表
+	 */
+	List<ArticleFull> selectAllOrderByTime(Map<String, Integer> map);
 }

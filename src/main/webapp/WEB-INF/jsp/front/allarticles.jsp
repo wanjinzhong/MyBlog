@@ -1,3 +1,4 @@
+<%@page import="com.blog.util.PageUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html>
@@ -10,21 +11,26 @@
 <link href="css/base.css" rel="stylesheet">
 <link href="css/index.css" rel="stylesheet">
 </head>
+<%
+int count = Integer.parseInt(request.getAttribute("count").toString());
+int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
+PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.do?");
+%>
 <body>
 	<!-- 头部 -->
 	<%@include file="header.jsp"%>
-	<!-- Banner -->
+	<!-- <!-- Banner -->
 	<div class="banner">
 		<div class="box">
 			<div class="avatar">
-				<a href="#"><span>${bloggerName }</span></a>
+				<a href="#"><span>万进忠</span></a>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="content">
 		<div class="left">
 			<h2 class="bloglistleft">
-					文章<span class="keynote">推荐</span>
+					<span class="keynote">所有</span>文章
 					
 			</h2>
 			<div class="bloglist">
@@ -48,6 +54,7 @@
 					</div>
 				</c:forEach>
 			</div>
+			<div class="page"><%=pageUtil.pcontroller() %></div>
 		</div>
 	<%@ include file="right.jsp" %>
 	<%@ include file="footer.jsp"%>
