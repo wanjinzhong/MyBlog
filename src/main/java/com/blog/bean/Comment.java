@@ -11,6 +11,10 @@ public class Comment {
 
     private Integer articleId;
 
+    private Integer isNew;
+
+    private Integer parentId;
+
     private String commentContent;
 
     public Integer getCommentId() {
@@ -43,6 +47,22 @@ public class Comment {
 
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
+    }
+
+    public Integer getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Integer isNew) {
+        this.isNew = isNew;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getCommentContent() {

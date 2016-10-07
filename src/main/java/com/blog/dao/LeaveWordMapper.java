@@ -7,21 +7,21 @@ import com.blog.bean.LeaveWord;
 import com.blog.bean.LeaveWordFull;
 
 public interface LeaveWordMapper {
-    int deleteByPrimaryKey(Integer leaveWordId);
+	int deleteByPrimaryKey(Integer leaveWordId);
 
-    int insert(LeaveWord record);
+	int insert(LeaveWord record);
 
-    int insertSelective(LeaveWord record);
+	int insertSelective(LeaveWord record);
 
-    LeaveWord selectByPrimaryKey(Integer leaveWordId);
+	LeaveWord selectByPrimaryKey(Integer leaveWordId);
 
-    int updateByPrimaryKeySelective(LeaveWord record);
+	int updateByPrimaryKeySelective(LeaveWord record);
 
-    int updateByPrimaryKeyWithBLOBs(LeaveWord record);
+	int updateByPrimaryKeyWithBLOBs(LeaveWord record);
 
-    int updateByPrimaryKey(LeaveWord record);
-    
-    List<LeaveWordFull> selectByBloggerId(Map map);
-    
-    Integer selectCount(Integer id);
+	int updateByPrimaryKey(LeaveWord record);
+
+	List<LeaveWordFull> selectByBloggerId(Map map);
+
+	Integer selectCount(Integer id);
 }

@@ -40,8 +40,8 @@ PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.do?");
 							<a href="article.do?id=${article.articleId }">${article.title }</a>
 						</h3>
 						<div class="blog_img">
-							<c:if test="${picList[index.count - 1] eq null }"><img src="images/001.png"></c:if>
-							<c:if test="${picList[index.count - 1] ne null }"><img src="${picList[index.count - 1] }" style="width:175px;height:120px"></c:if>
+							<c:if test="${article.coverPic eq null }"><img src="images/001.png"></c:if>
+							<c:if test="${article.coverPic ne null }"><img src="${article.coverPic}" style="width:175px;height:120px"></c:if>
 						</div>
 						<p class="preview">${article.content }...</p>
 						<a href="article.do?id=${article.articleId }" class="readmore">阅读全文>></a>

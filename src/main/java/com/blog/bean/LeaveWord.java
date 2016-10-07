@@ -11,47 +11,55 @@ public class LeaveWord {
 
     private Integer bloggerId;
 
+    private Integer isNew;
+
     private String content;
 
-	public Integer getLeaveWordId() {
-		return leaveWordId;
-	}
+    public Integer getLeaveWordId() {
+        return leaveWordId;
+    }
 
-	public void setLeaveWordId(Integer leaveWordId) {
-		this.leaveWordId = leaveWordId;
-	}
+    public void setLeaveWordId(Integer leaveWordId) {
+        this.leaveWordId = leaveWordId;
+    }
 
-	public Integer getUserId() {
-		return userId;
-	}
+    public Integer getUserId() {
+        return userId;
+    }
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
-	public Date getTime() {
-		return time;
-	}
+    public Date getTime() {
+        return time;
+    }
 
-	public void setTime(Date time) {
-		this.time = time;
-	}
+    public void setTime(Date time) {
+        this.time = time;
+    }
 
-	public Integer getBloggerId() {
-		return bloggerId;
-	}
+    public Integer getBloggerId() {
+        return bloggerId;
+    }
 
-	public void setBloggerId(Integer bloggerId) {
-		this.bloggerId = bloggerId;
-	}
+    public void setBloggerId(Integer bloggerId) {
+        this.bloggerId = bloggerId;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public Integer getIsNew() {
+        return isNew;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setIsNew(Integer isNew) {
+        this.isNew = isNew;
+    }
 
-   
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 }

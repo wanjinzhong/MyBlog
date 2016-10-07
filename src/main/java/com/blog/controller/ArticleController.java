@@ -39,10 +39,8 @@ public class ArticleController {
 		Blogger blogger = bloggerService.getBloggerById(bloggerId);
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
 		List<ArticleFull> list = articleService.getAll(bloggerId);
-		List<String> picList = new ArrayList<String>();
-		formatInfo(list, picList);
+		formatInfo(list);
 		model.addAttribute("list", list);
-		model.addAttribute("picList", picList);
 		getNewAndHot(bloggerId,model);
 		return "front/index";
 	}
@@ -51,21 +49,10 @@ public class ArticleController {
 	 * @param list 文章信息
 	 * @param picList 保存每篇文章的封面图
 	 */
-	public void formatInfo(List<ArticleFull> list, List<String> picList) {
+	public void formatInfo(List<ArticleFull> list) {
 		for (int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i).getCoverPic());
 			Document doc = Jsoup.parse(list.get(i).getContent());
-			Element pic = doc.select("img").first();
-			String url = null;
-			if(pic != null){
-				url = pic.toString();
-				//提取封面图
-				//正则表达式去除空格
-				url = url.replace("\\s+", "");
-				int start = url.indexOf("src=\"");
-				int end = url.indexOf("\"", start + 5);
-				url = url.substring(start + 5, end);
-				picList.add(url);
-			}
 			doc.select("img").remove();
 			String content = doc.toString().substring(0, 150);
 			list.get(i).setContent(content);
@@ -132,10 +119,8 @@ public class ArticleController {
 		map.put("index", index);
 		map.put("pageSize", PAGE_SIZE);
 		List<ArticleFull> list = articleService.getAllOrderByTime(map);
-		List<String> picList = new ArrayList<String>();
-		formatInfo(list, picList);
+		formatInfo(list);
 		model.addAttribute("list", list);
-		model.addAttribute("picList", picList);
 		getNewAndHot(bloggerId,model);
 		return "front/allarticles";
 	}

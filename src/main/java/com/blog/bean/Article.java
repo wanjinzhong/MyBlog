@@ -19,6 +19,8 @@ public class Article {
 
     private Integer reading;
 
+    private String coverPic;
+
     private String content;
 
     public Integer getArticleId() {
@@ -83,6 +85,14 @@ public class Article {
 
     public void setReading(Integer reading) {
         this.reading = reading;
+    }
+
+    public String getCoverPic() {
+        return coverPic;
+    }
+
+    public void setCoverPic(String coverPic) {
+        this.coverPic = coverPic == null ? null : coverPic.trim();
     }
 
     public String getContent() {
