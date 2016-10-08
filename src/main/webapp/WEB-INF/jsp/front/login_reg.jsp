@@ -78,8 +78,10 @@
 			var psd = $('#psd').val();
 			if (name == ""){
 				alert("用户名不能为空");
+				return;
 			} else if(psd == ""){
 				alert("密码不能为空");
+				return;
 			} else{
 				$(".login").attr("action","login_back.do");
 				$(".login").submit();

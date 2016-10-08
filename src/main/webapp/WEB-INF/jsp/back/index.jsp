@@ -11,9 +11,9 @@
 </head>
 <frameset cols="250px,*" border="0">
 	<frame src="left.do" name="left">
-	<frameset rows="100px,*" border="0">
-		<frame src="header.do" name="header">
-		<frame src="content.do" name="content">
+	<frameset rows="87px,*" border="0">
+		<frame src="header.do" name="header" noresize scrolling="no" >
+		<frame src="contentindex.do" name="content" >
 	</frameset>
 </frameset>
 </html>

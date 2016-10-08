@@ -32,6 +32,7 @@ public class PageUtil {
 	 */
 	public String pcontroller() {
 		StringBuffer buffer = new StringBuffer();
+		buffer.append("<ul id='PageNum'>");
 		buffer.append(firstPage());
 		buffer.append(prePage());
 		buffer.append(preTwoPage());
@@ -39,6 +40,7 @@ public class PageUtil {
 		buffer.append(nextTwoPage());
 		buffer.append(nextPage());
 		buffer.append(lastPage());
+		buffer.append("</ul>");
 		return buffer.toString();
 
 	}
@@ -103,9 +105,9 @@ public class PageUtil {
 	 */
 	private String firstPage() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("<a href='" + url + "curPage=1'>");
+		buffer.append("<li><a href='" + url + "curPage=1'>");
 		buffer.append("首页");
-		buffer.append("</a>");
+		buffer.append("</a></li>");
 		return buffer.toString();
 
 	}
@@ -118,9 +120,9 @@ public class PageUtil {
 	private String lastPage() {
 		StringBuffer buffer = new StringBuffer();
 
-		buffer.append("<a href='" + url + "curPage=" + getTotalPage() + "'>");
+		buffer.append("<li><a href='" + url + "curPage=" + getTotalPage() + "'>");
 		buffer.append("尾页");
-		buffer.append("</a>");
+		buffer.append("</a></li>");
 		return buffer.toString();
 	}
 
@@ -137,9 +139,9 @@ public class PageUtil {
 		} else {
 			tmpPage = curPage - 1;
 		}
-		buffer.append("<a href='" + url + "curPage=" + tmpPage + "'>");
+		buffer.append("<li><a href='" + url + "curPage=" + tmpPage + "'>");
 		buffer.append("前一页");
-		buffer.append("</a>");
+		buffer.append("</a></li>");
 		return buffer.toString();
 	}
 
@@ -156,9 +158,9 @@ public class PageUtil {
 		} else {
 			tmpPage = curPage + 1;
 		}
-		buffer.append("<a href='" + url + "curPage=" + tmpPage + "'>");
+		buffer.append("<li><a href='" + url + "curPage=" + tmpPage + "'>");
 		buffer.append("后一页");
-		buffer.append("</a>");
+		buffer.append("</a></li>");
 		return buffer.toString();
 	}
 
@@ -169,7 +171,7 @@ public class PageUtil {
 	 */
 	private String curPage() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("<a href='javascript:void(0);' style='color:gray'>" + curPage + "</a>");
+		buffer.append("<li><a href='javascript:void(0);' id='curPage'>" + curPage + "</a></li>");
 		return buffer.toString();
 	}
 
@@ -181,14 +183,14 @@ public class PageUtil {
 	private String preTwoPage() {
 		StringBuffer buffer = new StringBuffer();
 		if (curPage == 2) {
-			buffer.append("<a href='" + url + "curPage=1'>1</a>");
+			buffer.append("<li><a href='" + url + "curPage=1'>1</a></li>");
 		} else if (curPage > 1) {
-			buffer.append("<a href='" + url + "curPage=" + (curPage - 2) + "'>");
+			buffer.append("<li><a href='" + url + "curPage=" + (curPage - 2) + "'>");
 			buffer.append(curPage - 2);
-			buffer.append("</a>");
-			buffer.append("<a href='" + url + "curPage=" + (curPage - 1) + "'>");
+			buffer.append("</a></li>");
+			buffer.append("<li><li><a href='" + url + "curPage=" + (curPage - 1) + "'>");
 			buffer.append(curPage - 1);
-			buffer.append("</a>");
+			buffer.append("</a></li>");
 		}
 		return buffer.toString();
 	}
@@ -199,16 +201,16 @@ public class PageUtil {
 	private String nextTwoPage() {
 		StringBuffer buffer = new StringBuffer();
 		if (getTotalPage() - curPage == 1) {
-			buffer.append("<a href='" + url + "curPage=" + getTotalPage() + "'>");
+			buffer.append("<li><a href='" + url + "curPage=" + getTotalPage() + "'>");
 			buffer.append(getTotalPage());
-			buffer.append("</a>");
+			buffer.append("</a></li>");
 		} else if (getTotalPage() - curPage > 1) {
-			buffer.append("<a href='" + url + "curPage=" + (curPage + 1) + "'>");
+			buffer.append("<li><a href='" + url + "curPage=" + (curPage + 1) + "'>");
 			buffer.append(curPage + 1);
-			buffer.append("</a>");
-			buffer.append("<a href='" + url + "curPage=" + (curPage + 2) + "'>");
+			buffer.append("</a></li>");
+			buffer.append("<li><a href='" + url + "curPage=" + (curPage + 2) + "'>");
 			buffer.append(curPage + 2);
-			buffer.append("</a>");
+			buffer.append("</a></li>");
 		}
 		return buffer.toString();
 	}

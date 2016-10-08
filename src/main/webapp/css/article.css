@@ -34,3 +34,4 @@
 .mask a{margin-top: 20px}
 .my_comment{width: 715px; height: 150px; clear: both; position: absolute;}
 #comment_input{width: 715px; height: 100px; overflow: auto; }
+#curPage{ background-color:#4ad6f9; color:#FFF;}

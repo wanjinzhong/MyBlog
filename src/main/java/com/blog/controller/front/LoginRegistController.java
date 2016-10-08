@@ -91,7 +91,7 @@ public class LoginRegistController {
 		userService.regist(user);
 		String[] checkbox = request.getParameterValues("checkbox");
 		String bloggerName = null;
-		if (checkbox.length != 0) {
+		if (checkbox!= null) {
 			bloggerName = request.getParameter("bloggerName");
 			Blogger blogger = new Blogger();
 			blogger.setBloggerName(bloggerName);

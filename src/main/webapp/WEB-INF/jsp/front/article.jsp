@@ -78,7 +78,7 @@
 							<div class="comment_content">${comment.commentContent }</div>
 						</div>
 					</c:forEach>
-					<div class="page"><%=pageUtil.pcontroller()%></div>
+					<div ><%=pageUtil.pcontroller()%></div>
 				</c:if>
 			</div>
 			<div style="position: relative;">
