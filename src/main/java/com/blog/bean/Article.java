@@ -21,6 +21,8 @@ public class Article {
 
     private String coverPic;
 
+    private Integer isDelete;
+
     private String content;
 
     public Integer getArticleId() {
@@ -93,6 +95,14 @@ public class Article {
 
     public void setCoverPic(String coverPic) {
         this.coverPic = coverPic == null ? null : coverPic.trim();
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     public String getContent() {
