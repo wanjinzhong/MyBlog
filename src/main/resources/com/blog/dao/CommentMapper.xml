@@ -55,6 +55,11 @@
 		comment
 		where comment_id = #{commentId,jdbcType=INTEGER}
 	</delete>
+	<delete id="deleteByArticleId" parameterType="java.lang.Integer">
+		delete from
+		comment
+		where article_id = #{articleId,jdbcType=INTEGER}
+	</delete>
 	<insert id="insert" parameterType="com.blog.bean.Comment">
 		insert into comment
 		(comment_id, user_id, time,

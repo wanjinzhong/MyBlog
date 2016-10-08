@@ -21,7 +21,7 @@ public interface ArticleMapper {
 
 	int updateByPrimaryKey(Article record);
 
-	List<ArticleFull> selectAllOrderByReading(Integer bloggerId);
+	List<ArticleFull> selectTopFiveOrderByReading(Integer bloggerId);
 
 	ArticleFull selectFullByPrimaryKey(Integer id);
 
@@ -75,4 +75,25 @@ public interface ArticleMapper {
 	 * @return 文章列表
 	 */
 	List<Article> selectBaseOrderByTime(Map<String, Integer> map);
+	/**
+	 * 伪删除一篇文章（设置is_delete为1）
+	 * @param articleId 文章id
+	 * @return 影响行数
+	 */
+	int setDeleteByPrimaryKey(Integer articleId);
+	
+	int coverByPrimaryKey(Integer articleId);
+	/**
+	 * 获取以时间排序的已删除的文章基本信息列表
+	 * 
+	 * @param map 包含博主id,起始条数，每页条数
+	 * @return 文章列表
+	 */
+	List<Article> selectBaseOrderByTimeWhichIsDeleted(Map<String, Integer> map);
+	/**
+	 * 获取博主的回收站的文章总数
+	 * @param id 博主id
+	 * @return 该博主的回收站的文章总数
+	 */
+	int seclectDelectedCount(Integer id);
 }

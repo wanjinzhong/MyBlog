@@ -30,4 +30,8 @@ public class CommentServiceImpl implements CommentService{
 		return commentMapper.insertSelective(comment);
 	}
 
+	public int deleteByArticleId(Integer articleId) {
+		return commentMapper.deleteByArticleId(articleId);
+	}
+
 }

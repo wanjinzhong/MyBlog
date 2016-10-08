@@ -21,8 +21,8 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.selectByPrimaryKey(id);
 	}
 	
-	public List<ArticleFull> getAll(Integer bloggerId){
-		return articleMapper.selectAllOrderByReading(bloggerId);
+	public List<ArticleFull> getTopFive(Integer bloggerId){
+		return articleMapper.selectTopFiveOrderByReading(bloggerId);
 	}
 
 	public ArticleFull getArticleFullById(Integer id) {
@@ -63,6 +63,26 @@ public class ArticleServiceImpl implements ArticleService {
 
 	public List<Article> getBaseOrderByTime(Map<String, Integer> map) {
 		return articleMapper.selectBaseOrderByTime(map);
+	}
+
+	public int setDeleteById(Integer articleId) {
+		return articleMapper.setDeleteByPrimaryKey(articleId);
+	}
+
+	public List<Article> gettBaseOrderByTimeDeleted(Map<String, Integer> map) {
+		return articleMapper.selectBaseOrderByTimeWhichIsDeleted(map);
+	}
+
+	public int coverById(Integer articleId) {
+		return articleMapper.coverByPrimaryKey(articleId);
+	}
+
+	public int getDelectedCount(Integer id) {
+		return articleMapper.seclectDelectedCount(id);
+	}
+
+	public int deleteById(Integer articleId) {
+		return articleMapper.deleteByPrimaryKey(articleId);
 	}
 
 }

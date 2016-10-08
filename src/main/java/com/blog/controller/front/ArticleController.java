@@ -39,7 +39,7 @@ public class ArticleController {
 		bloggerId = initBloggerId(request, bloggerId);
 		Blogger blogger = bloggerService.getBloggerById(bloggerId);
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
-		List<ArticleFull> list = articleService.getAll(bloggerId);
+		List<ArticleFull> list = articleService.getTopFive(bloggerId);
 		formatInfo(list);
 		model.addAttribute("list", list);
 		getNewAndHot(bloggerId, model);
@@ -115,7 +115,6 @@ public class ArticleController {
 	public String getAllArticle(HttpServletRequest request, Integer curPage, Integer bloggerId, Model model) {
 		bloggerId = initBloggerId(request, bloggerId);
 		int count = articleService.getCount(bloggerId);
-		System.out.println(count);
 		model.addAttribute("count", count);
 		Blogger blogger = bloggerService.getBloggerById(bloggerId);
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());

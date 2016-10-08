@@ -27,4 +27,14 @@ public interface CommentService {
 	 * @return 影响条数
 	 */
 	public int insertSelective(Comment comment);
+
+	/**
+	 * 删除指定文章的所有评论
+	 * 
+	 * @param articleId
+	 *            文章id
+	 * @return 影响行数
+	 */
+	public int deleteByArticleId(Integer articleId);
+
 }

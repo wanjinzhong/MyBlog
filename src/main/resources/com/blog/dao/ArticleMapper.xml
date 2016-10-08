@@ -37,6 +37,12 @@
 		select count(*) from article where blogger_id = #{id,
 		jdbcType=INTEGER} and is_delete = 0
 	</select>
+		<!-- 获取某个博主的已删除文章总数 -->
+	<select id="seclectDelectedCount" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*) from article where blogger_id = #{id,
+		jdbcType=INTEGER} and is_delete = 1
+	</select>
 	<!-- 根据ID查询基本信息 -->
 	<select id="selectBaseByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -53,14 +59,16 @@
 		<include refid="Base_Column_List" />
 		from article
 		where blogger_id = #{bloggerId,
-		jdbcType=INTEGER} and is_delete = 0
+		jdbcType=INTEGER} and
+		is_delete = 0
 		order by
 		reading desc
-		limit #{index, jdbcType=INTEGER}, #{pageSize,
-		jdbcType=INTEGER} 
+		limit #{index, jdbcType=INTEGER},
+		#{pageSize,
+		jdbcType=INTEGER}
 	</select>
 	<!-- 查询所有文章的详细信息，以阅读量排序 -->
-	<select id="selectAllOrderByReading" resultMap="ArticleFullResult"
+	<select id="selectTopFiveOrderByReading" resultMap="ArticleFullResult"
 		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
@@ -73,6 +81,7 @@
 		where blogger.blogger_id = #{bloggerId,
 		jdbcType=INTEGER} and is_delete = 0
 		order by reading desc
+		limit 0, 5
 	</select>
 	<!-- 查询基本文章的详细信息，以时间排序 -->
 	<select id="selectBaseOrderByTime" resultMap="BaseResultMap"
@@ -83,6 +92,22 @@
 		where blogger_id = #{bloggerId,
 		jdbcType=INTEGER} and
 		is_delete = 0
+		order by
+		update_time desc
+		limit #{index,
+		jdbcType=INTEGER},
+		#{pageSize,
+		jdbcType=INTEGER}
+	</select>
+	<!-- 查询基本文章的详细信息，以时间排序 -->
+	<select id="selectBaseOrderByTimeWhichIsDeleted" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from article
+		where blogger_id = #{bloggerId,
+		jdbcType=INTEGER} and
+		is_delete = 1
 		order by
 		update_time desc
 		limit #{index,
@@ -180,17 +205,37 @@
 		where article_id =
 		#{articleId,jdbcType=INTEGER}
 	</update>
+	<!-- 伪删除一篇文章 -->
+	<update id="setDeleteByPrimaryKey" parameterType="java.lang.Integer">
+		update
+		article
+		set is_delete = 1
+		where article_id =
+		#{articleId,jdbcType=INTEGER}
+	</update>
+	<!-- 恢复一篇文章 -->
+	<update id="coverByPrimaryKey" parameterType="java.lang.Integer">
+		update
+		article
+		set is_delete = 0
+		where article_id =
+		#{articleId,jdbcType=INTEGER}
+	</update>
 	<insert id="insert" parameterType="com.blog.bean.Article">
-		insert into article (article_id, blogger_id, title,
+		insert into article
+		(article_id, blogger_id, title,
 		publish_time, update_time, type_id,
 		keyword, reading, cover_pic,
 		is_delete, content)
-		values (#{articleId,jdbcType=INTEGER}, #{bloggerId,jdbcType=INTEGER},
+		values
+		(#{articleId,jdbcType=INTEGER}, #{bloggerId,jdbcType=INTEGER},
 		#{title,jdbcType=VARCHAR},
-		#{publishTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{typeId,jdbcType=INTEGER},
+		#{publishTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP}, #{typeId,jdbcType=INTEGER},
 		#{keyword,jdbcType=VARCHAR}, #{reading,jdbcType=INTEGER},
 		#{coverPic,jdbcType=VARCHAR},
-		#{isDelete,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+		#{isDelete,jdbcType=INTEGER},
+		#{content,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.blog.bean.Article">
 		insert into article
@@ -302,30 +347,43 @@
 		where article_id = #{articleId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.blog.bean.Article">
-		update article
+		update
+		article
 		set blogger_id = #{bloggerId,jdbcType=INTEGER},
-		title = #{title,jdbcType=VARCHAR},
-		publish_time = #{publishTime,jdbcType=TIMESTAMP},
-		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		title =
+		#{title,jdbcType=VARCHAR},
+		publish_time =
+		#{publishTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
 		type_id = #{typeId,jdbcType=INTEGER},
 		keyword = #{keyword,jdbcType=VARCHAR},
-		reading = #{reading,jdbcType=INTEGER},
+		reading =
+		#{reading,jdbcType=INTEGER},
 		cover_pic = #{coverPic,jdbcType=VARCHAR},
 		is_delete = #{isDelete,jdbcType=INTEGER},
-		content = #{content,jdbcType=LONGVARCHAR}
-		where article_id = #{articleId,jdbcType=INTEGER}
+		content =
+		#{content,jdbcType=LONGVARCHAR}
+		where article_id =
+		#{articleId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.blog.bean.Article">
 		update article
-		set blogger_id = #{bloggerId,jdbcType=INTEGER},
-		title = #{title,jdbcType=VARCHAR},
-		publish_time = #{publishTime,jdbcType=TIMESTAMP},
-		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		set
+		blogger_id = #{bloggerId,jdbcType=INTEGER},
+		title =
+		#{title,jdbcType=VARCHAR},
+		publish_time =
+		#{publishTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=TIMESTAMP},
 		type_id = #{typeId,jdbcType=INTEGER},
 		keyword = #{keyword,jdbcType=VARCHAR},
-		reading = #{reading,jdbcType=INTEGER},
+		reading =
+		#{reading,jdbcType=INTEGER},
 		cover_pic = #{coverPic,jdbcType=VARCHAR},
 		is_delete = #{isDelete,jdbcType=INTEGER}
-		where article_id = #{articleId,jdbcType=INTEGER}
+		where article_id =
+		#{articleId,jdbcType=INTEGER}
 	</update>
 </mapper>

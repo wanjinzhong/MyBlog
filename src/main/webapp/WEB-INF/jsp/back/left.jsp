@@ -31,7 +31,9 @@
 				</dt>
 				<dd>
 					<a href="myarticles.do" target="content">文章列表</a> <a
-						href="publisharticle.do" target="content">发表文章</a>
+						href="publisharticle.do" target="content">发表文章</a> <a
+						href="recyclebin.do" target="content">回收站</a><a
+						href="articletypelist.do" target="content">文章类别</a>
 				</dd>
 			</dl>
 			<dl>
@@ -40,6 +42,7 @@
 				</dt>
 				<dd>
 					<a href="unreadcomment.do" target="content">未读评论</a>
+					<a href="allcomment.do" target="content">所有评论</a>
 				</dd>
 			</dl>
 			<dl>

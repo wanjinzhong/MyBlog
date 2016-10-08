@@ -24,4 +24,13 @@ public interface CommentMapper {
 	List<CommentFull> selectFullbyArticleId(Map<String, Integer> map);
 
 	int selectCount(Integer id);
+
+	/**
+	 * 删除指定文章的所有评论
+	 * 
+	 * @param articleId
+	 *            文章id
+	 * @return 影响行数
+	 */
+	int deleteByArticleId(Integer articleId);
 }
