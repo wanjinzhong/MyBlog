@@ -31,7 +31,7 @@
 			}
 			$.ajax({
 				type : "post",
-				url : "check.do",
+				url : "check.shtml",
 				data : "name=" + name + "&password=" + psd,
 			});
 		});
@@ -43,21 +43,25 @@
 					var name_r = $('#name_r').val();
 					var psd_r = $('#psd_r').val();
 					var affirm_psd = $('#affirm_psd').val();
+					var checked = $("#checkbox").prop("checked");
+					var blogger_name = $("#bloggerName").val();
 					if (name_r == '') {
-						name_r_state.parent().next().next().css("display",
-								"block");
+						alert("请输入用户名");
 						return false;
 					} else if (psd_r == '') {
-						psd_r_state.parent().next().next().css("display",
-								"block");
+						alert("请输入密码");
 						return false;
 					} else if (affirm_psd == '') {
-						affirm_psd_state.parent().next().next().css("display",
-								"block");
+						alert("请输入确认密码");
 						return false;
 					} else if (psd_r != affirm_psd) {
+						alert("两次密码不一致");
 						return false;
-					} else {
+					} else if (checked && blogger_name == ""){
+						alert("博客名不能为空");
+						return false;
+					}
+					else {
 						$('.register').submit();
 					}
 				})
@@ -66,6 +70,20 @@
 				$(".moreInfo").fadeIn(1000);
 			else
 				$(".moreInfo").fadeOut(500);
+		});
+		$("#login_back").click(function(){
+			var name_state = $('#name');
+			var psd_state = $('#psd');
+			var name = $('#name').val();
+			var psd = $('#psd').val();
+			if (name == ""){
+				alert("用户名不能为空");
+			} else if(psd == ""){
+				alert("密码不能为空");
+			} else{
+				$(".login").attr("action","login_back.do");
+				$(".login").submit();
+			}
 		});
 	})
 
@@ -131,23 +149,22 @@
 
 	<div class="login_div">
 		<div class="col-xs-12 login_title">登录</div>
-		<form action="check.do" class="login" method="post">
+		<form action="check.shtml" class="login" method="post">
 			<div class="nav">
 				<div class="login_nav">
 					<span class="login_username">用户名:</span> <input type="text"
-						name="name" id="name" onblur="javascript:ok_or_errorBylogin(this)" />
+						name="name" id="name" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
 				<div class="login_psdNav">
 					<span class="login_password">密&nbsp;&nbsp;&nbsp;码:</span> <input
-						type="password" name="password" id="psd"
-						onBlur="javascript:ok_or_errorBylogin(this)" />
+						type="password" name="password" id="psd" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
 				<div class="col-xs-12 login_btn_div">
-					<input type="submit" class="sub_btn" value="登录" id="login" />
+					<input type="submit" class="sub_btn" value="登录前台" id="login_front" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="登陆后台" class="sub_btn" id="login_back"_/>
 				</div>
 			</div>
 		</form>
@@ -159,62 +176,31 @@
 
 	<div class="register_body">
 		<div class="col-xs-12 register_title">注册</div>
-		<form action="" class="register" method="post">
+		<form action="register.shtml" class="register" method="post">
 			<div class="nav">
 				<div class="register_nav">
-					<div class="login_username">用户名:</div>
-					<div class="col-xs-6">
-						<input type="text" name="" id="name_r"
-							onBlur="javascript:ok_or_errorByRegister(this)" />
-					</div>
+					<span class="login_username">用户名:</span>
+						<input type="text" name="name_r" id="name_r"/>
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
 				<div class="register_psdnav">
 					<span class="password">密&nbsp;&nbsp;&nbsp;码:</span> <input
-						type="password" name="" id="psd_r"
-						onBlur="javascript:ok_or_errorByRegister(this)" />
+						type="password" name="psd_r" id="psd_r"/>
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
 				<div class="register_affirm">
 					<span class="repassword">确认密码:</span> <input type="password"
-						name="" id="affirm_psd"
-						onBlur="javascript:ok_or_errorByRegister(this)" />
+						name="affirm_psd" id="affirm_psd" />
 					<div class="col-xs-1 ok_gou">√</div>
 					<div class="col-xs-1 error_cuo">×</div>
 				</div>
-				<div class="register_sex">
-					<span class="sex">性别:</span> <input type="radio" name="sex"
-						id="male" checked="checked" />男 <input type="radio" name="sex"
-						id="famale" />女
-				</div>
-				<div class="register_email">
-					<span class="email">邮箱:</span> <input type="text" name="email"
-						id="email" onBlur="javascript:ok_or_errorByRegister(this)" />
-				</div>
-				<div class="register_tel">
-					<span class="sex">电话</span> <input type="text" name="tel" id="tel"
-						onBlur="javascript:ok_or_errorByRegister(this)" />
-				</div>
-				<div class="register_place">
-					<span class="sex">所在地</span> <input type="text" name="place" id="place"
-						onBlur="javascript:ok_or_errorByRegister(this)" />
-				</div>
-				<div class="register_qq">
-					<span class="sex">QQ</span> <input type="text" name="qq" id="qq"
-						onBlur="javascript:ok_or_errorByRegister(this)" />
-				</div>
-				<div class="register_introduce">
-					<span class="sex">自我介绍</span>
-					<textarea name="introduce" id="introduce"
-						onBlur="javascript:ok_or_errorByRegister(this)" ></textarea>
-				</div>
 				<div class="openBlog">
-					<input type="checkbox" id="checkbox" />同时开通博客
+					<input type="checkbox" id="checkbox" name="checkbox"/>&nbsp;&nbsp;同时开通博客
 				</div>
 				<div class="moreInfo">
-					博客名：<input type="text" display="none" />
+					博客名：<input type="text" display="none" id="bloggerName" name="bloggerName" />
 				</div>
 				<div class="col-xs-12 register_btn_div">
 					<input type="submit" class="sub_btn" value="注册" id="register" />

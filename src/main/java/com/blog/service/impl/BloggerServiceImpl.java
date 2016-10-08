@@ -13,8 +13,13 @@ public class BloggerServiceImpl implements BloggerService {
 	@Resource
 	private BloggerMapper bloggerMapper;
 	public Blogger getBloggerById(Integer id) {
-		// TODO Auto-generated method stub
 		return bloggerMapper.selectFullByPrimaryKey(id);
+	}
+	public int regist(Blogger blogger) {
+		return bloggerMapper.insertSelective(blogger);
+	}
+	public Blogger getByUserId(Integer userId) {
+		return bloggerMapper.selectBaseByUserId(userId);
 	}
 
 }

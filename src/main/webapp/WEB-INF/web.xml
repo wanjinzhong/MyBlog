@@ -8,7 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring-mybatis.xml</param-value>
 	</context-param>
-	
+
 	<!-- 编码过滤器 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -31,22 +31,36 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 
-	<!-- Spring MVC servlet -->
+	<!-- Spring front servlet -->
 	<servlet>
-		<servlet-name>SpringMVC</servlet-name>
+		<servlet-name>SpringFront</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring-mvc.xml</param-value>
+			<param-value>classpath:spring-front.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!-- Spring back servlet -->
+	<servlet>
+		<servlet-name>SpringBack</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-back.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>SpringMVC</servlet-name>
-		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
+		<servlet-name>SpringFront</servlet-name>
+		<url-pattern>*.shtml</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SpringBack</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.do</welcome-file>
+		<welcome-file>index.shtml</welcome-file>
 	</welcome-file-list>
 </web-app>

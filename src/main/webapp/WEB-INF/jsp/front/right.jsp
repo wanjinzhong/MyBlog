@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 <!DOCTYPE html >
 <div class="right">
 	<%@ include file="calendar.jsp" %>
@@ -15,7 +15,7 @@
 		</h3>
 		<ul class="newest">
 			<c:forEach items="${newest }" var="news" varStatus="index">
-				<li><a href="article.do?id=${news.articleId }">${news.title }</a></li>
+				<li><a href="article.shtml?id=${news.articleId }">${news.title }</a></li>
 			</c:forEach>
 		</ul>
 		<h3>
@@ -23,7 +23,7 @@
 		</h3>
 		<ul class="hot">
 			<c:forEach items="${hotest }" var="hots" varStatus="index">
-				<li><a href="article.do?id=${hots.articleId }">${hots.title }</a></li>
+				<li><a href="article.shtml?id=${hots.articleId }">${hots.title }</a></li>
 			</c:forEach>
 		</ul>
 		<h3 class="links">

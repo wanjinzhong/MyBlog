@@ -27,6 +27,12 @@
 		real_name, birthday, sex, email, tel, place, qq, introduce,
 		image_url
 	</sql>
+	<select id="selectBaseByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from blogger
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
 	<select id="selectFullByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="FullResultMap">
 		select

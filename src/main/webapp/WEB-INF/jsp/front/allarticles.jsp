@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 <title>${bloggerName }的博客</title>
 <meta name="keywords" content="万进忠" />
 <meta name="description" content="万进忠的博客" />
@@ -14,7 +14,7 @@
 <%
 int count = Integer.parseInt(request.getAttribute("count").toString());
 int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
-PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.do?");
+PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.shtml?");
 %>
 <body>
 	<!-- 头部 -->
@@ -37,14 +37,14 @@ PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.do?");
 				<c:forEach items="${list }" var="article" varStatus="index">
 					<div class="ablog">
 						<h3>
-							<a href="article.do?id=${article.articleId }">${article.title }</a>
+							<a href="article.shtml?id=${article.articleId }">${article.title }</a>
 						</h3>
 						<div class="blog_img">
 							<c:if test="${article.coverPic eq null }"><img src="images/001.png"></c:if>
 							<c:if test="${article.coverPic ne null }"><img src="${article.coverPic}" style="width:175px;height:120px"></c:if>
 						</div>
 						<p class="preview">${article.content }...</p>
-						<a href="article.do?id=${article.articleId }" class="readmore">阅读全文>></a>
+						<a href="article.shtml?id=${article.articleId }" class="readmore">阅读全文>></a>
 						<p class="dateview">
 							<span> <fmt:formatDate value="${article.updateTime }"
 									pattern="yyyy-MM-dd" />

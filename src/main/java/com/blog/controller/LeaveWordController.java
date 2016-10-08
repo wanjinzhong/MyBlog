@@ -28,7 +28,7 @@ public class LeaveWordController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "leave_word.do")
+	@RequestMapping(value = "leave_word.shtml")
 	public String leave_word_index(HttpServletRequest request, Integer curPage, Model model) {
 		String bloggerIdStr = null;
 		if (request.getSession().getAttribute("bloggerId") != null)
@@ -54,7 +54,7 @@ public class LeaveWordController {
 		model.addAttribute("list", list);
 		return "front/leave_word";
 	}
-	@RequestMapping(value="addleaveword.do")
+	@RequestMapping(value="addleaveword.shtml")
 	public String addLeaveWord(HttpServletRequest request, String leaveword_content){
 		LeaveWord lw = new LeaveWord();
 		lw.setBloggerId(Integer.parseInt(request.getSession().getAttribute("bloggerId").toString()));
@@ -63,5 +63,13 @@ public class LeaveWordController {
 		lw.setUserId(Integer.parseInt(request.getSession().getAttribute("userId").toString()));
 		System.out.println(leaveWordService.addLeaveWord(lw));
 		return "redirect:leave_word.do";
+	}
+	@RequestMapping(value="unreadleaveword.do")
+	public String unreadLeaveWord(){
+		return "back/unreadleaveword";
+	}
+	@RequestMapping(value="allleaveword.do")
+	public String allLeaveWord(){
+		return "back/allleaveword";
 	}
 }

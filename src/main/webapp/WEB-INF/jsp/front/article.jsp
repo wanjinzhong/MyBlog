@@ -1,7 +1,7 @@
 <%@page import="com.blog.util.PageUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ include file="include.jsp"%>
+<%@ include file="../include.jsp"%>
 
 <!DOCTYPE html>
 <html>
@@ -21,7 +21,7 @@
 	int count = Integer.parseInt(request.getAttribute("count").toString());
 	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
 	int id = Integer.parseInt(request.getParameter("id"));
-	PageUtil pageUtil = new PageUtil(count, curPage, 8, "article.do?id=" + id + "&");
+	PageUtil pageUtil = new PageUtil(count, curPage, 8, "article.shtml?id=" + id + "&");
 	//获取本页url
 	String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
 			+ request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
@@ -35,7 +35,7 @@
 	<div class="content" style="margin-top: 30px">
 		<h1 class="t_nav">
 			<span>您当前的位置：<a href="/index.html">文章</a>&nbsp;&gt;&nbsp;</span><a
-				href="index.do" class="n1">网站首页</a><a href="allarticles.do" class="n2">文章</a>
+				href="index.shtml" class="n1">网站首页</a><a href="allarticles.shtml" class="n2">文章</a>
 		</h1>
 		<div class="left">
 			<h2 class="c_titile">${article.title }</h2>
@@ -84,10 +84,10 @@
 			<div style="position: relative;">
 				<c:if test="${userName eq null }">
 					<div class="mask">
-						<a href="login.do">登陆</a>后评论
+						<a href="login.shtml">登陆</a>后评论
 					</div>
 				</c:if>
-				<form action="addcomment.do" method="post">
+				<form action="addcomment.shtml" method="post">
 					<div class="my_comment">
 						<textarea id="comment_input" name="comment_content"></textarea>
 						<input type="submit" id="submit" value="提交" />

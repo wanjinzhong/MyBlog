@@ -22,6 +22,18 @@ public class UserServiceImpl implements UserService {
 	public User check(Map<String, Object> map) {
 		return userMapper.check(map);
 	}
+
+	public User userIsExist(String name) {
+		return userMapper.userIsExist(name);
+	}
+
+	public int regist(User user) {
+		return userMapper.insertSelective(user);
+	}
+
+	public int getIdByName(String name) {
+		return userMapper.selectPrimaryKeyByName(name);
+	}
 	
 
 }

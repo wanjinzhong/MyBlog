@@ -22,7 +22,7 @@ public class AboutController {
 	@Resource
 	private LeaveWordService LeaveWordService;
 
-	@RequestMapping(value = "aboutme.do")
+	@RequestMapping(value = "aboutme.shtml")
 	public String aboutme(HttpServletRequest request, Model model) {
 		String bloggerIdStr = null;
 		if (request.getSession().getAttribute("bloggerId") != null)
@@ -42,7 +42,7 @@ public class AboutController {
 		model.addAttribute("leave_word_count", leave_word_count);
 		return "front/aboutme";
 	}
-	@RequestMapping(value="aboutwebsite.do")
+	@RequestMapping(value="aboutwebsite.shtml")
 	public String aboutWebSite(){
 		return "front/aboutwebsite";
 	}

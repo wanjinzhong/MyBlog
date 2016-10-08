@@ -61,4 +61,8 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.selectAllOrderByTime(map);
 	}
 
+	public List<Article> getBaseOrderByTime(Map<String, Integer> map) {
+		return articleMapper.selectBaseOrderByTime(map);
+	}
+
 }

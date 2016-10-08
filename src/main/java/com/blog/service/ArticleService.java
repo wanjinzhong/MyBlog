@@ -65,4 +65,12 @@ public interface ArticleService {
 	public Article getNext(Map<String, Integer> map);
 	
 	public List<ArticleFull> getAllOrderByTime(Map<String, Integer> map);
+	
+	/**
+	 * 获取以时间排序的文章基本信息列表
+	 * 
+	 * @param map 包含博主id,起始条数，每页条数
+	 * @return 文章列表
+	 */
+	public List<Article> getBaseOrderByTime(Map<String, Integer> map);
 }

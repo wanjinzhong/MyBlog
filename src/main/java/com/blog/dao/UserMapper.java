@@ -18,4 +18,8 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
     
     User check(Map<String, Object> map);
+    
+    User userIsExist(String name);
+    
+    int selectPrimaryKeyByName(String name);
 }

@@ -15,7 +15,7 @@ import com.blog.service.CommentService;
 public class CommentController {
 	@Resource
 	private CommentService commentService;
-	@RequestMapping(value="addcomment.do")
+	@RequestMapping(value="addcomment.shtml")
 	public String addComment(String comment_content,HttpServletRequest request){
 		Integer articleId = Integer.parseInt(request.getSession().getAttribute("articleId").toString());
 		Comment comment = new Comment();
@@ -24,6 +24,10 @@ public class CommentController {
 		comment.setTime(new Date());
 		comment.setUserId(Integer.parseInt(request.getSession().getAttribute("userId").toString()));
 		commentService.insertSelective(comment);
-		return "redirect:article.do?id=" + articleId;
+		return "redirect:article.shtml?id=" + articleId;
+	}
+	@RequestMapping(value="unreadcomment.do")
+	public String unreadComment(){
+		return "back/unreadcomment";
 	}
 }

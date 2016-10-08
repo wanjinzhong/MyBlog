@@ -25,6 +25,17 @@
   	from users
   	where login_name = #{name, jdbcType=VARCHAR} and password = #{password, jdbcType=VARCHAR}
   </select>
+  <!-- 检查用户名是否存在 -->
+  <select id="userIsExist" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select 
+    <include refid="Base_Column_List" />
+    from users
+    where login_name = #{name,jdbcType=VARCHAR}
+  </select>
+  <!-- 根据用户名查id -->
+  <select id="selectPrimaryKeyByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select user_id from users where login_name = #{name, jdbcType=VARCHAR}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

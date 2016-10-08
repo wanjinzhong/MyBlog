@@ -5,7 +5,6 @@ public class Blogger extends User{
 
     private String bloggerName;
 
-    private Integer userId;
 
     public Integer getBloggerId() {
         return bloggerId;
@@ -23,11 +22,4 @@ public class Blogger extends User{
         this.bloggerName = bloggerName == null ? null : bloggerName.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 }
