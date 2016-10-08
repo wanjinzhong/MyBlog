@@ -43,7 +43,6 @@ public class BackController {
 	public String back_index() {
 		return "index";
 	}
-
 	@RequestMapping(value = "login_back.do")
 	public void loginBack(HttpServletRequest request, HttpServletResponse response, String name, String password,
 			Model model) {

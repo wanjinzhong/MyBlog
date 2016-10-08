@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+.article_info{width: 96%; margin-left: 2%; margin-right: 2%; margin-top: 20px}
+.article_info tr{line-height: 25px}
+input{width: 100%; border: 0;}

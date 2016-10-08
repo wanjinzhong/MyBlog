@@ -54,9 +54,9 @@ body {
 						<td><a
 							href="articledetail.do?articleid=${article.articleId }"><img
 								src="images/detail.png" width="15px" />查看</a>&nbsp;&nbsp; <a
-							href="artialeupdate.do?articleid=${article.articleId }"><img
+							href="articleupdate.do?articleid=${article.articleId }"><img
 								src="images/update.png" width="15px" />修改</a>&nbsp;&nbsp; <a
-							href="artialedelete.do?articleid=${article.articleId }"><img
+							href="articledelete.do?articleid=${article.articleId }"><img
 								src="images/delete.png" width="15px" />删除</a></td>
 					</tr>
 				</c:forEach>
