@@ -1,12 +1,12 @@
-package com.blog.controller;
+package com.blog.controller.back;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class UserAndBloggerController {
-	@RequestMapping(value="back/info.do")
+public class UserAndBloggerControllerBack {
+	@RequestMapping(value="info.do")
 	public String Info(){
-		return "back/info";
+		return "info";
 	}
 }

@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.front;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +40,10 @@ public class AboutController {
 		// 获取留言总数
 		int leave_word_count = LeaveWordService.getCount(id);
 		model.addAttribute("leave_word_count", leave_word_count);
-		return "front/aboutme";
+		return "aboutme";
 	}
 	@RequestMapping(value="aboutwebsite.shtml")
 	public String aboutWebSite(){
-		return "front/aboutwebsite";
+		return "aboutwebsite";
 	}
 }

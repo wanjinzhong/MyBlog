@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.front;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ public class ArticleController {
 		formatInfo(list);
 		model.addAttribute("list", list);
 		getNewAndHot(bloggerId, model);
-		return "front/index";
+		return "index";
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class ArticleController {
 		map.put("reading", reading + 1);
 		map.put("articleId", article.getArticleId());
 		articleService.updateReadingById(map);
-		return "front/article";
+		return "article";
 	}
 
 	@RequestMapping(value = "allarticles.shtml")
@@ -131,7 +131,7 @@ public class ArticleController {
 		formatInfo(list);
 		model.addAttribute("list", list);
 		getNewAndHot(bloggerId, model);
-		return "front/allarticles";
+		return "allarticles";
 	}
 
 	/**
@@ -217,26 +217,4 @@ public class ArticleController {
 		model.addAttribute("commentList", commentFulls);
 	}
 
-	@RequestMapping(value = "myarticles.do")
-	public String articleList(Integer curPage, HttpServletRequest request, Model model) {
-		if (curPage == null || curPage <= 0)
-			curPage = 1;
-		int index = (curPage - 1) * BACK_PAGE_SIZE;
-		model.addAttribute("curPage", curPage);
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		System.out.println(request.getSession().getAttribute("bloggerId_back").toString());
-		map.put("bloggerId", Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString()));
-		map.put("index", index);
-		map.put("pageSize", BACK_PAGE_SIZE);
-		List<Article> list = articleService.getBaseOrderByTime(map);
-		System.out.println(list.size());
-		model.addAttribute("articles", list);
-		return "back/articlelist";
-	}
-
-	@RequestMapping(value = "publisharticle.do")
-	public String publicArticle() {
-
-		return "back/publisharticle";
-	}
 }

@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.front;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +27,7 @@ public class LoginRegistController {
 
 	@RequestMapping("login.shtml")
 	public String login(String url) {
-		return "front/login_reg";
+		return "login_reg";
 	}
 
 	@RequestMapping("gologin.shtml")
@@ -101,33 +101,6 @@ public class LoginRegistController {
 		out.print("<script type='text/javascript'>alert('注册成功');window.location = 'login.shtml';</script>");
 	}
 
-	@RequestMapping(value="login_back.do")
-	public void loginBack(HttpServletRequest request,HttpServletResponse response,String name, String password,Model model){
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=utf-8");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("name", name);
-		map.put("password", password);
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if (userService.userIsExist(name) == null)
-			out.print("<script type='text/javascript'>alert('用户名不存在');window.location = 'login.shtml';</script>");
-		else if (userService.check(map) == null){
-			out.print("<script type='text/javascript'>alert('用户名或密码不正确');window.location = 'login.shtml';</script>");
-		} else{
-			int id = userService.getIdByName(name);
-			Blogger blogger = bloggerService.getBloggerById(id);
-			request.getSession().setAttribute("bloggerId_back", blogger.getBloggerId());
-			request.getSession().setAttribute("bloggerName_back", blogger.getBloggerName());
-			out.print("<script type='text/javascript'>window.location = 'index.do';</script>");
-		}
-	}
-	@RequestMapping("index.do")
-	public String back_index(){
-		return "back/index";
-	}
+	
+	
 }

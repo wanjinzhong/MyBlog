@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.front;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class LeaveWordController {
 		List<LeaveWordFull> list = leaveWordService.getByBloggerId(map);
 		model.addAttribute("curPage", curPage);
 		model.addAttribute("list", list);
-		return "front/leave_word";
+		return "leave_word";
 	}
 	@RequestMapping(value="addleaveword.shtml")
 	public String addLeaveWord(HttpServletRequest request, String leaveword_content){
@@ -64,12 +64,5 @@ public class LeaveWordController {
 		System.out.println(leaveWordService.addLeaveWord(lw));
 		return "redirect:leave_word.do";
 	}
-	@RequestMapping(value="unreadleaveword.do")
-	public String unreadLeaveWord(){
-		return "back/unreadleaveword";
-	}
-	@RequestMapping(value="allleaveword.do")
-	public String allLeaveWord(){
-		return "back/allleaveword";
-	}
+	
 }

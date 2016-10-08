@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.front;
 
 import java.util.Date;
 
@@ -26,8 +26,5 @@ public class CommentController {
 		commentService.insertSelective(comment);
 		return "redirect:article.shtml?id=" + articleId;
 	}
-	@RequestMapping(value="unreadcomment.do")
-	public String unreadComment(){
-		return "back/unreadcomment";
-	}
+
 }
