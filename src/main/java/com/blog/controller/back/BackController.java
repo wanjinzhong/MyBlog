@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blog.bean.Blogger;
 import com.blog.service.BloggerService;
+import com.blog.service.CommentService;
 import com.blog.service.UserService;
 
 @Controller
@@ -23,9 +24,13 @@ public class BackController {
 	private UserService userService;
 	@Resource
 	private BloggerService bloggerService;
-
+	@Resource
+	private CommentService commentService;
 	@RequestMapping(value = "left.do")
-	public String left() {
+	public String left(HttpServletRequest request,Model model) {
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
+		int unreadCommentCount = commentService.getCountbyBloggerIdWhichIsUnread(bloggerId);
+		model.addAttribute("unread_comment_count", unreadCommentCount);
 		return "left";
 	}
 

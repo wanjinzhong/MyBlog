@@ -56,7 +56,7 @@ function deletearticle(articleId){
 							<td>${(curPage - 1 ) * 5 + loop.count }</td>
 							<td>${article.articleId }</td>
 							<td><a
-								href="artialedetail.do?articleid=${article.articleId }">${article.title }</a></td>
+								href="articledetail.do?articleid=${article.articleId }">${article.title }</a></td>
 							<td><c:if test="${article.coverPic ne null }">
 									<img alt="" src="${article.coverPic }"
 										style="width: 150px; height: 100px">

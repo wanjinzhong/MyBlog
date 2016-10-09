@@ -24,4 +24,10 @@ public interface LeaveWordMapper {
 	List<LeaveWordFull> selectByBloggerId(Map map);
 
 	Integer selectCount(Integer id);
+	
+	List<LeaveWordFull> selectByBloggerIdWhichIsUnread(Map<String, Integer> map);
+	
+	LeaveWordFull selectFullByPrimaryKey(Integer leaveWordId);
+	
+	int selectCountWhichIsUnread(Integer id);
 }

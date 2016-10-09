@@ -57,7 +57,7 @@ function deletecomment(id){
 							<td><a
 								href="commentdetail.do?commentId=${comment.commentId }"><img
 									src="images/detail.png" width="15px" />查看</a>&nbsp;&nbsp;<a
-								href="commentignore.do?commentId=${comment.commentId }"><img
+								href="commentignore.do?curPage=${curPage }&commentId=${comment.commentId }"><img
 									src="images/detail.png" width="15px" />忽略</a>&nbsp;&nbsp;<a
 								href="javascript:void(0)"
 								onclick="deletecomment(${comment.commentId })"><img
@@ -71,7 +71,9 @@ function deletecomment(id){
 				</c:if>
 			</tbody>
 		</table>
+		<c:if test="${fn:length(comments) != 0}">
 		<div><%=pageUtil.pcontroller()%></div>
+		</c:if>
 	</div>
 </body>
 </html>

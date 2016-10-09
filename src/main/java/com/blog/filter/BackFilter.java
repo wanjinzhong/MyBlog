@@ -14,22 +14,34 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet Filter implementation class BackFilter
  */
 public class BackFilter implements Filter {
-    public BackFilter() {
-    }
-
-	public void destroy() {
-	}
+	private String[] excepts;
 
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain chain) throws IOException, ServletException {
-		HttpServletRequest reqeust = (HttpServletRequest) arg0;
+		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
-		if (reqeust.getSession().getAttribute("bloggerId_back") == null){
+		String path = request.getServletPath();
+		if (excepts != null){
+			for (String exc : excepts)
+				if(exc.equals(path)){
+					chain.doFilter(request, response); 
+					return;
+				}
+		}
+		if (request.getSession().getAttribute("bloggerId_back") == null){
 			response.sendRedirect("login.shtml");
 		}
 		chain.doFilter(arg0, arg1);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
+		String 	except = fConfig.getInitParameter("except");  
+		if(except != null)
+			excepts = except.split(",");
+
+	}
+
+	public void destroy() {
+
 	}
 
 }

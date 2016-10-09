@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="css/back_all.css" rel="stylesheet" type="text/css" />
+<link href="css/left.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery-3.1.0.js"></script>
+<%@ include file="../include.jsp"%>
 </head>
 <style>
-html, body{height: 100%}
+html, body {
+	height: 100%
+}
 </style>
 <body>
 	<div class="wrap_left" id="frmTitle" name="fmTitle">
@@ -44,8 +48,12 @@ html, body{height: 100%}
 					<span>评论</span>
 				</dt>
 				<dd>
-					<a href="unreadcomment.do" target="content">未读评论</a>
-					<a href="allcomment.do" target="content">所有评论</a>
+					<a href="allcomment.do" target="content">所有评论</a> <a
+						href="unreadcomment.do" target="content">未读评论<c:if
+							test="${unread_comment_count != 0 }">
+							<span class="count">${unread_comment_count }</span>
+						</c:if>
+					</a>
 				</dd>
 			</dl>
 			<dl>
@@ -53,8 +61,8 @@ html, body{height: 100%}
 					<span>留言</span>
 				</dt>
 				<dd>
-					<a href="unreadleaveword.do" target="content">未读留言</a> <a
-						href="allleaveword.do" target="content">所有留言</a>
+					<a href="allleaveword.do" target="content">所有留言</a> <a
+						href="unreadleaveword.do" target="content">未读留言</a>
 				</dd>
 			</dl>
 			<dl>

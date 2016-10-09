@@ -17,7 +17,8 @@
 		<result column="user_name" property="userName" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		leave_word_id, leave_word.user_id user_id, time, blogger_id, is_new
+		leave_word_id, leave_word.user_id user_id, time,
+		blogger_id, is_new
 	</sql>
 	<sql id="Blob_Column_List">
 		content
@@ -31,7 +32,20 @@
 		from leave_word
 		where leave_word_id = #{leaveWordId,jdbcType=INTEGER}
 	</select>
-	<!-- 根据bloggerid获取评论 -->
+	<!-- 根据主键获取留言 -->
+	<select id="selectFullByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="FullResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,users.login_name user_name from leave_word
+		join users on users.user_id
+		= leave_word.user_id
+		where leave_word_id
+		=#{leaveWordId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据bloggerid获取留言 -->
 	<select id="selectByBloggerId" resultMap="FullResultMap"
 		parameterType="java.util.Map">
 		select
@@ -49,11 +63,35 @@
 			#{pageSize,jdbcType=INTEGER}
 		</if>
 	</select>
+	<!-- 根据bloggerid获取未读留言 -->
+	<select id="selectByBloggerIdWhichIsUnread" resultMap="FullResultMap"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		,
+		users.login_name user_name from blog.leave_word
+		join users on
+		users.user_id = leave_word.user_id where blogger_id =
+		#{id,jdbcType=INTEGER} and is_new = 1
+		order by `time` desc
+		<if test="index != null and pageSize != null">
+			limit #{index,jdbcType=INTEGER},
+			#{pageSize,jdbcType=INTEGER}
+		</if>
+	</select>
 	<!-- 获取评论总条数 -->
 	<select id="selectCount" resultType="java.lang.Integer"
 		parameterType="java.lang.Integer">
 		select count(*) from leave_word where blogger_id =
 		#{id,jdbcType=INTEGER}
+	</select>
+	<!-- 获取未读评论总条数 -->
+	<select id="selectCountWhichIsUnread" resultType="java.lang.Integer"
+		parameterType="java.lang.Integer">
+		select count(*) from leave_word where blogger_id =
+		#{id,jdbcType=INTEGER} and is_new = 1
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from

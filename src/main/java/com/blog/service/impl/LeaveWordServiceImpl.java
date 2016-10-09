@@ -30,4 +30,24 @@ public class LeaveWordServiceImpl implements LeaveWordService {
 		return leaveWordMapper.insertSelective(lw);
 	}
 
+	public List<LeaveWordFull> getByBloggerIdUnread(Map<String, Integer> map) {
+		return leaveWordMapper.selectByBloggerIdWhichIsUnread(map);
+	}
+
+	public LeaveWordFull getFullByPrimaryKey(Integer leaveWordId) {
+		return leaveWordMapper.selectFullByPrimaryKey(leaveWordId);
+	}
+
+	public int updateSelective(LeaveWord leaveword) {
+		return leaveWordMapper.updateByPrimaryKeySelective(leaveword);
+	}
+
+	public int getCountUnread(Integer id) {
+		return leaveWordMapper.selectCountWhichIsUnread(id);
+	}
+
+	public int deleteById(Integer leaveWordId) {
+		return leaveWordMapper.deleteByPrimaryKey(leaveWordId);
+	}
+
 }

@@ -23,6 +23,10 @@
 		<display-name>BackFilter</display-name>
 		<description></description>
 		<filter-class>com.blog.filter.BackFilter</filter-class>
+		<init-param>
+			<param-name>except</param-name>
+			<param-value>/login_back.do</param-value>
+		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>

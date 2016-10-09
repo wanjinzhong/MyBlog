@@ -59,8 +59,8 @@ public class CommentControllerBack {
 
 	public void formatContent(List<CommentFull> list) {
 		for (int i = 0; i < list.size(); i ++){
-			if (list.get(i).getCommentContent().length() > 50)
-				list.get(i).setCommentContent(list.get(i).getCommentContent().substring(0, 50));
+			if (list.get(i).getCommentContent().length() > 47)
+				list.get(i).setCommentContent(list.get(i).getCommentContent().substring(0, 47) + "...");
 		}
 	}
 
@@ -78,9 +78,9 @@ public class CommentControllerBack {
 		return "commentdetail";
 	}
 	@RequestMapping(value="commentignore.do")
-	public String commentignore(Integer commentId, Model model){
-		readed(commentId);
-		return "redirect:unreadcomment.do";
+	public String commentignore(Integer commentId, Integer curPage){
+		readed(commentId);                                   
+		return "redirect:unreadcomment.do?curPage=" + curPage;
 	}
 	public void readed(Integer commentId){
 		Comment comment = new Comment();
