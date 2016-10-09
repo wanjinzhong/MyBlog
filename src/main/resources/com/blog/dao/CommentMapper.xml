@@ -17,6 +17,7 @@
 	<resultMap type="com.blog.bean.CommentFull" id="CommentFullResultMap"
 		extends="ResultMapWithBLOBs">
 		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		comment_id, user_id, time, article_id, is_new, parent_id
@@ -24,13 +25,69 @@
 	<sql id="Blob_Column_List">
 		comment_content
 	</sql>
+	<select id="selectFullById" parameterType="java.lang.Integer"
+		resultMap="CommentFullResultMap">
+		select comment_id, users.login_name user_name,
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		from comment join users on users.user_id =
+		comment.user_id
+		join article on article.article_id = comment.article_id
+		where comment_id = #{commentId, jdbcType=INTEGER}
+	</select>
 	<select id="selectFullbyArticleId" parameterType="java.util.Map"
 		resultMap="CommentFullResultMap">
 		select comment_id, users.login_name user_name,
-		comment_content, `time`
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
 		from comment join users on users.user_id =
 		comment.user_id
-		where article_id = #{id, jdbcType=INTEGER}
+		join article on article.article_id = comment.article_id
+		where article.blogger_id = #{id, jdbcType=INTEGER}
+		order by
+		`time` desc
+		limit #{index, jdbcType=INTEGER}, #{pageSize,
+		jdbcType=INTEGER}
+	</select>
+	<select id="selectCountbyBloggerId" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select count(*)
+		from comment join users on users.user_id =
+		comment.user_id
+		join article on article.article_id = comment.article_id
+		join blogger on blogger.blogger_id = article.blogger_id
+		where article.blogger_id = #{bloggerId, jdbcType=INTEGER}
+	</select>
+	<select id="selectFullbyBloggerId" parameterType="java.util.Map"
+		resultMap="CommentFullResultMap">
+		select comment_id, users.login_name user_name,
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		from comment join users on users.user_id =
+		comment.user_id
+		join article on article.article_id = comment.article_id
+		join blogger on blogger.blogger_id = article.blogger_id
+		where article.blogger_id = #{bloggerId, jdbcType=INTEGER}
+		order by
+		`time` desc
+		limit #{index, jdbcType=INTEGER}, #{pageSize,
+		jdbcType=INTEGER}
+	</select>
+	<select id="selectCountbyBloggerIdWhichIsUnread" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(*)
+		from comment join users on users.user_id =
+		comment.user_id
+		join article on article.article_id = comment.article_id
+		join blogger on blogger.blogger_id = article.blogger_id
+		where article.blogger_id = #{bloggerId, jdbcType=INTEGER} and comment.is_new = 1
+	</select>
+	<select id="selectFullbyBloggerIdWhichIsUnread" parameterType="java.util.Map"
+		resultMap="CommentFullResultMap">
+		select comment_id, users.login_name user_name,
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		from comment join users on users.user_id =
+		comment.user_id
+		join article on article.article_id = comment.article_id
+		join blogger on blogger.blogger_id = article.blogger_id
+		where article.blogger_id = #{bloggerId, jdbcType=INTEGER} and comment.is_new = 1
 		order by
 		`time` desc
 		limit #{index, jdbcType=INTEGER}, #{pageSize,

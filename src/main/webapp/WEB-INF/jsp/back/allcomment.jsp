@@ -27,7 +27,7 @@ function deletecomment(id){
 			<li>当前位置：</li>
 			<li><a href="contentindex.do">首页</a></li>
 			<li>></li>
-			<li>未读评论</li>
+			<li>所有评论</li>
 		</ul>
 	</div>
 	<div class="content">
@@ -40,33 +40,39 @@ function deletecomment(id){
 					<th>内容</th>
 					<th width="150px">评论人</th>
 					<th width="180px">评论时间</th>
+					<th width="50px">状态</th>
 					<th width="180px">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${fn:length(comments) != 0}">
 					<c:forEach items="${comments }" var="comment" varStatus="loop">
-						<tr>
-							<td>${(curPage - 1 ) * 10 + loop.count }</td>
-							<td>${comment.articleId }</td>
-							<td>${comment.articleTitle }</td>
-							<td>${comment.commentContent }</td>
-							<td>${comment.userName }</td>
-							<td><fmt:formatDate value="${comment.time }"
-									pattern="yyyy-MM-dd HH:mm:ss" /></td>
-							<td><a
-								href="commentdetail.do?commentId=${comment.commentId }"><img
-									src="images/detail.png" width="15px" />查看</a>&nbsp;&nbsp;<a
-								href="commentignore.do?commentId=${comment.commentId }"><img
-									src="images/detail.png" width="15px" />忽略</a>&nbsp;&nbsp;<a
-								href="javascript:void(0)"
-								onclick="deletecomment(${comment.commentId })"><img
-									src="images/delete.png" width="15px" />删除</a></td>
+						<c:if test="${comment.isNew == 1 }">
+							<tr style="font-weight: bold; color: black;">
+						</c:if>
+						<c:if test="${comment.isNew != 1 }">
+							<tr>
+						</c:if>
+						<td>${(curPage - 1 ) * 10 + loop.count }</td>
+						<td>${comment.articleId }</td>
+						<td>${comment.articleTitle }</td>
+						<td>${comment.commentContent }</td>
+						<td>${comment.userName }</td>
+						<td><fmt:formatDate value="${comment.time }"
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td><c:if test="${comment.isNew == 1 }">未读</c:if> <c:if
+								test="${comment.isNew != 1 }">已读</c:if></td>
+						<td><a
+							href="commentdetail.do?commentId=${comment.commentId }"><img
+								src="images/detail.png" width="15px" />查看</a>&nbsp;&nbsp;<a
+							href="javascript:void(0)"
+							onclick="deletecomment(${comment.commentId })"><img
+								src="images/delete.png" width="15px" />删除</a></td>
 					</c:forEach>
 				</c:if>
 				<c:if test="${fn:length(comments) == 0}">
 					<tr>
-						<td colspan="7">你暂时还没有未读评论</td>
+						<td colspan="7">你暂时还没有评论</td>
 					</tr>
 				</c:if>
 			</tbody>

@@ -8,6 +8,9 @@
 <link href="css/back_all.css" rel="stylesheet" type="text/css" />
 <script src="js/jquery-3.1.0.js"></script>
 </head>
+<style>
+html, body{height: 100%}
+</style>
 <body>
 	<div class="wrap_left" id="frmTitle" name="fmTitle">
 		<div id="Logo">

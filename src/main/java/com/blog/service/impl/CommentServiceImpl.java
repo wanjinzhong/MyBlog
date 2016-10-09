@@ -34,4 +34,32 @@ public class CommentServiceImpl implements CommentService{
 		return commentMapper.deleteByArticleId(articleId);
 	}
 
+	public List<CommentFull> gettFullbyBloggerIdUnread(Map<String, Integer> map) {
+		return commentMapper.selectFullbyBloggerIdWhichIsUnread(map);
+	}
+
+	public List<CommentFull> getFullbyBloggerId(Map<String, Integer> map) {
+		return commentMapper.selectFullbyBloggerId(map);
+	}
+
+	public Integer getCountbyBloggerId(Integer bloggerId) {
+		return commentMapper.selectCountbyBloggerId(bloggerId);
+	}
+
+	public Integer getCountbyBloggerIdWhichIsUnread(Integer blogger) {
+		return commentMapper.selectCountbyBloggerIdWhichIsUnread(blogger);
+	}
+
+	public CommentFull getFullById(Integer commentId) {
+		return commentMapper.selectFullById(commentId);
+	}
+
+	public int updateSelective(Comment comment) {
+		return commentMapper.updateByPrimaryKeySelective(comment);
+	}
+
+	public int deleteById(Integer commentId) {
+		return commentMapper.deleteByPrimaryKey(commentId);
+	}
+
 }

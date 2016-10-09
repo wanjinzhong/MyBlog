@@ -36,5 +36,38 @@ public interface CommentService {
 	 * @return 影响行数
 	 */
 	public int deleteByArticleId(Integer articleId);
-
+	/**
+	 * 查找指定博主的未读评论
+	 * @param map 包含博主id，起始数和页数
+	 * @return 未读评论列表
+	 */
+	public List<CommentFull> gettFullbyBloggerIdUnread(Map<String, Integer> map);
+	/**
+	 * 查找指定博主的全部评论
+	 * @param map 包含博主id，起始数和页数
+	 * @return 全部评论列表
+	 */
+	public List<CommentFull> getFullbyBloggerId(Map<String, Integer> map);
+	/**
+	 * 查找指定博主的全部评论数
+	 * @param bloggerId
+	 * @return
+	 */
+	Integer getCountbyBloggerId(Integer bloggerId);
+	/**
+	 * 查找指定博主的未读评论数
+	 * @param bloggerId
+	 * @return
+	 */
+	Integer getCountbyBloggerIdWhichIsUnread(Integer blogger);
+	/**
+	 * 根据评论id返回评论详情
+	 * @param commentId 评论id
+	 * @return 评论详情
+	 */
+	public CommentFull getFullById(Integer commentId);
+	
+	public int updateSelective(Comment comment);
+	
+	public int deleteById(Integer commentId);
 }

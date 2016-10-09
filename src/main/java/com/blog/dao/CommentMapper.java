@@ -33,4 +33,34 @@ public interface CommentMapper {
 	 * @return 影响行数
 	 */
 	int deleteByArticleId(Integer articleId);
+	/**
+	 * 查找指定博主的未读评论
+	 * @param map 包含博主id，起始数和页数
+	 * @return 未读评论列表
+	 */
+	List<CommentFull> selectFullbyBloggerIdWhichIsUnread(Map<String, Integer> map);
+	/**
+	 * 查找指定博主的全部评论
+	 * @param map 包含博主id，起始数和页数
+	 * @return 未读评论列表
+	 */
+	List<CommentFull> selectFullbyBloggerId(Map<String, Integer> map);
+	/**
+	 * 查找指定博主的全部评论数
+	 * @param bloggerId
+	 * @return
+	 */
+	Integer selectCountbyBloggerId(Integer bloggerId);
+	/**
+	 * 查找指定博主的未读评论数
+	 * @param bloggerId
+	 * @return
+	 */
+	Integer selectCountbyBloggerIdWhichIsUnread(Integer blogger);
+	/**
+	 * 根据评论id返回评论详情
+	 * @param commentId 评论id
+	 * @return 评论详情
+	 */
+	CommentFull selectFullById(Integer commentId);
 }
