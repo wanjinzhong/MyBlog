@@ -159,9 +159,6 @@ public class ArticleController {
 			next = "<span>没有了</span>";
 		else
 			next = "<a href='article.shtml?id=" + nextArticle.getArticleId() + "'>" + nextArticle.getTitle() + "</a>";
-		System.out.println(id);
-		System.out.println(prev);
-		System.out.println(next);
 		model.addAttribute("prev", prev);
 		model.addAttribute("next", next);
 	}
@@ -212,7 +209,9 @@ public class ArticleController {
 		int index = (curPage - 1) * PAGE_SIZE;
 		map.put("index", index);
 		map.put("pageSize", PAGE_SIZE);
+		System.out.println("id: " + id + ",index: " + index + ",pageSize: " + PAGE_SIZE);
 		List<CommentFull> commentFulls = commentService.getByArticleIdOrderByTime(map);
+		System.out.println("评论列表：" + commentFulls.size());
 		model.addAttribute("commentList", commentFulls);
 	}
 

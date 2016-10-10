@@ -62,7 +62,7 @@ public class LeaveWordController {
 		lw.setTime(new Date());
 		lw.setUserId(Integer.parseInt(request.getSession().getAttribute("userId").toString()));
 		System.out.println(leaveWordService.addLeaveWord(lw));
-		return "redirect:leave_word.do";
+		return "redirect:leave_word.shtml";
 	}
 	
 }
