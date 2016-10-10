@@ -24,7 +24,7 @@
 		blogger.blogger_id blogger_id, blogger_name, users.user_id
 	</sql>
 	<sql id="User_Column_List">
-		real_name, birthday, sex, email, tel, place, qq, introduce,
+		login_name,real_name, birthday, sex, email, tel, place, qq, introduce,
 		image_url
 	</sql>
 	<select id="selectBaseByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">

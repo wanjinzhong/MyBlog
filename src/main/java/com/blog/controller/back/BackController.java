@@ -79,6 +79,11 @@ public class BackController {
 			}
 		}
 	}
+	@RequestMapping(value="logout_back.do")
+	public String logout_back(HttpServletRequest request){
+		request.getSession().removeAttribute("bloggerId_back");
+		return "redirect:login.shtml";
+	}
 
 	@RequestMapping(value = "contentindex.do")
 	public String content_index() {

@@ -8,4 +8,6 @@ public interface BloggerService {
 	int regist(Blogger blogger);
 	
 	Blogger getByUserId(Integer userId);
+	
+	int updateSelective(Blogger blogger);
 }

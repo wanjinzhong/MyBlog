@@ -47,53 +47,14 @@ address span{ color:#8c9bc1; padding-right:45px;}
 .picBox{width:12px;background:#efefef url(images/common/right.gif) no-repeat right center;cursor:pointer;}
 .picBox:hover{filter:alpha(opacity=90);-moz-opacity:0.9;opacity:0.9;}
 .wrap_left,.picBox{float:left;height:100%;}
-
 #Logo{height:72px;line-height:72px;text-align:center;background-color:#FFF;padding-top:15px; position:relative;}
 #Logo img{height:72px}
-#Header{background-color:#FFF;height:87px; border-bottom:#e9e9e9 solid 2px}
-#Header .user{ width:300px; float:right; padding-top:14px;}
-#Header .user div{ width:300px; clear:both; }
-#Header .user p{ float:left; padding-right:5px;}
-#Header .user a{ float:left; margin-left:10px; width:auto; position:relative;}
-#Header .user a span{ display:block;-moz-border-radius: 30px; -webkit-border-radius: 30px;border-radius:30px; position:absolute; right:-10px; top:-10px; padding:0px 5px; background-color:#e95c5c; color:#FFF; z-index:999;}
-#Header .user a:hover{ width:auto;filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;}
-#Header .user .search_box{ width:227px; margin-left:65px; margin-top:5px;}
-#Header .user .search_box input{ float:left;}
-#Header .user .search_box .box{border-bottom:#cad6e2 solid 1px;border-right:#cad6e2 solid 1px;border-top:#cad6e2 solid 1px;border-left: none; width:165px; height:26px; padding-left:10px;}
-
-#Navi{ padding-top:20px;margin-left:20px;}
-#Navi .btn_menu{ padding-top:7px; width:45px;float:left;}
-#Navi ul{ padding-left:60px; width:auto;}
-#Navi li{text-align:center;float:left; padding-left:0.8%; padding-right:0.8%;}
-#Navi li a{display:block;width:100%;text-align:center;padding:30px 0px 0px 0px;color:#919dac;text-decoration:none;font-size:12px;}
-#Navi li.active a,
-#Navi li a:hover{ color:#4a91b9;}
-#Navi li a img{display:block;margin:0px auto;}
-#Navi li a span{display:block;text-align:center;padding-top:12px;}
-#Navi li.nav01 a{background:url(../images/common/navi01.gif) no-repeat center top;}
-#Navi li.nav01 a:hover{background:url(images/common/navi01_o.gif) no-repeat center top;}
-#Navi li.nav02 a{background:url(images/common/navi02.gif) no-repeat center top;}
-#Navi li.nav02 a:hover{background:url(images/common/navi02_o.gif) no-repeat center top;}
-#Navi li.nav03 a{background:url(images/common/navi03.gif) no-repeat center top;}
-#Navi li.nav03 a:hover{background:url(images/common/navi03_o.gif) no-repeat center top;}
-#Navi li.nav04 a{background:url(images/common/navi04.gif) no-repeat center top;}
-#Navi li.nav04 a:hover{background:url(images/common/navi04_o.gif) no-repeat center top;}
-#Navi li.nav05 a{background:url(images/common/navi05.gif) no-repeat center top;}
-#Navi li.nav05 a:hover{background:url(images/common/navi05_o.gif) no-repeat center top;}
-#Navi li.nav06 a{background:url(images/common/navi06.gif) no-repeat center top;}
-#Navi li.nav06 a:hover{background:url(images/common/navi06_o.gif) no-repeat center top;}
-#Navi li.nav07 a{background:url(images/common/navi07.gif) no-repeat center top;}
-#Navi li.nav07 a:hover{background:url(images/common/navi07_o.gif) no-repeat center top;}
-#Navi li.nav08 a{background:url(images/common/navi08.gif) no-repeat center top;}
-#Navi li.nav08 a:hover{background:url(images/common/navi08_o.gif) no-repeat center top;}
-
-
 .menu_list{width:100%;clear:both;background-color:#55a9cd;}
 .menu_list dl{}
-.menu_list dt{font-size:18px;position:relative;cursor:pointer;background:#55a9cd url(images/common/ico01.gif) no-repeat 1.5em 1.1em;padding:15px 20px 15px 66px;color:#FFF; }
+.menu_list dt{font-size:18px;position:relative;cursor:pointer;/* background:#55a9cd url(images/common/ico01.gif) no-repeat 1.5em 1.1em; */padding:15px 20px 15px 66px;color:#FFF; }
 .menu_list dt.open,
 .menu_list dt:hover{color:#b7d7e7;}
-.menu_list dt span{display:block;padding-right:10px;background:url(images/common/ico03.png) no-repeat right center;}
+.menu_list dt span{display:block;padding-right:10px;/* background:url(images/common/ico03.png) no-repeat right center; */}
 
 .menu_list dd{font-size:16px;display:none; position:relative;}
 .menu_list dd a{padding:10px 0px 10px 66px;color:#FFF;display:block;text-decoration:none;background:#55a9cd;background-repeat: no-repeat;background-position: right center; margin-left: 15px}
@@ -103,7 +64,7 @@ address span{ color:#8c9bc1; padding-right:45px;}
 	padding: 10px 0px 10px 60px;
 	border-left: #FFF solid 6px;
 	background-color: #63b7dc;
-	background-image: url(images/common/ico_arrowA.gif);
+/* 	background-image: url(images/common/ico_arrowA.gif); */
 	background-repeat: no-repeat;
 	background-position: right center;
 }
@@ -139,7 +100,7 @@ address span{ color:#8c9bc1; padding-right:45px;}
 	overflow: hidden;
 	position: relative;
 	z-index: 99;
-	background: url(images/common/ico10.gif) no-repeat right top;
+	/* background: url(images/common/ico10.gif) no-repeat right top; */
 }
 .selectbox .select dt:hover,.select dt.cur{}
 .selectbox .select dd{position:absolute;left:0;top:29px;background:#fff;display:none;width:100%; font-size:14px;-webkit-box-shadow: #e0e0e0 0px 0px 5px;-moz-box-shadow: #e0e0e0 0px 0px 5px;box-shadow: #e0e0e0 0px 0px 5px;}

@@ -21,5 +21,8 @@ public class BloggerServiceImpl implements BloggerService {
 	public Blogger getByUserId(Integer userId) {
 		return bloggerMapper.selectBaseByUserId(userId);
 	}
+	public int updateSelective(Blogger blogger) {
+		return bloggerMapper.updateByPrimaryKey(blogger);
+	}
 
 }

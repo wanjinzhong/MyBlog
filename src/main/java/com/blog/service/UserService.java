@@ -32,4 +32,6 @@ public interface UserService {
 	 * @return 对应的id
 	 */
 	int getIdByName(String name);
+	
+	int updateSelective(User user);
 }

@@ -1,0 +1,4 @@
+@CHARSET "UTF-8";
+.edit{width: 80px; height: 40px; margin-top: 20px; margin-right: 20px;float: right;}
+input[type="text"]{width: 98%; margin: 0 1%}
+textarea{width: 98%; margin: 0 1%; height: 100%; overflow: auto;}
