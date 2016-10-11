@@ -1,71 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.dao.ArticleTypeMapper">
-  <resultMap id="BaseResultMap" type="com.blog.bean.ArticleType">
-    <id column="type_id" jdbcType="INTEGER" property="typeId" />
-    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
-    <result column="description" jdbcType="VARCHAR" property="description" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    type_id, type_name, description
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from article_type
-    where type_id = #{typeId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from article_type
-    where type_id = #{typeId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.blog.bean.ArticleType">
-    insert into article_type (type_id, type_name, description
-      )
-    values (#{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.blog.bean.ArticleType">
-    insert into article_type
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="typeId != null">
-        type_id,
-      </if>
-      <if test="typeName != null">
-        type_name,
-      </if>
-      <if test="description != null">
-        description,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="typeId != null">
-        #{typeId,jdbcType=INTEGER},
-      </if>
-      <if test="typeName != null">
-        #{typeName,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        #{description,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.ArticleType">
-    update article_type
-    <set>
-      <if test="typeName != null">
-        type_name = #{typeName,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null">
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where type_id = #{typeId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.blog.bean.ArticleType">
-    update article_type
-    set type_name = #{typeName,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR}
-    where type_id = #{typeId,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap" type="com.blog.bean.ArticleType">
+		<id column="type_id" jdbcType="INTEGER" property="typeId" />
+		<result column="type_name" jdbcType="VARCHAR" property="typeName" />
+		<result column="description" jdbcType="VARCHAR" property="description" />
+		<result column="blogger_id" jdbcType="INTEGER" property="bloggerId" />
+		<result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="is_default" jdbcType="INTEGER" property="isDefault" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		type_id, type_name, description, blogger_id, publish_time,
+		update_time, is_default
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from article_type
+		where type_id = #{typeId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据bloggerId获取文章类别 -->
+	<select id="selectByBloggerId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from article_type
+		where blogger_id = #{bloggerId,jdbcType=INTEGER}
+		order by `publish_time` desc
+		<if test="index != null and pageSize != null">
+			limit #{index, jdbcType=INTEGER}, #{pageSize,
+			jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="selectByBloggerIdAndIsDefault" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from article_type
+		where blogger_id = #{bloggerId, jdbcType=INTEGER} and is_default = 1
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		article_type
+		where type_id = #{typeId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.blog.bean.ArticleType">
+		insert into article_type
+		(type_id, type_name, description,
+		blogger_id, publish_time,
+		update_time, is_default
+		)
+		values (#{typeId,jdbcType=INTEGER},
+		#{typeName,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{bloggerId,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.blog.bean.ArticleType">
+		insert into article_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				type_id,
+			</if>
+			<if test="typeName != null">
+				type_name,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="bloggerId != null">
+				blogger_id,
+			</if>
+			<if test="publishTime != null">
+				publish_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="isDefault != null">
+				is_default,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="typeId != null">
+				#{typeId,jdbcType=INTEGER},
+			</if>
+			<if test="typeName != null">
+				#{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="bloggerId != null">
+				#{bloggerId,jdbcType=INTEGER},
+			</if>
+			<if test="publishTime != null">
+				#{publishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				#{isDefault,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.blog.bean.ArticleType">
+		update article_type
+		<set>
+			<if test="typeName != null">
+				type_name = #{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="bloggerId != null">
+				blogger_id = #{bloggerId,jdbcType=INTEGER},
+			</if>
+			<if test="publishTime != null">
+				publish_time = #{publishTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="isDefault != null">
+				is_default = #{isDefault,jdbcType=INTEGER},
+			</if>
+		</set>
+		where type_id = #{typeId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.blog.bean.ArticleType">
+		update
+		article_type
+		set type_name = #{typeName,jdbcType=VARCHAR},
+		description =
+		#{description,jdbcType=VARCHAR},
+		blogger_id =
+		#{bloggerId,jdbcType=INTEGER},
+		publish_time =
+		#{publishTime,jdbcType=TIMESTAMP},
+		update_time =
+		#{updateTime,jdbcType=VARCHAR},
+		is_default = 
+		#{isDefault,jdbcType=INTEGER}
+		where type_id =
+		#{typeId,jdbcType=INTEGER}
+	</update>
 </mapper>

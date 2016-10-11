@@ -17,7 +17,7 @@
 	<div class="banner">
 		<div class="box">
 			<div class="avatar">
-				<a href="#"><span>${bloggerName }</span></a>
+				<a href="#"><img alt="" src="${blogger.imageUrl }"><span>${bloggerName }</span></a>
 			</div>
 		</div>
 	</div>

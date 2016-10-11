@@ -1,5 +1,7 @@
 package com.blog.bean;
 
+import java.util.Date;
+
 public class ArticleType {
     private Integer typeId;
 
@@ -7,7 +9,24 @@ public class ArticleType {
 
     private String description;
 
-    public Integer getTypeId() {
+    private Integer bloggerId;
+
+    private Date publishTime;
+
+    private Date updateTime;
+    
+    private Integer isDefault;
+
+
+	public Integer getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Integer isDefault) {
+		this.isDefault = isDefault;
+	}
+
+	public Integer getTypeId() {
         return typeId;
     }
 
@@ -29,5 +48,29 @@ public class ArticleType {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getBloggerId() {
+        return bloggerId;
+    }
+
+    public void setBloggerId(Integer bloggerId) {
+        this.bloggerId = bloggerId;
+    }
+
+    public Date getPublishTime() {
+        return publishTime;
+    }
+
+    public void setPublishTime(Date publishTime) {
+        this.publishTime = publishTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

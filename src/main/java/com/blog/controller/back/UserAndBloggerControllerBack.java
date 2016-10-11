@@ -54,7 +54,10 @@ public class UserAndBloggerControllerBack {
 		String sex = request.getParameter("sex");
 		String birthday = request.getParameter("birthday");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(birthday);
+		Date date = null;
+		if(!birthday.trim().equals("")){
+			date = sdf.parse(birthday);
+		}
 		int sexInt;
 		if (sex.equals("male"))
 			sexInt = 1;
@@ -102,41 +105,6 @@ public class UserAndBloggerControllerBack {
 		bloggerService.updateSelective(blogger);
 		return "redirect:info.do";
 	}
-	@RequestMapping(value="getPic.do")
-	public void getPic(@RequestParam(value = "file", required = false) MultipartFile file,
-			HttpServletRequest request, HttpServletResponse response){
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		String imageUrl = getPic(file);
 
-		out.write(imageUrl);
-	}
 
-	public String getPic(MultipartFile file) {
-		String path = "/userPic/";
-		String realPath = "/home/wanjinzhong/userPic/";
-		System.out.println("文件" + file);
-		String fileName = file.getOriginalFilename();
-		String imageUrl = null;
-		if (fileName != null && !fileName.trim().equals("")) {
-			String picName =  System.currentTimeMillis()
-					+ fileName.substring(fileName.lastIndexOf("."), fileName.length());
-			String realUrl = realPath + picName;
-			imageUrl = path + picName;
-			// 保存
-			System.out.println(imageUrl);
-			try {
-				file.transferTo(new File(realUrl));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return imageUrl;
-	}
 }

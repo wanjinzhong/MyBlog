@@ -85,4 +85,12 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.deleteByPrimaryKey(articleId);
 	}
 
+	public List<Article> getByTypeId(Integer typeId) {
+		return articleMapper.selectAllByTypeId(typeId);
+	}
+
+	public int updateByIdSelective(Article article) {
+		return articleMapper.updateByPrimaryKey(article);
+	}
+
 }

@@ -24,5 +24,8 @@ public class BloggerServiceImpl implements BloggerService {
 	public int updateSelective(Blogger blogger) {
 		return bloggerMapper.updateByPrimaryKey(blogger);
 	}
+	public Blogger getFullById(Integer bloggerId) {
+		return bloggerMapper.selectFullByPrimaryKey(bloggerId);
+	}
 
 }

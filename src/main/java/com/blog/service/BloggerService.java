@@ -10,4 +10,5 @@ public interface BloggerService {
 	Blogger getByUserId(Integer userId);
 	
 	int updateSelective(Blogger blogger);
+	Blogger getFullById(Integer bloggerId);
 }

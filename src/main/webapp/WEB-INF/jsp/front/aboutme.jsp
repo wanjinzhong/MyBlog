@@ -20,7 +20,7 @@
 				href="/" class="n2">关于我</a>
 		</h1>
 		<div class="info">
-		<img alt="${blogger.realName }">
+		<img alt="${blogger.realName }" src="${blogger.imageUrl }" style="width:100px;height:100px">
 			<p>姓名：${blogger.realName }</p>
 			<p>博客名：${blogger.bloggerName }</p>
 			<p>

@@ -33,7 +33,6 @@ public class ArticleController {
 	private CommentService commentService;
 	@Resource
 	private BloggerService bloggerService;
-
 	@RequestMapping(value = "index.shtml")
 	public String index(HttpServletRequest request, Integer bloggerId, Model model) {
 		bloggerId = initBloggerId(request, bloggerId);
@@ -116,7 +115,7 @@ public class ArticleController {
 		bloggerId = initBloggerId(request, bloggerId);
 		int count = articleService.getCount(bloggerId);
 		model.addAttribute("count", count);
-		Blogger blogger = bloggerService.getBloggerById(bloggerId);
+		Blogger blogger = bloggerService.getFullById(bloggerId);
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
@@ -129,6 +128,7 @@ public class ArticleController {
 		List<ArticleFull> list = articleService.getAllOrderByTime(map);
 		formatInfo(list);
 		model.addAttribute("list", list);
+		model.addAttribute("blogger", blogger);
 		getNewAndHot(bloggerId, model);
 		return "allarticles";
 	}

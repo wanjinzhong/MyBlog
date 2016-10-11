@@ -96,4 +96,6 @@ public interface ArticleMapper {
 	 * @return 该博主的回收站的文章总数
 	 */
 	int seclectDelectedCount(Integer id);
+	
+	List<Article> selectAllByTypeId(Integer typeId);
 }

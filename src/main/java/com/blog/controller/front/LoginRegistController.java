@@ -2,6 +2,7 @@ package com.blog.controller.front;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.blog.bean.ArticleType;
 import com.blog.bean.Blogger;
 import com.blog.bean.User;
+import com.blog.service.ArticleTypeService;
 import com.blog.service.BloggerService;
 import com.blog.service.UserService;
 
@@ -24,7 +26,9 @@ public class LoginRegistController {
 	private UserService userService;
 	@Resource
 	private BloggerService bloggerService;
-
+	@Resource
+	private ArticleTypeService articleTypeService;
+	
 	@RequestMapping("login.shtml")
 	public String login(String url) {
 		return "login_reg";
@@ -88,6 +92,7 @@ public class LoginRegistController {
 		User user = new User();
 		user.setLoginName(name);
 		user.setPassword(psd);
+		user.setSex(1);
 		userService.regist(user);
 		String[] checkbox = request.getParameterValues("checkbox");
 		String bloggerName = null;
@@ -97,6 +102,16 @@ public class LoginRegistController {
 			blogger.setBloggerName(bloggerName);
 			blogger.setUserId(userService.getIdByName(name));
 			bloggerService.regist(blogger);
+			blogger = bloggerService.getByUserId(blogger.getUserId());
+			ArticleType articleType = new ArticleType();
+			articleType.setBloggerId(blogger.getBloggerId());
+			articleType.setTypeName("默认分类");
+			articleType.setDescription("这是一个默认分类");
+			articleType.setPublishTime(new Date());
+			articleType.setUpdateTime(new Date());
+			articleType.setIsDefault(1);
+			articleTypeService.insertSelective(articleType);
+			
 		}
 		out.print("<script type='text/javascript'>alert('注册成功');window.location = 'login.shtml';</script>");
 	}

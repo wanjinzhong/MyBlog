@@ -131,4 +131,13 @@ public interface ArticleService {
 	 * @return 影响行数
 	 */
 	public int deleteById(Integer articleId);
+	/**
+	 * 根据类型id获取文章列表
+	 * @param typeId 类型id
+	 * @return 文章列表
+	 */
+	public List<Article> getByTypeId(Integer typeId);
+	
+	public int updateByIdSelective(Article article);
+	
 }

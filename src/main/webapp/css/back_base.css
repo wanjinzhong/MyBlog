@@ -157,8 +157,8 @@ table a{color:#756F71; text-decoration:none;}
 table a:hover{ color:#204a87; text-decoration:none;}
 .content{margin-top: 40px} 
 
-input[type="button"]{background-color: #55a9cd; color:white;border-radius: 8px; border:solid 1px #55a9cd}
-input[type="button"]:HOVER {box-shadow: 5px 5px 20px rgba(50, 50, 50, 0.8);}
+input[type="button"], input[type="submit"]{background-color: #55a9cd; color:white;border-radius: 8px; border:solid 1px #55a9cd}
+input[type="button"]:HOVER,  input[type="submit"]:HOVER {box-shadow: 5px 5px 20px rgba(50, 50, 50, 0.8);}
 
 .comfirm_update{width: 80px; height: 40px;float: right;margin: 10px;margin-right: 30px}
 
