@@ -19,7 +19,6 @@
 	$(function() {
 		$(".comfirm_update").click(function() {
 			$("#contentText").val(editor.getContent());
-			alert($("#contentText").val());
 		});
 	})
 	function changePic(file) {
@@ -33,7 +32,6 @@
 		} else {
 			prevImg.src = file.value;
 		}
-		$("#contentText").val(editor.getContent());
 
 	}
 </script>
@@ -49,13 +47,16 @@
 		</ul>
 	</div>
 	<div class="content">
-		<form action="articleupdatesave.do" method="post" enctype="multipart/form-data">
+		<form action="articleupdatesave.do" method="post"
+			enctype="multipart/form-data">
 			<table class="article_info">
 				<tr>
 					<td width="100px">文章ID</td>
-					<td width="250px">${article.articleId }<input type="hidden" value="${article.articleId }" name="articleId"/></td>
+					<td width="250px">${article.articleId }<input type="hidden"
+						value="${article.articleId }" name="articleId" /></td>
 					<td width="100px">文章标题</td>
-					<td width="250px"><input type="text" value="${article.title }" name="title"/></td>
+					<td width="250px"><input type="text" value="${article.title }"
+						name="title" /></td>
 				</tr>
 				<tr>
 					<td>发布时间</td>
@@ -67,9 +68,15 @@
 				</tr>
 				<tr>
 					<td>文章类型</td>
-					<td>${articleType}</td>
+					<td><select name="type">
+							<c:forEach items="${articleTypes }" var="type" varStatus="loop">
+								<option value="${type.typeId }"
+									<c:if test="${type.isDefault == 1 }">selected="selected"</c:if>>${type.typeName }</option>
+							</c:forEach>
+					</select></td>
 					<td>关键词</td>
-					<td><input type="text" value="${article.keyword }" name="keyword"/></td>
+					<td><input type="text" value="${article.keyword }"
+						name="keyword" /></td>
 				</tr>
 				<tr>
 					<td>阅读量</td>
@@ -85,10 +92,11 @@
 					<td><c:if test="${article.coverPic != null }">
 							<img alt="封面图" id="coverPic" src="${article.coverPic}"
 								style="width: 150px; height: 100px;">
-						</c:if> <input type="file" name="file" onchange="changePic(this)" /></td>
+						</c:if> <input type="file" name="file" id="pic"
+						onchange="changePic(this)" accept="image/*" /></td>
 				</tr>
 			</table>
-			<input type="hidden" id="contentText" name="content"/>
+			<input type="hidden" id="contentText" name="content" />
 			<textarea name="myComment" id="myEditor" style="margin: 20px">${article.content }</textarea>
 			<script type="text/javascript">
 				var editor = new UE.ui.Editor({});

@@ -33,6 +33,7 @@ public class ArticleController {
 	private CommentService commentService;
 	@Resource
 	private BloggerService bloggerService;
+
 	@RequestMapping(value = "index.shtml")
 	public String index(HttpServletRequest request, Integer bloggerId, Model model) {
 		bloggerId = initBloggerId(request, bloggerId);
@@ -58,7 +59,10 @@ public class ArticleController {
 			System.out.println(list.get(i).getCoverPic());
 			Document doc = Jsoup.parse(list.get(i).getContent());
 			doc.select("img").remove();
-			String content = doc.toString().substring(0, 150);
+			String content = null;
+			if (doc.toString().length() > 147) {
+				content = doc.toString().substring(0, 147) + "...";
+			}
 			list.get(i).setContent(content);
 		}
 	}

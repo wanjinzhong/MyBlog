@@ -52,12 +52,6 @@ public class ArticleControllerBack {
 		return "articlelist";
 	}
 
-	@RequestMapping(value = "publisharticle.do")
-	public String publicArticle() {
-
-		return "publisharticle";
-	}
-
 	@RequestMapping(value = "articledetail.do")
 	public String artialedetail(Integer articleid, Model model) {
 		getArticleFull(articleid, model);
@@ -65,8 +59,13 @@ public class ArticleControllerBack {
 	}
 
 	@RequestMapping(value = "articleupdate.do")
-	public String artialeupdate(Integer articleid, Model model) {
+	public String artialeupdate(HttpServletRequest request, Integer articleid, Model model) {
 		getArticleFull(articleid, model);
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("bloggerId", bloggerId);
+		List<ArticleType> list = articleTypeService.getByBloggerId(map);
+		model.addAttribute("articleTypes", list);
 		return "articleupdate";
 	}
 
@@ -130,19 +129,28 @@ public class ArticleControllerBack {
 		String keyWord = request.getParameter("keyword");
 		Date date = new Date();
 		String content = request.getParameter("content");
+		int typeId = Integer.parseInt(request.getParameter("type"));
 		Article article = new Article();
 		article.setArticleId(articleId);
 		article.setTitle(title);
 		article.setUpdateTime(date);
 		article.setKeyword(keyWord);
 		article.setContent(content);
-		//上传封面图
+		article.setTypeId(typeId);
+		String imageUrl = picUpload(file);
+		article.setCoverPic(imageUrl);
+		articleService.updateByIdSelective(article);
+		return "redirect:articledetail.do?articleid=" + articleId;
+	}
+
+	public String picUpload(MultipartFile file) {
+		// 上传封面图
 		String path = "/coverPic/";
-		String realPath = "//home/wanjinzhong/blogPic/coverPic/";
+		String realPath = "/home/wanjinzhong/blogPic/coverPic/";
 		String fileName = file.getOriginalFilename();
 		String imageUrl = null;
 		if (fileName != null && !fileName.trim().equals("")) {
-			String picName =  System.currentTimeMillis()
+			String picName = System.currentTimeMillis()
 					+ fileName.substring(fileName.lastIndexOf("."), fileName.length());
 			String realUrl = realPath + picName;
 			imageUrl = path + picName;
@@ -154,8 +162,40 @@ public class ArticleControllerBack {
 
 			}
 		}
+		return imageUrl;
+	}
+
+	@RequestMapping(value = "publisharticle.do")
+	public String publishArticle(HttpServletRequest request, Model model) {
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("bloggerId", bloggerId);
+		List<ArticleType> list = articleTypeService.getByBloggerId(map);
+		model.addAttribute("articleTypes", list);
+		return "publisharticle";
+	}
+
+	@RequestMapping(value = "savenewarticle.do")
+	public String savenewarticle(HttpServletRequest request,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
+		String title = request.getParameter("title");
+		int typeId = Integer.parseInt(request.getParameter("type"));
+		String keyWord = request.getParameter("keyword");
+		String imageUrl = picUpload(file);
+		String content = request.getParameter("content");
+		Article article = new Article();
+		article.setBloggerId(bloggerId);
+		article.setContent(content);
 		article.setCoverPic(imageUrl);
-		articleService.updateByIdSelective(article);
-		return "redirect:articledetail.do?articleid=" + articleId;
+		article.setIsDelete(0);
+		article.setKeyword(keyWord);
+		article.setPublishTime(new Date());
+		article.setReading(0);
+		article.setTitle(title);
+		article.setTypeId(typeId);
+		article.setUpdateTime(article.getPublishTime());
+		articleService.insertSelective(article);
+		return "redirect:myarticles.do";
 	}
 }

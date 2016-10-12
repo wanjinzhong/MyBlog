@@ -140,4 +140,5 @@ public interface ArticleService {
 	
 	public int updateByIdSelective(Article article);
 	
+	public int insertSelective(Article article);
 }

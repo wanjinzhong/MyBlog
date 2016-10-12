@@ -34,6 +34,7 @@ function deletearticle(articleId){
 			<li>></li>
 			<li>文章列表</li>
 		</ul>
+		<input type="button" value="发表文章" onclick="window.location='publisharticle.do'" style="margin-top: 10px;float: right; margin-right: 10px"/>
 	</div>
 	<div class="content">
 		<table class="tablelist">

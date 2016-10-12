@@ -12,6 +12,5 @@
 }
 </style>
 <div class="footer">
-	Design by Aidaima&nbsp;<a href="http://www.miitbeian.gov.cn/"
-		target="_blank">湘ICP备15013214号</a> <a href="/">网站统计</a>
+
 </div>

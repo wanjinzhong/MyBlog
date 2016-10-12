@@ -93,4 +93,8 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.updateByPrimaryKeySelective(article);
 	}
 
+	public int insertSelective(Article article) {
+		return articleMapper.insertSelective(article);
+	}
+
 }
