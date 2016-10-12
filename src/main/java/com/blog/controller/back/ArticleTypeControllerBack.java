@@ -1,5 +1,7 @@
 package com.blog.controller.back;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +19,9 @@ import com.blog.bean.Article;
 import com.blog.bean.ArticleType;
 import com.blog.service.ArticleService;
 import com.blog.service.ArticleTypeService;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @Controller
 public class ArticleTypeControllerBack {
@@ -95,6 +101,31 @@ public class ArticleTypeControllerBack {
 	
 	@RequestMapping(value="addarticletype.do")
 	public String addarticletype(HttpServletRequest request){
+		addType(request);
+		return "redirect:articletypelist.do";
+	}
+	
+	@RequestMapping(value="ajaxaddarticletype.do")
+	public String ajaxaddarticletype(HttpServletRequest request, HttpServletResponse response){
+		addType(request);
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int bloggerId = Integer.parseInt((request.getSession().getAttribute("bloggerId_back").toString()));
+		map.put("bloggerId", bloggerId);
+		List<ArticleType> list = articleTypeService.getByBloggerId(map);
+		JSONObject json = new JSONObject();
+		json.put("types", JSONArray.fromObject(list));
+		out.write(json.toString());
+		return null;
+	}
+	public void addType(HttpServletRequest request) {
 		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
 		String typeName = request.getParameter("typeName");
 		String descript = request.getParameter("descript");
@@ -106,6 +137,5 @@ public class ArticleTypeControllerBack {
 		type.setUpdateTime(new Date());
 		type.setTypeName(typeName);
 		articleTypeService.insertSelective(type);
-		return "redirect:articletypelist.do";
 	}
 }

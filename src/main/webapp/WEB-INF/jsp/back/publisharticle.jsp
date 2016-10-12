@@ -17,8 +17,25 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		$(".comfirm_update").click(function() {
+		$("#submittype").click(function() {
 			$("#contentText").val(editor.getContent());
+			$.ajax({
+				type : "GET",
+				url : "ajaxaddarticletype.do",
+				data : $("#form").serialize(),
+				dataType : "json",
+				success : function(json) {
+					var select = "";
+					var types = json.types;
+					$.each(types, function(idx,obj){
+						select += "<option value=" + obj.typeId +
+							">" + obj.typeName + "</option>";
+					})
+					alert(select);
+					$("#type").html(select);
+				}
+			});
+			hideAddDiv()
 		});
 	})
 	function changePic(file) {
@@ -35,19 +52,26 @@
 		$("#contentText").val(editor.getContent());
 
 	}
-	function check(){
+	function check() {
 		$("#contentText").val(editor.getContent());
 		var title = $("#title").val();
 		var content = $("#contentText").val();
-		if($.trim(title) == ""){
+		if ($.trim(title) == "") {
 			alert("标题不能为空");
 			return;
 		}
-		if($.trim(content) == ""){
+		if ($.trim(content) == "") {
 			alert("内容不能为空");
 			return;
 		}
 		$("#upload").submit();
+	}
+
+	function displayAddDiv() {
+		$("#mask, #addDiv").fadeIn(500);
+	}
+	function hideAddDiv() {
+		$("#mask, #addDiv").fadeOut(500);
 	}
 </script>
 <body>
@@ -62,41 +86,43 @@
 		</ul>
 	</div>
 	<div class="content">
-		<form action="savenewarticle.do" id="upload" method="post" enctype="multipart/form-data">
+		<form action="savenewarticle.do" id="upload" method="post"
+			enctype="multipart/form-data">
 			<table class="article_info">
 				<tr>
 					<td width="100px">文章标题</td>
-					<td width="250px"><input type="text" name="title" id="title"/></td>
+					<td width="250px"><input type="text" name="title" id="title" /></td>
 					<td width="100px">关键词</td>
-					<td width="250px"><input type="text" name="keyword"/></td>
+					<td width="250px"><input type="text" name="keyword" /></td>
 				</tr>
 				<tr>
-					
+
 					<td>文章类型</td>
-					<td>
-						<select name="type">
+					<td><select name="type" id="type">
 							<c:forEach items="${articleTypes }" var="type" varStatus="loop">
-								<option value="${type.typeId }" <c:if test="${type.isDefault == 1 }">selected="selected"</c:if> >${type.typeName }</option>
+								<option value="${type.typeId }"
+									<c:if test="${type.isDefault == 1 }">selected="selected"</c:if>>${type.typeName }</option>
 							</c:forEach>
-						</select>
-					</td>
+					</select> <img alt="添加文章类型" onclick="displayAddDiv()" /></td>
 					<td>封面图</td>
-					<td>
-							<img alt="封面图" id="coverPic"
-								style="width: 150px; height: 100px;">
-						 <input type="file" name="file" onchange="changePic(this)" /></td>
+					<td><img alt="封面图" id="coverPic"
+						style="width: 150px; height: 100px;"> <input type="file"
+						name="file" onchange="changePic(this)" /></td>
 				</tr>
 			</table>
-			<input type="hidden" id="contentText" name="content"/>
-			<textarea name="myComment" id="myEditor" style="margin: 20px">${article.content }</textarea>
+			<input type="hidden" id="contentText" name="content" />
+			<textarea name="myComment" id="myEditor"
+				style="margin: 20px; z-index: -1">${article.content }</textarea>
 			<script type="text/javascript">
 				var editor = new UE.ui.Editor({});
 				editor.render("myEditor");
 				//1.2.4以后可以使用以下代码实例化编辑器
 				/* UE.getEditor('myEditor'); */
 			</script>
-			<input type="button" value="发布" onclick="check()" class="comfirm_update">
+			<input type="submit" value="发布" onclick="check()"
+				class="comfirm_publish">
 		</form>
 	</div>
+	<%@ include file="addtype.jsp"%>
 </body>
 </html>

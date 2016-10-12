@@ -19,6 +19,9 @@ public class BackFilter implements Filter {
 	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
+		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		String path = request.getServletPath();
 		if (excepts != null){
 			for (String exc : excepts)

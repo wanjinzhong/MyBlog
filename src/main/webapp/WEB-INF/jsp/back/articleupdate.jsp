@@ -97,7 +97,7 @@
 				</tr>
 			</table>
 			<input type="hidden" id="contentText" name="content" />
-			<textarea name="myComment" id="myEditor" style="margin: 20px">${article.content }</textarea>
+			<textarea name="myComment" id="myEditor" style="margin: 20px;z-index: -1">${article.content }</textarea>
 			<script type="text/javascript">
 				var editor = new UE.ui.Editor({});
 				editor.render("myEditor");
