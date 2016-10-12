@@ -52,6 +52,12 @@
 					href="articledelete.do?articleid=${article.articleId }"><img
 						src="images/delete.png" width="15px" />删除</a></td>
 			</tr>
+			<tr>
+				<td>封面图</td>
+				<td>
+					<img alt="封面图" src="${article.coverPic }" style="width: 150px; height: 100px">
+				</td>
+			</tr>
 		</table>
 		<div class="article_content">${article.content }</div>
 	</div>

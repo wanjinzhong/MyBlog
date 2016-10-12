@@ -1,5 +1,7 @@
 package com.blog.controller.back;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.blog.bean.Article;
 import com.blog.bean.ArticleFull;
 import com.blog.bean.ArticleType;
-import com.blog.dao.ArticleMapper;
 import com.blog.service.ArticleService;
 import com.blog.service.ArticleTypeService;
 import com.blog.service.CommentService;
@@ -29,6 +32,7 @@ public class ArticleControllerBack {
 	private ArticleTypeService articleTypeService;
 	@Resource
 	private CommentService commentService;
+
 	@RequestMapping(value = "myarticles.do")
 	public String articleList(Integer curPage, HttpServletRequest request, Model model) {
 		if (curPage == null || curPage <= 0)
@@ -86,8 +90,8 @@ public class ArticleControllerBack {
 		articleService.setDeleteById(articleId);
 		return "redirect:myarticles.do";
 	}
-	
-	@RequestMapping(value="recyclebin.do")
+
+	@RequestMapping(value = "recyclebin.do")
 	public String recyclebin(Integer curPage, HttpServletRequest request, Model model) {
 		if (curPage == null || curPage <= 0)
 			curPage = 1;
@@ -104,15 +108,54 @@ public class ArticleControllerBack {
 		model.addAttribute("count", count);
 		return "recyclebin";
 	}
-	@RequestMapping(value="recover.do")
-	public String recover(HttpServletResponse response, Integer articleId){
+
+	@RequestMapping(value = "recover.do")
+	public String recover(HttpServletResponse response, Integer articleId) {
 		articleService.coverById(articleId);
 		return "redirect:recyclebin.do";
 	}
-	@RequestMapping(value="deleteforever.do")
-	public String deleteforever(HttpServletResponse response, Integer articleId){
+
+	@RequestMapping(value = "deleteforever.do")
+	public String deleteforever(HttpServletResponse response, Integer articleId) {
 		commentService.deleteByArticleId(articleId);
 		articleService.deleteById(articleId);
 		return "redirect:recyclebin.do";
+	}
+
+	@RequestMapping(value = "articleupdatesave.do")
+	public String articleupdate(HttpServletRequest request,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+		int articleId = Integer.parseInt(request.getParameter("articleId"));
+		String title = request.getParameter("title");
+		String keyWord = request.getParameter("keyword");
+		Date date = new Date();
+		String content = request.getParameter("content");
+		Article article = new Article();
+		article.setArticleId(articleId);
+		article.setTitle(title);
+		article.setUpdateTime(date);
+		article.setKeyword(keyWord);
+		article.setContent(content);
+		//上传封面图
+		String path = "/coverPic/";
+		String realPath = "//home/wanjinzhong/blogPic/coverPic/";
+		String fileName = file.getOriginalFilename();
+		String imageUrl = null;
+		if (fileName != null && !fileName.trim().equals("")) {
+			String picName =  System.currentTimeMillis()
+					+ fileName.substring(fileName.lastIndexOf("."), fileName.length());
+			String realUrl = realPath + picName;
+			imageUrl = path + picName;
+			// 保存
+			try {
+				file.transferTo(new File(realUrl));
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+		}
+		article.setCoverPic(imageUrl);
+		articleService.updateByIdSelective(article);
+		return "redirect:articledetail.do?articleid=" + articleId;
 	}
 }

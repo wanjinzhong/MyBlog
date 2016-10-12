@@ -90,7 +90,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	public int updateByIdSelective(Article article) {
-		return articleMapper.updateByPrimaryKey(article);
+		return articleMapper.updateByPrimaryKeySelective(article);
 	}
 
 }

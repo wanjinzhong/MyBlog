@@ -69,7 +69,7 @@ public class UserAndBloggerControllerBack {
 		String qq = request.getParameter("qq");
 		String introduce = request.getParameter("introduce");
 		String path = "/userPic/";
-		String realPath = "/home/wanjinzhong/userPic/";
+		String realPath = "/home/wanjinzhong/blogPic/userPic/";
 		String fileName = file.getOriginalFilename();
 		String imageUrl = null;
 		if (fileName != null && !fileName.trim().equals("")) {

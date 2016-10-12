@@ -16,11 +16,26 @@
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
- $(function(){
-		$(".comfirm_update").click(function(){
-			alert(editor.getContent());
+	$(function() {
+		$(".comfirm_update").click(function() {
+			$("#contentText").val(editor.getContent());
+			alert($("#contentText").val());
 		});
- })
+	})
+	function changePic(file) {
+		var prevImg = document.getElementById('coverPic');
+		if (file.files && file.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(evt) {
+				prevImg.src = evt.target.result;
+			}
+			reader.readAsDataURL(file.files[0]);
+		} else {
+			prevImg.src = file.value;
+		}
+		$("#contentText").val(editor.getContent());
+
+	}
 </script>
 <body>
 	<div class="place">
@@ -34,46 +49,55 @@
 		</ul>
 	</div>
 	<div class="content">
-		<table class="article_info">
-			<tr>
-				<td width="100px">文章ID</td>
-				<td width="250px">${article.articleId }</td>
-				<td width="100px">文章标题</td>
-				<td width="250px"><input type="text" value="${article.title }" /></td>
-			</tr>
-			<tr>
-				<td>发布时间</td>
-				<td><fmt:formatDate value="${article.publishTime }"
-						pattern="yyyy-MM-dd HH:mm:ss" /></td>
-				<td>更新时间</td>
-				<td><fmt:formatDate value="${article.updateTime }"
-						pattern="yyyy-MM-dd HH:mm:ss" /></td>
-			</tr>
-			<tr>
-				<td>文章类型</td>
-				<td>${articleType}</td>
-				<td>关键词</td>
-				<td><input type="text" value="${article.keyword }" /></td>
-			</tr>
-			<tr>
-				<td>阅读量</td>
-				<td>${article.reading}</td>
-				<td colspan="2" style="text-align: right;"><a
-					href="articleupdate.do?articleid=${article.articleId }"><img
-						src="images/update.png" width="15px" />修改</a>&nbsp;&nbsp; <a
-					href="articledelete.do?articleid=${article.articleId }"><img
-						src="images/delete.png" width="15px" />删除</a></td>
-			</tr>
-		</table>
-		<textarea name="myComment" id="myEditor" style="margin:20px">${article.content }</textarea>
-		<script type="text/javascript">
-			var editor = new UE.ui.Editor({
-			});
-			editor.render("myEditor");
-			//1.2.4以后可以使用以下代码实例化编辑器
-			/* UE.getEditor('myEditor'); */
-		</script>
-		<input type="button" value="确定修改" class="comfirm_update">
+		<form action="articleupdatesave.do" method="post" enctype="multipart/form-data">
+			<table class="article_info">
+				<tr>
+					<td width="100px">文章ID</td>
+					<td width="250px">${article.articleId }<input type="hidden" value="${article.articleId }" name="articleId"/></td>
+					<td width="100px">文章标题</td>
+					<td width="250px"><input type="text" value="${article.title }" name="title"/></td>
+				</tr>
+				<tr>
+					<td>发布时间</td>
+					<td><fmt:formatDate value="${article.publishTime }"
+							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+					<td>更新时间</td>
+					<td><fmt:formatDate value="${article.updateTime }"
+							pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				</tr>
+				<tr>
+					<td>文章类型</td>
+					<td>${articleType}</td>
+					<td>关键词</td>
+					<td><input type="text" value="${article.keyword }" name="keyword"/></td>
+				</tr>
+				<tr>
+					<td>阅读量</td>
+					<td>${article.reading}</td>
+					<td colspan="2" style="text-align: right;"><a
+						href="articleupdate.do?articleid=${article.articleId }"><img
+							src="images/update.png" width="15px" />修改</a>&nbsp;&nbsp; <a
+						href="articledelete.do?articleid=${article.articleId }"><img
+							src="images/delete.png" width="15px" />删除</a></td>
+				</tr>
+				<tr>
+					<td>封面图</td>
+					<td><c:if test="${article.coverPic != null }">
+							<img alt="封面图" id="coverPic" src="${article.coverPic}"
+								style="width: 150px; height: 100px;">
+						</c:if> <input type="file" name="file" onchange="changePic(this)" /></td>
+				</tr>
+			</table>
+			<input type="hidden" id="contentText" name="content"/>
+			<textarea name="myComment" id="myEditor" style="margin: 20px">${article.content }</textarea>
+			<script type="text/javascript">
+				var editor = new UE.ui.Editor({});
+				editor.render("myEditor");
+				//1.2.4以后可以使用以下代码实例化编辑器
+				/* UE.getEditor('myEditor'); */
+			</script>
+			<input type="submit" value="确定修改" class="comfirm_update">
+		</form>
 	</div>
 </body>
 </html>
