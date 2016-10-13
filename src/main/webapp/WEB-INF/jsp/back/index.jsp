@@ -9,11 +9,18 @@
 <script src="js/jquery-3.1.0.js"></script>
 <!-- <script src="js/side.js" type="text/javascript"></script> -->
 </head>
-<frameset cols="250px,*" border="0">
+<!-- <frameset cols="250px,*" border="0">
 	<frame src="left.do" name="left">
 	<frameset rows="87px,*" border="0">
 		<frame src="header.do" name="header" noresize scrolling="no" >
 		<frame src="contentindex.do" name="content" >
+	</frameset>
+</frameset> -->
+<frameset rows="87px,*" border="0">
+	<frame src="header.do" name="header" noresize scrolling="no">
+	<frameset cols="250px,*" border="0">
+		<frame src="left.do" name="left">
+		<frame src="contentindex.do" name="content">
 	</frameset>
 </frameset>
 </html>

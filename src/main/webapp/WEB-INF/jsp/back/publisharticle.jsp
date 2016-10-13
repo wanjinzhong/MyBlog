@@ -17,26 +17,33 @@
 </head>
 <script type="text/javascript">
 	$(function() {
-		$("#submittype").click(function() {
-			$("#contentText").val(editor.getContent());
-			$.ajax({
-				type : "GET",
-				url : "ajaxaddarticletype.do",
-				data : $("#form").serialize(),
-				dataType : "json",
-				success : function(json) {
-					var select = "";
-					var types = json.types;
-					$.each(types, function(idx,obj){
-						select += "<option value=" + obj.typeId +
-							">" + obj.typeName + "</option>";
-					})
-					alert(select);
-					$("#type").html(select);
-				}
-			});
-			hideAddDiv()
-		});
+		$("#submittype")
+				.click(
+						function() {
+							$("#contentText").val(editor.getContent());
+							$
+									.ajax({
+										type : "GET",
+										url : "ajaxaddarticletype.do",
+										data : $("#form").serialize(),
+										dataType : "json",
+										success : function(json) {
+											var select = "";
+											var types = json.types;
+											$
+													.each(
+															types,
+															function(idx, obj) {
+																select += "<option value=" + obj.typeId +
+							">"
+																		+ obj.typeName
+																		+ "</option>";
+															})
+											$("#type").html(select);
+										}
+									});
+							hideAddDiv()
+						});
 	})
 	function changePic(file) {
 		var prevImg = document.getElementById('coverPic');
@@ -49,8 +56,6 @@
 		} else {
 			prevImg.src = file.value;
 		}
-		$("#contentText").val(editor.getContent());
-
 	}
 	function check() {
 		$("#contentText").val(editor.getContent());
@@ -59,12 +64,12 @@
 		if ($.trim(title) == "") {
 			alert("标题不能为空");
 			return;
-		}
-		if ($.trim(content) == "") {
+		} else if ($.trim(content) == "") {
 			alert("内容不能为空");
 			return;
+		} else {
+			$("#upload").submit();
 		}
-		$("#upload").submit();
 	}
 
 	function displayAddDiv() {
@@ -103,7 +108,8 @@
 								<option value="${type.typeId }"
 									<c:if test="${type.isDefault == 1 }">selected="selected"</c:if>>${type.typeName }</option>
 							</c:forEach>
-					</select> <img alt="添加文章类型" onclick="displayAddDiv()" /></td>
+					</select> <img alt="添加文章类型" onclick="displayAddDiv()"
+						style="margin-bottom: -7px" src="images/add.png" /></td>
 					<td>封面图</td>
 					<td><img alt="封面图" id="coverPic"
 						style="width: 150px; height: 100px;"> <input type="file"
@@ -119,8 +125,8 @@
 				//1.2.4以后可以使用以下代码实例化编辑器
 				/* UE.getEditor('myEditor'); */
 			</script>
-			<input type="submit" value="发布" onclick="check()"
-				class="comfirm_publish">
+			<input type="button" value="发布" onclick="check()"
+				class="comfirm_publish" style="width: 60px; height: 35px;float: right;margin-right:20px">
 		</form>
 	</div>
 	<%@ include file="addtype.jsp"%>

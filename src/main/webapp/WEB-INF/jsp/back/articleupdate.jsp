@@ -32,7 +32,20 @@
 		} else {
 			prevImg.src = file.value;
 		}
-
+	}
+	function check() {
+		$("#contentText").val(editor.getContent());
+		var title = $("#title").val();
+		var content = $("#contentText").val();
+		if ($.trim(title) == "") {
+			alert("标题不能为空");
+			return;
+		} else if ($.trim(content) == "") {
+			alert("内容不能为空");
+			return;
+		} else {
+			$("#form").submit();
+		}
 	}
 </script>
 <body>
@@ -47,7 +60,7 @@
 		</ul>
 	</div>
 	<div class="content">
-		<form action="articleupdatesave.do" method="post"
+		<form action="articleupdatesave.do" method="post" id="form"
 			enctype="multipart/form-data">
 			<table class="article_info">
 				<tr>
@@ -56,7 +69,7 @@
 						value="${article.articleId }" name="articleId" /></td>
 					<td width="100px">文章标题</td>
 					<td width="250px"><input type="text" value="${article.title }"
-						name="title" /></td>
+						name="title" id="title" /></td>
 				</tr>
 				<tr>
 					<td>发布时间</td>
@@ -89,22 +102,22 @@
 				</tr>
 				<tr>
 					<td>封面图</td>
-					<td><c:if test="${article.coverPic != null }">
-							<img alt="封面图" id="coverPic" src="${article.coverPic}"
-								style="width: 150px; height: 100px;">
-						</c:if> <input type="file" name="file" id="pic"
-						onchange="changePic(this)" accept="image/*" /></td>
+					<td><img alt="封面图" id="coverPic" src="${article.coverPic}"
+						style="width: 150px; height: 100px;"> <input type="file"
+						name="file" id="pic" onchange="changePic(this)" accept="image/*" /></td>
 				</tr>
 			</table>
 			<input type="hidden" id="contentText" name="content" />
-			<textarea name="myComment" id="myEditor" style="margin: 20px;z-index: -1">${article.content }</textarea>
+			<textarea name="myComment" id="myEditor"
+				style="margin: 20px; z-index: -1">${article.content }</textarea>
 			<script type="text/javascript">
 				var editor = new UE.ui.Editor({});
 				editor.render("myEditor");
 				//1.2.4以后可以使用以下代码实例化编辑器
 				/* UE.getEditor('myEditor'); */
 			</script>
-			<input type="submit" value="确定修改" class="comfirm_update">
+			<input type="button" value="确定修改" class="comfirm_update"
+				onclick="check()">
 		</form>
 	</div>
 </body>

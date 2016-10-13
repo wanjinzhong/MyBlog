@@ -47,7 +47,7 @@ address span{ color:#8c9bc1; padding-right:45px;}
 .picBox{width:12px;background:#efefef url(images/common/right.gif) no-repeat right center;cursor:pointer;}
 .picBox:hover{filter:alpha(opacity=90);-moz-opacity:0.9;opacity:0.9;}
 .wrap_left,.picBox{float:left;height:100%;}
-#Logo{height:72px;line-height:72px;text-align:center;background-color:#FFF;padding-top:15px; position:relative;}
+#Logo{height:72px;line-height:72px;text-align:center;background-color:#FFF;padding-top:15px; position:relative;float: left;}
 #Logo img{height:72px}
 .menu_list{width:100%;clear:both;background-color:#55a9cd;}
 .menu_list dl{}

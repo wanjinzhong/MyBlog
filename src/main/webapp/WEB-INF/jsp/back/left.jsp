@@ -17,9 +17,7 @@ html, body {
 </style>
 <body>
 	<div class="wrap_left" id="frmTitle" name="fmTitle">
-		<div id="Logo">
-			<img alt="" src="images/logo.png">
-		</div>
+		
 		<script>
 			$(function() {
 				$(".menu_list dd a").click(function() {
@@ -32,6 +30,11 @@ html, body {
 			});
 		</script>
 		<div class="menu_list">
+		<dl>
+				<dt>
+					<a href="contentindex.do" target="content" style="text-decoration: none; color: white;"><span>首页</span></a>
+				</dt>
+			</dl>
 			<dl>
 				<dt>
 					<span>文章</span>

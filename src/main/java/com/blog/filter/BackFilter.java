@@ -20,7 +20,6 @@ public class BackFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) arg0;
 		HttpServletResponse response = (HttpServletResponse) arg1;
 		request.setCharacterEncoding("utf-8");
-		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		String path = request.getServletPath();
 		if (excepts != null){

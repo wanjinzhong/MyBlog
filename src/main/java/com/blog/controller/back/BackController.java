@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blog.bean.Blogger;
+import com.blog.service.ArticleService;
 import com.blog.service.BloggerService;
 import com.blog.service.CommentService;
+import com.blog.service.LeaveWordService;
 import com.blog.service.UserService;
 
 @Controller
@@ -26,6 +28,10 @@ public class BackController {
 	private BloggerService bloggerService;
 	@Resource
 	private CommentService commentService;
+	@Resource
+	private ArticleService articleService;
+	@Resource
+	private LeaveWordService leavewordService;
 	@RequestMapping(value = "left.do")
 	public String left(HttpServletRequest request,Model model) {
 		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
@@ -46,6 +52,7 @@ public class BackController {
 
 	@RequestMapping(value = "index.do")
 	public String back_index() {
+		
 		return "index";
 	}
 	@RequestMapping(value = "login_back.do")
@@ -86,7 +93,22 @@ public class BackController {
 	}
 
 	@RequestMapping(value = "contentindex.do")
-	public String content_index() {
+	public String content_index(HttpServletRequest request, Model model) {
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
+		Blogger blogger = bloggerService.getBloggerById(bloggerId);
+		int articleCount = articleService.getCount(bloggerId);
+		int recycleCount = articleService.getDelectedCount(bloggerId);
+		int leavewordCount = leavewordService.getCount(bloggerId);
+		int leaveWordUnread = leavewordService.getCountUnread(bloggerId);
+		int commentCount = commentService.getCountbyBloggerId(bloggerId);
+		int commentUnread = commentService.getCountbyBloggerIdWhichIsUnread(bloggerId);
+		model.addAttribute("articleCount", articleCount);
+		model.addAttribute("leavewordCount", leavewordCount);
+		model.addAttribute("leaveWordUnread", leaveWordUnread);
+		model.addAttribute("commentCount", commentCount);
+		model.addAttribute("commentUnread", commentUnread);
+		model.addAttribute("recycleCount", recycleCount);
+		model.addAttribute("blogger", blogger);
 		return "contentindex";
 	}
 }

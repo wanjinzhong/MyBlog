@@ -1,4 +1,4 @@
 @CHARSET "UTF-8";
-.comment_content {margin: 20px 30px;border-radius: 5px;border: solid 1px #aaa;padding: 30px;background-color: #fff}
+.comment_content {font-size: 14px;margin: 20px 30px;border-radius: 5px;border: solid 1px #aaa;padding: 30px;background-color: #fff}
 .comment_info{width: 96%; margin-left: 2%; margin-right: 2%; margin-top: 20px}
 .comment_info tr{line-height: 25px}
