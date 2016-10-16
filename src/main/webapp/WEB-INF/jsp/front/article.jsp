@@ -8,12 +8,6 @@
 <head>
 <meta charset="gb2312">
 <title>${article.title }</title>
-<!-- <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
-<script type="text/javascript" src="ueditor/ueditor.all.min.js"></script>
-建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败
-这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文
-<script type="text/javascript" charset="utf-8"
-	src="ueditor/lang/zh-cn/zh-cn.js"></script> -->
 <link href="css/base.css" rel="stylesheet">
 <link href="css/article.css" rel="stylesheet">
 </head>
@@ -22,20 +16,22 @@
 	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
 	int id = Integer.parseInt(request.getParameter("id"));
 	PageUtil pageUtil = new PageUtil(count, curPage, 8, "article.shtml?id=" + id + "&");
-	//获取本页url
+	/* //获取本页url
 	String url = "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()
 			+ request.getServletPath().substring(0, request.getServletPath().lastIndexOf("/") + 1);
 	if (request.getQueryString() != null) {
 		url += "?" + request.getQueryString();
-	}
+	} */
 %>
 
 <body>
 	<%@ include file="header.jsp"%>
 	<div class="content" style="margin-top: 30px">
+	<%@ include file="search.jsp"%>
 		<h1 class="t_nav">
-			<span>您当前的位置：<a href="/index.html">文章</a>&nbsp;&gt;&nbsp;</span><a
-				href="index.shtml" class="n1">网站首页</a><a href="allarticles.shtml" class="n2">文章</a>
+			<span>您当前的位置：<a href="/index.html">文章</a>&nbsp;&gt;&nbsp;
+			</span><a href="index.shtml" class="n1">网站首页</a><a href="allarticles.shtml"
+				class="n2">文章</a>
 		</h1>
 		<div class="left">
 			<h2 class="c_titile">${article.title }</h2>
@@ -68,17 +64,27 @@
 				<c:if test="${commentList ne null && !commentList.isEmpty()}">
 					<c:forEach items="${commentList }" var="comment" varStatus="index">
 						<div class="comment">
-							<div class="comment_title">
-								<span class="comment_name">${comment.userName}</span> <span
-									class="comment_time"> &nbsp;&nbsp;(<fmt:formatDate
-										value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss" />)
-								</span> <span class="comment_index">${(curPage - 1) * 8 + index.count }#</span>
+							<div class="picDiv">
+								<c:if test="${comment.userPic ne null }">
+									<img alt="头像" src="${comment.userPic }" class="userPic">
+								</c:if>
+								<c:if test="${comment.userPic eq null }">
+									<img alt="头像" src="images/defaultUserPic.gif" class="userPic">
+								</c:if>
 							</div>
-							<hr />
-							<div class="comment_content">${comment.commentContent }</div>
+							<div class="commentContentDiv">
+								<div class="comment_title">
+									<span class="comment_name">${comment.userName}</span> <span
+										class="comment_time"> &nbsp;&nbsp;(<fmt:formatDate
+											value="${comment.time }" pattern="yyyy-MM-dd HH:mm:ss" />)
+									</span> <span class="comment_index">${(curPage - 1) * 8 + index.count }#</span>
+								</div>
+								<div class="comment_content">${comment.commentContent }</div>
+							</div>
 						</div>
+						<div class="separates"></div>
 					</c:forEach>
-					<div ><%=pageUtil.pcontroller()%></div>
+					<div><%=pageUtil.pcontroller()%></div>
 				</c:if>
 			</div>
 			<div style="position: relative;">
@@ -94,7 +100,7 @@
 					</div>
 				</form>
 			</div>
-			 <textarea name="myComment" id="myEditor"></textarea>
+			<textarea name="myComment" id="myEditor"></textarea>
 			<!-- <script type="text/javascript">
 				var editor = new UE.ui.Editor({
 					initialFrameWidth : 715

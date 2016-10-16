@@ -19,7 +19,8 @@
 	</div>
 	<nav class="topnav" id="topnav">
 		<a href="index.shtml"><span>首页</span><span class="en">Home</span></a> <a
-			href="allarticles.shtml"><span>文章</span><span class="en">Artical</span></a>
+			href="allarticles.shtml"><span>文章</span><span class="en">Artical</span></a> <a
+			href="articletypes.shtml"><span>分类</span><span class="en">Type</span></a>
 		<!-- <a href="moodlist.html"><span>心情</span><span class="en">Mood</span></a> -->
 		<a href="leave_word.shtml"><span>留言</span><span class="en">Word</span></a>
 		<a href="aboutme.shtml"><span>关于我</span><span class="en">Me</span></a> <a

@@ -16,19 +16,30 @@
 	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
 	PageUtil pageUtil = new PageUtil(count, curPage, 8, "allarticles.shtml?");
 %>
+<script type="text/javascript">
+$(function(){
+	$(".userHeadPic").css("background","url(" + $("#url").val() + ") no-repeat");
+	$(".userHeadPic").css("background-size","130px 130px");
+})
+</script>
 <body>
 	<!-- 头部 -->
 	<%@include file="header.jsp"%>
 	<!-- <!-- Banner -->
 	<div class="banner">
-		<div class="box">
+		<input type="hidden" value="${blogger.imageUrl }" id="url"/>
+		<div class="box" style="position: relative;">
+		<p class="introduce">
+			<c:if test="${blogger.introduce eq null || blogger.introduce == ''}">这家伙很懒，什么都没有说</c:if>
+			<c:if test="${blogger.introduce ne null }">${blogger.introduce }</c:if>
+		</p>
 			<div class="avatar">
-				<a href="#"><span>万进忠</span></a>
+				<a class="userHeadPic" href="#" style="background-size: 130px 130px"><span>${bloggerName }</span></a>
 			</div>
 		</div>
 	</div>
-	-->
 	<div class="content">
+		<%@ include file="search.jsp"%>
 		<div class="left">
 			<h2 class="bloglistleft">
 				<span class="keynote">所有</span>文章
@@ -62,7 +73,8 @@
 			<div class="page"><%=pageUtil.pcontroller()%></div>
 		</div>
 		<%@ include file="right.jsp"%>
-		<%@ include file="footer.jsp"%>
-		<script src="js/silder.js"></script>
+	</div>
+	<%@ include file="footer.jsp"%>
+	<script src="js/silder.js"></script>
 </body>
 </html>

@@ -37,7 +37,7 @@
 		select count(*) from article where blogger_id = #{id,
 		jdbcType=INTEGER} and is_delete = 0
 	</select>
-		<!-- 获取某个博主的已删除文章总数 -->
+	<!-- 获取某个博主的已删除文章总数 -->
 	<select id="seclectDelectedCount" parameterType="java.lang.Integer"
 		resultType="java.lang.Integer">
 		select count(*) from article where blogger_id = #{id,
@@ -68,11 +68,32 @@
 		jdbcType=INTEGER}
 	</select>
 	<!-- 根据文章类型查询文章 -->
-	<select id="selectAllByTypeId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	<select id="selectAllByTypeId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from article
 		where type_id = #{typeId, jdbcType=INTEGER}
+	</select>
+	<!-- 根据文章类型查询文章详情 -->
+	<select id="selectFullByTypeId" parameterType="java.util.Map"
+		resultMap="ArticleFullResult">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		, blogger_name
+		from article
+		join blogger on article.blogger_id =
+		blogger.blogger_id
+		where type_id = #{typeId,
+		jdbcType=INTEGER} and
+		is_delete = 0
+		order by reading desc
+		<if test="index != null and pageSize != null">
+			limit #{index, jdbcType=INTEGER}, #{pageSize,
+			jdbcType=INTEGER}
+		</if>
 	</select>
 	<!-- 查询所有文章的详细信息，以阅读量排序 -->
 	<select id="selectTopFiveOrderByReading" resultMap="ArticleFullResult"
@@ -177,6 +198,20 @@
 		limit #{index,
 		jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
 	</select>
+	<select id="searchByWordAndBloggerId" resultMap="ResultMapWithBLOBs"
+		parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from article
+		where blogger_id = #{bloggerId, jdbcType=VARCHAR}
+		and (content like concat('%',#{word, jdbcType=VARCHAR},'%' ) or title like concat('%',#{word, jdbcType=VARCHAR},'%' ))
+		<if test="index != null and pageSize != null">
+			limit #{index, jdbcType=INTEGER}, #{pageSize,
+			jdbcType=INTEGER}
+		</if>
+	</select>
 	<select id="selectFullByPrimaryKey" resultMap="ArticleFullResult"
 		parameterType="java.lang.Integer">
 		select
@@ -224,7 +259,8 @@
 	<update id="coverByPrimaryKey" parameterType="java.lang.Integer">
 		update
 		article
-		set is_delete = 0
+		set
+		is_delete = 0
 		where article_id =
 		#{articleId,jdbcType=INTEGER}
 	</update>

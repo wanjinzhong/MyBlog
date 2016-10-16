@@ -17,6 +17,7 @@
 	<resultMap type="com.blog.bean.CommentFull" id="CommentFullResultMap"
 		extends="ResultMapWithBLOBs">
 		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="image_url" jdbcType="VARCHAR" property="userPic"/>
 		<result column="article_title" jdbcType="VARCHAR" property="articleTitle" />
 	</resultMap>
 	<sql id="Base_Column_List">
@@ -28,7 +29,7 @@
 	<select id="selectFullById" parameterType="java.lang.Integer"
 		resultMap="CommentFullResultMap">
 		select comment_id, users.login_name user_name,
-		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title, image_url
 		from comment join users on users.user_id =
 		comment.user_id
 		join article on article.article_id = comment.article_id
@@ -37,7 +38,7 @@
 	<select id="selectFullbyArticleId" parameterType="java.util.Map"
 		resultMap="CommentFullResultMap">
 		select comment_id, users.login_name user_name,
-		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title, image_url
 		from comment join users on users.user_id =
 		comment.user_id
 		join article on article.article_id = comment.article_id
@@ -59,7 +60,7 @@
 	<select id="selectFullbyBloggerId" parameterType="java.util.Map"
 		resultMap="CommentFullResultMap">
 		select comment_id, users.login_name user_name,
-		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title, image_url
 		from comment join users on users.user_id =
 		comment.user_id
 		join article on article.article_id = comment.article_id
@@ -82,7 +83,7 @@
 	<select id="selectFullbyBloggerIdWhichIsUnread" parameterType="java.util.Map"
 		resultMap="CommentFullResultMap">
 		select comment_id, users.login_name user_name,
-		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title
+		comment_content, `time`, comment.article_id article_id, is_new, parent_id, title article_title, image_url
 		from comment join users on users.user_id =
 		comment.user_id
 		join article on article.article_id = comment.article_id

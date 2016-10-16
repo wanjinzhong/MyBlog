@@ -98,4 +98,16 @@ public interface ArticleMapper {
 	int seclectDelectedCount(Integer id);
 	
 	List<Article> selectAllByTypeId(Integer typeId);
-}
+	/**
+	 * 分页方式获取分类下的所有文章详情
+	 * @param map 包含博主id,起始条数，每页条数
+	 * @return 文章列表
+	 */
+	List<ArticleFull> selectFullByTypeId(Map<String, Integer> map);
+	/**
+	 * 分页方式获取搜索结果
+	 * @param map 包含博主id,搜索内容，起始条数，每页条数
+	 * @return 文章列表
+	 */
+	List<Article> searchByWordAndBloggerId(Map<String, Object> map);
+} 

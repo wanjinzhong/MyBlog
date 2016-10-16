@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 .floor{float: right}
 .leave_word{width: 100%; margin-top: 10px;font-size:13px; padding: 10px; clear: both;border-bottom: dashed 1px #eee}
-.leave_word_info{position: relative;float:left;border-top-left-radius: 15px; border-top-right-radius:50px; border-bottom-left-radius:50px;border-bottom-right-radius:15px;background-color: #4ad6f9; padding: 15px;text-align: center}
+.leave_word_info{width:150px;position: relative;float:left;text-align: center; }
 .leave_word_content{margin-left: 180px;height:100%; font-size: 13px}
 .user_name{font-size: 15px;}
 .floor{position: absolute;top:0;right:0}
@@ -11,3 +11,5 @@
 #leaveword_input{width: 715px; height: 100px; overflow: auto; }
 #submit{background-color: #4ad6f9; border-radius: 5px; border: solid 1px #4ad6f9; width: 50px; height: 30px; color: white; float: right; margin: 10px;}
 #submit:HOVER {background-color: #30a0f9;border: solid 1px #30a0f9;}
+.left{width: 1000px}
+.userpic{width:50px; height: 50px;margin: 0 auto;}

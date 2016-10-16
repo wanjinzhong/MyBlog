@@ -12,7 +12,7 @@
 <%
 	int count = Integer.parseInt(request.getAttribute("count").toString());
 	int curPage = Integer.parseInt(request.getAttribute("curPage").toString());
-	PageUtil pageUtil = new PageUtil(count, curPage, 10, "allcomment.do?");
+	PageUtil pageUtil = new PageUtil(count, curPage, 10, "unreadcomment.do?");
 %>
 <script type="text/javascript">
 function deletecomment(id){

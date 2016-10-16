@@ -17,7 +17,7 @@ html, body {
 </style>
 <body>
 	<div class="wrap_left" id="frmTitle" name="fmTitle">
-		
+
 		<script>
 			$(function() {
 				$(".menu_list dd a").click(function() {
@@ -30,9 +30,10 @@ html, body {
 			});
 		</script>
 		<div class="menu_list">
-		<dl>
+			<dl>
 				<dt>
-					<a href="contentindex.do" target="content" style="text-decoration: none; color: white;"><span>首页</span></a>
+					<a href="contentindex.do" target="content"
+						style="text-decoration: none; color: white;"><span>首页</span></a>
 				</dt>
 			</dl>
 			<dl>
@@ -52,11 +53,7 @@ html, body {
 				</dt>
 				<dd>
 					<a href="allcomment.do" target="content">所有评论</a> <a
-						href="unreadcomment.do" target="content">未读评论<c:if
-							test="${unread_comment_count != 0 }">
-							<span class="count">${unread_comment_count }</span>
-						</c:if>
-					</a>
+						href="unreadcomment.do" target="content">未读评论 </a>
 				</dd>
 			</dl>
 			<dl>

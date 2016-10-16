@@ -95,7 +95,6 @@ public class BackController {
 	@RequestMapping(value = "contentindex.do")
 	public String content_index(HttpServletRequest request, Model model) {
 		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId_back").toString());
-		Blogger blogger = bloggerService.getBloggerById(bloggerId);
 		int articleCount = articleService.getCount(bloggerId);
 		int recycleCount = articleService.getDelectedCount(bloggerId);
 		int leavewordCount = leavewordService.getCount(bloggerId);
@@ -108,7 +107,6 @@ public class BackController {
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("commentUnread", commentUnread);
 		model.addAttribute("recycleCount", recycleCount);
-		model.addAttribute("blogger", blogger);
 		return "contentindex";
 	}
 }

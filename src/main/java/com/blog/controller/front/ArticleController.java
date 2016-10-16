@@ -1,6 +1,5 @@
 package com.blog.controller.front;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,18 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.blog.bean.Article;
 import com.blog.bean.ArticleFull;
+import com.blog.bean.ArticleType;
 import com.blog.bean.Blogger;
 import com.blog.bean.CommentFull;
 import com.blog.service.ArticleService;
+import com.blog.service.ArticleTypeService;
 import com.blog.service.BloggerService;
 import com.blog.service.CommentService;
+import com.blog.util.FrontUtil;
 
 @Controller
 public class ArticleController {
@@ -33,63 +34,24 @@ public class ArticleController {
 	private CommentService commentService;
 	@Resource
 	private BloggerService bloggerService;
-
+	@Resource
+	private ArticleTypeService articleTypeService;
 	@RequestMapping(value = "index.shtml")
 	public String index(HttpServletRequest request, Integer bloggerId, Model model) {
-		bloggerId = initBloggerId(request, bloggerId);
+		bloggerId = FrontUtil.initBloggerId(request, bloggerId);
 		Blogger blogger = bloggerService.getBloggerById(bloggerId);
 		request.getSession().setAttribute("bloggerName", blogger.getBloggerName());
 		List<ArticleFull> list = articleService.getTopFive(bloggerId);
-		formatInfo(list);
+		FrontUtil.formatInfo(list);
+		model.addAttribute("blogger", blogger);
 		model.addAttribute("list", list);
-		getNewAndHot(bloggerId, model);
+		FrontUtil.getNewAndType(articleTypeService,articleService,bloggerId, model);
 		return "index";
-	}
-
-	/**
-	 * 将文章缩略信息格式化
-	 * 
-	 * @param list
-	 *            文章信息
-	 * @param picList
-	 *            保存每篇文章的封面图
-	 */
-	public void formatInfo(List<ArticleFull> list) {
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i).getCoverPic());
-			Document doc = Jsoup.parse(list.get(i).getContent());
-			doc.select("img").remove();
-			String content = null;
-			if (doc.toString().length() > 147) {
-				content = doc.toString().substring(0, 147) + "...";
-			}
-			list.get(i).setContent(content);
-		}
-	}
-
-	/**
-	 * 初始化博主Id
-	 * 
-	 * @param request
-	 *            请求
-	 * @param bloggerId
-	 *            博主id 可为空
-	 * @return 初始化的不为空的博主id
-	 */
-	public Integer initBloggerId(HttpServletRequest request, Integer bloggerId) {
-		if (bloggerId == null || bloggerId <= 0) {
-			if (request.getSession().getAttribute("bloggerId") != null) {
-				bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId").toString());
-			} else
-				bloggerId = 1;
-		}
-		request.getSession().setAttribute("bloggerId", bloggerId);
-		return bloggerId;
 	}
 
 	@RequestMapping(value = "article.shtml")
 	public String getArticle(Integer id, Integer bloggerId, Integer curPage, HttpServletRequest request, Model model) {
-		bloggerId = initBloggerId(request, bloggerId);
+		bloggerId = FrontUtil.initBloggerId(request, bloggerId);
 		if (id == null || id == 0)
 			return "redirect:index.shtml";
 		if (curPage == null || curPage <= 0)
@@ -100,7 +62,7 @@ public class ArticleController {
 		ArticleFull article = articleService.getArticleFullById(id);
 		int reading = article.getReading();
 		model.addAttribute("article", article);
-		getNewAndHot(bloggerId, model);
+		FrontUtil.getNewAndType(articleTypeService,articleService,bloggerId, model);
 		prevAndNext(request, id, model);
 		// 获取评论数
 		getCommentCount(id, model);
@@ -116,7 +78,7 @@ public class ArticleController {
 
 	@RequestMapping(value = "allarticles.shtml")
 	public String getAllArticle(HttpServletRequest request, Integer curPage, Integer bloggerId, Model model) {
-		bloggerId = initBloggerId(request, bloggerId);
+		bloggerId = FrontUtil.initBloggerId(request, bloggerId);
 		int count = articleService.getCount(bloggerId);
 		model.addAttribute("count", count);
 		Blogger blogger = bloggerService.getFullById(bloggerId);
@@ -130,10 +92,10 @@ public class ArticleController {
 		map.put("index", index);
 		map.put("pageSize", PAGE_SIZE);
 		List<ArticleFull> list = articleService.getAllOrderByTime(map);
-		formatInfo(list);
+		FrontUtil.formatInfo(list);
 		model.addAttribute("list", list);
 		model.addAttribute("blogger", blogger);
-		getNewAndHot(bloggerId, model);
+		FrontUtil.getNewAndType(articleTypeService,articleService,bloggerId, model);
 		return "allarticles";
 	}
 
@@ -167,24 +129,7 @@ public class ArticleController {
 		model.addAttribute("next", next);
 	}
 
-	/**
-	 * 获取最新和最热的文章标题
-	 * 
-	 * @param model
-	 *            要返回给视图的model
-	 */
-	public void getNewAndHot(Integer bloggerId, Model model) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("bloggerId", bloggerId);
-		map.put("index", 0);
-		map.put("pageSize", 5);
-		// 获取最新文章标题
-		List<Article> newest = articleService.getAritcleBaseOrderByUpdateTime(map);
-		model.addAttribute("newest", newest);
-		// 获取最热文章标题
-		List<Article> hotest = articleService.getArticleBaseOrderByReading(map);
-		model.addAttribute("hotest", hotest);
-	}
+
 
 	/**
 	 * 获取文章评论数
@@ -218,5 +163,48 @@ public class ArticleController {
 		System.out.println("评论列表：" + commentFulls.size());
 		model.addAttribute("commentList", commentFulls);
 	}
-
+	
+	@RequestMapping(value="search.shtml")
+	public String search(HttpServletRequest request,Integer curPage, String word, Model model){
+		int bloggerId = Integer.parseInt(request.getSession().getAttribute("bloggerId").toString());
+		model.addAttribute("word", word);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("bloggerId", bloggerId);
+		int count = articleService.search(map).size();
+		model.addAttribute("count", count);
+		model.addAttribute("word", word);
+		if (curPage == null || curPage <= 0)
+			curPage = 1;
+		model.addAttribute("curPage", curPage);
+		int index = (curPage - 1) * PAGE_SIZE;
+		map.put("index", index);
+		map.put("pageSize", PAGE_SIZE);
+		map.put("word", word);
+		List<Article> list = articleService.search(map);
+		for(int i = 0; i < list.size(); i ++){
+			String title = list.get(i).getTitle().replace(word, "<span style='color: red'>" + word + "</span>");
+			list.get(i).setTitle(title);
+			String content = list.get(i).getContent();
+			int start = content.indexOf(word);
+			Document doc = Jsoup.parse(list.get(i).getContent());
+			doc.select("img").remove();
+			if (start != -1){
+				if (start > 70)
+					content = content.substring(start - 70);
+				System.out.println(content);
+				if (start + word.length() + 70 < list.get(i).getContent().length())
+					content = content.substring(0, word.length() + 140);
+				content = content.replace(word, "<span style='color: red'>" + word + "</span>");
+				list.get(i).setContent(content);
+			}else{
+				if (doc.toString().length() > 147) {
+					content = doc.toString().substring(0, 147) + "...";
+				}
+				list.get(i).setContent(content);
+			}
+		}
+		FrontUtil.getNewAndType(articleTypeService, articleService, bloggerId, model);
+		model.addAttribute("list", list);
+		return "searchresult";
+	}
 }

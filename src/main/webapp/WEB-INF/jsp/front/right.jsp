@@ -3,7 +3,6 @@
 <%@ include file="../include.jsp"%>
 <!DOCTYPE html >
 <div class="right">
-	<%@ include file="calendar.jsp" %>
 	<div class="weather">
 		<iframe width="250" scrolling="no" height="60" frameborder="0"
 			allowtransparency="true"
@@ -19,12 +18,13 @@
 			</c:forEach>
 		</ul>
 		<h3>
-				最热<span>文章</span>
+				文章<span>分类</span>
 		</h3>
 		<ul class="hot">
-			<c:forEach items="${hotest }" var="hots" varStatus="index">
-				<li><a href="article.shtml?id=${hots.articleId }">${hots.title }</a></li>
+			<c:forEach items="${types }" var="type" varStatus="index">
+				<li><a href="articletypecontent.shtml?typeId=${type.typeId }">${type.typeName }</a></li>
 			</c:forEach>
+			<c:if test="${typeCount > 5 }"><li><a href="articletypes.shtml">更多</a></c:if>
 		</ul>
 		<h3 class="links">
 				友情<span>链接</span>

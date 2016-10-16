@@ -97,4 +97,12 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.insertSelective(article);
 	}
 
+	public List<ArticleFull> getFullByTypeId(Map<String, Integer> map) {
+		return articleMapper.selectFullByTypeId(map);
+	}
+
+	public List<Article> search(Map<String, Object> map) {
+		return articleMapper.searchByWordAndBloggerId(map);
+	}
+
 }

@@ -28,11 +28,10 @@
 				<c:forEach items="${list }" var="word" varStatus="index">
 					<div class="leave_word">
 						<div class="leave_word_info">
+						<img alt="头像" src="${word.userPic }" class="userpic">
 							<div class="user_name">${word.userName }</div>
-							<br />
 							<fmt:formatDate value="${word.time }"
 								pattern="yyyy-MM-dd HH:mm:ss" />
-							<br />
 							<div class="floor">${(curPage-1)*15 + index.count}#</div>
 						</div>
 						<div class="leave_word_content">${word.content }</div>
@@ -46,13 +45,13 @@
 			</c:if>
 			<div style="position: relative;">
 				<c:if test="${userName eq null }">
-					<div class="mask">
+					<div class="mask" style="width: 100%">
 						<a href="login.shtml">登陆</a>后评论
 					</div>
 				</c:if>
 				<form action="addleaveword.shtml" method="post">
-					<div class="my_leaveword">
-						<textarea id="leaveword_input" name="leaveword_content"></textarea>
+					<div class="my_leaveword"  style="width: 100%">
+						<textarea id="leaveword_input" name="leaveword_content"  style="width: 100%"></textarea>
 						<input type="submit" id="submit" value="提交" />
 					</div>
 				</form>

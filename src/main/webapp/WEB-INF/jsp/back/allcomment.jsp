@@ -77,7 +77,9 @@ function deletecomment(id){
 				</c:if>
 			</tbody>
 		</table>
-		<div><%=pageUtil.pcontroller()%></div>
+		<c:if test="${fn:length(comments) != 0}">
+			<div><%=pageUtil.pcontroller()%></div>
+		</c:if>
 	</div>
 </body>
 </html>

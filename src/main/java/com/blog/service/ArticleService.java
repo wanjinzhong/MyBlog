@@ -141,4 +141,12 @@ public interface ArticleService {
 	public int updateByIdSelective(Article article);
 	
 	public int insertSelective(Article article);
+	
+	public List<ArticleFull> getFullByTypeId(Map<String, Integer> map);
+	/**
+	 * 分页方式获取搜索结果
+	 * @param map 包含博主id,搜索内容，起始条数，每页条数
+	 * @return 文章列表
+	 */
+	List<Article> search(Map<String, Object> map);
 }
