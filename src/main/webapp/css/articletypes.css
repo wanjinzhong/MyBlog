@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+.typeDiv {
+	width: 300px;
+	height: 100px;
+	background-color: #e4f2ff;
+	float: left;
+	margin: 10px 20px;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.typeDiv:HOVER {
+	background-color: #c7e4ff;
+}
+.name{font-size: 30px; color: #204a87}
+.description{font-size: 15px;padding-left: 18px;}
+.count{float: right;font-size: 20px}
+.countNum{font-size: 30px;}
