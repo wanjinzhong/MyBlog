@@ -6,6 +6,5 @@ encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/back/addtype.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/front/footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/jsp/front/header.jsp=UTF-8
-encoding//src/main/webapp/html/css/style.css=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
