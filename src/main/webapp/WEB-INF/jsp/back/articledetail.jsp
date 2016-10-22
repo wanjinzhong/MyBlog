@@ -9,6 +9,12 @@
 	type="text/css" />
 <title>Insert title here</title>
 <%@ include file="../include.jsp"%>
+<!-- ueditor代码高亮 -->
+<link href="ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" type="text/css" />  
+<script type="text/javascript" src="ueditor/third-party/SyntaxHighlighter/shCore.js"></script>  
+<script type="text/javascript">      
+	SyntaxHighlighter.all();       
+</script>
 </head>
 
 <body>

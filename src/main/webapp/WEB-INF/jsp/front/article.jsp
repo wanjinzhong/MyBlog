@@ -10,6 +10,13 @@
 <title>${article.title }</title>
 <link href="css/base.css" rel="stylesheet">
 <link href="css/article.css" rel="stylesheet">
+<!-- ueditor代码高亮 -->
+<link href="ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" rel="stylesheet" type="text/css" />  
+<script type="text/javascript" src="ueditor/third-party/SyntaxHighlighter/shCore.js"></script>  
+<script type="text/javascript">      
+	SyntaxHighlighter.all();       
+</script>
+
 </head>
 <%
 	int count = Integer.parseInt(request.getAttribute("count").toString());
