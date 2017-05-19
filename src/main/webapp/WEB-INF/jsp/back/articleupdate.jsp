@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/blog/css/back_all.css" rel="stylesheet" type="text/css" />
+<link href="css/back_all.css" rel="stylesheet" type="text/css" />
 <link href="css/articleupdate.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
 <script type="text/javascript" src="ueditor/ueditor.all.min.js"></script>

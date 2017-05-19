@@ -1,1 +1,6 @@
 /target/
+/.idea
+/.settings
+blog.iml
+.classpath
+.project

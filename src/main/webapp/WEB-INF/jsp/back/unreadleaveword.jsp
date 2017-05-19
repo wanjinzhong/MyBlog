@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="/blog/css/back_all.css" rel="stylesheet" type="text/css" />
+<link href="css/back_all.css" rel="stylesheet" type="text/css" />
 <%@ include file="../include.jsp"%>
 <title>Insert title here</title>
 </head>
