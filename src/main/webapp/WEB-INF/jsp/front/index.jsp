@@ -54,7 +54,7 @@ $(function(){
 									style="width: 175px; height: 120px">
 							</c:if>
 						</div>
-						<p class="preview">${article.content }...</p>
+						<%--<p class="preview">${article.content }...</p>--%>
 						<a href="article.shtml?id=${article.articleId }" class="readmore">阅读全文>></a>
 						<p class="dateview">
 							<span> <fmt:formatDate value="${article.updateTime }"

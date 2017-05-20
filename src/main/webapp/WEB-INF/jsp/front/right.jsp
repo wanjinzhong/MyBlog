@@ -31,7 +31,7 @@
 		</h3>
 		<ul class="website">
 			<li><a href="http://www.baidu.com" target="_blank">百度一下</a></li>
-			<li><a href="http://www.wanjinzhong.cn" target="_blank">在线聊天室</a></li>
+			<li><a href="http://www.swpu.edu.cn" target="_blank">西南石油大学</a></li>
 			<li><a href="http://jquery.cuishifeng.cn/" target="_blank">JQueryAPI</a></li>
 		</ul>
 	</div>

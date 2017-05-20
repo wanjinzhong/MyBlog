@@ -145,8 +145,8 @@ public class ArticleControllerBack {
 
 	public String picUpload(MultipartFile file) {
 		// 上传封面图
-		String path = "/coverPic/";
-		String realPath = "/home/wanjinzhong/blogPic/coverPic/";
+		String path = "coverPic/";
+		String realPath = "D:\\Program Files\\apache-tomcat-8.0.44\\webapps\\blog\\coverPic\\";
 		String fileName = file.getOriginalFilename();
 		String imageUrl = null;
 		if (fileName != null && !fileName.trim().equals("")) {
